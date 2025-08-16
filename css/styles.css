@@ -1,0 +1,511 @@
+body {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body ocupe a altura total da tela */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave para o tema */
+}
+
+/* Estilo para o tema branco */
+body.white-theme {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.topbar {
+    background-color: #000000;
+    border-bottom: 2px solid #00FF00;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-sizing: border-box;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+body.white-theme .topbar {
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #000000;
+}
+
+.topbar .menu {
+    margin-right: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.topbar .menu a {
+    color: #00FF00;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+body.white-theme .topbar .menu a {
+    color: #000000;
+}
+
+.topbar .menu a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo do botão de alternância de tema */
+.theme-toggle-btn {
+    background: none;
+    border: 0px dashed #00FF00;
+    padding: 5px;
+    margin-left: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    transition: border-color 0.3s;
+}
+
+body.white-theme .theme-toggle-btn {
+    border: 0px dashed #000000;
+}
+
+.theme-icon {
+    font-size: 24px;
+    color: #00FF00;
+    transition: color 0.3s;
+}
+
+body.white-theme .theme-icon {
+    color: #000000;
+}
+
+.container {
+    width: 100%;
+    margin: 70px 0 20px 0;
+    border: 2px solid #00FF00;
+    padding: 15px;
+    box-sizing: border-box;
+    flex: 1; /* Faz o container crescer para empurrar o footer para baixo */
+    transition: border-color 0.3s;
+}
+
+body.white-theme .container {
+    border: 2px solid #000000;
+}
+
+h1, h2, h3 {
+    color: #00FF00;
+    transition: color 0.3s;
+}
+
+body.white-theme h1,
+body.white-theme h2,
+body.white-theme h3 {
+    color: #000000;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 2px dashed #00FF00;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+    font-size: 1.5em;
+    transition: border-color 0.3s;
+}
+
+body.white-theme h1 {
+    border-bottom: 2px dashed #000000;
+}
+
+h2 {
+    font-size: 1.2em;
+    border-bottom: 1px dashed #00FF00;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+
+body.white-theme h2 {
+    border-bottom: 1px dashed #000000;
+}
+
+h3 {
+    font-size: 1em;
+    margin: 0;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.blink {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+a {
+    color: #00FF00;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+body.white-theme a {
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.ascii {
+    text-align: center;
+    font-size: 10px;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.footer {
+    text-align: center;
+    font-size: 10px;
+    line-height: 1;
+    padding: 10px;
+    border-top: 2px solid #00FF00;
+    background-color: #000000;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+body.white-theme .footer {
+    background-color: #FFFFFF;
+    border-top: 2px solid #000000;
+}
+
+.section {
+    margin: 15px 0;
+}
+
+.about-section {
+    margin: 15px 0;
+}
+
+.about-content {
+    display: flex;
+    align-items: stretch; /* Garante que os elementos filhos tenham a mesma altura */
+    gap: 10px; /* Reduzido para acomodar a imagem maior */
+}
+
+.about-text {
+    flex: 1; /* O texto ocupa o espaço restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o texto verticalmente */
+}
+
+.about-image {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    width: 200px; /* Mantido conforme última solicitação */
+    height: 100%; /* Mantém a altura igual à do contêiner pai */
+    object-fit: cover; /* Mantém a proporção, mas preenche o espaço */
+    border-radius: 08px; /* Bordas arredondadas */
+    border: 1px solid #00FF00; /* Estilo consistente com o tema */
+    transition: border-color 0.3s;
+}
+
+body.white-theme .profile-image {
+    border: 2px solid #000000;
+}
+
+.post {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px dashed #00FF00;
+    background-color: #1a1a1a;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+body.white-theme .post {
+    border: 1px dashed #000000;
+    background-color: #f0f0f0;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-date {
+    font-size: 0.9em;
+    color: #00FF00;
+    transition: color 0.3s;
+}
+
+body.white-theme .post-date {
+    color: #000000;
+}
+
+.post-preview {
+    font-size: 0.95em;
+    line-height: 1.4;
+    padding: 10px;
+    border-left: 2px solid #00FF00;
+    margin-left: 10px;
+    color: #cccccc; /* Um tom mais claro para a prévia */
+    transition: border-color 0.3s, color 0.3s;
+}
+
+body.white-theme .post-preview {
+    border-left: 2px solid #000000;
+    color: #333333;
+}
+
+.marquee-text {
+    margin-top: 10px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+#background-music {
+    display: none; /* Esconde o elemento de áudio */
+}
+
+/* Estilo do Popup de Postagem */
+.post-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #000000;
+    border: 2px solid #00FF00;
+    padding: 15px;
+    z-index: 100;
+    box-shadow: 0 0 10px #00FF00;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+body.white-theme .post-popup {
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    box-shadow: 0 0 10px #000000;
+}
+
+.post-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #00FF00;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+
+body.white-theme .post-popup-header {
+    border-bottom: 1px solid #000000;
+}
+
+.post-popup-header h3 {
+    margin: 0;
+    font-size: 1em;
+}
+
+.post-popup-header .close-btn {
+    color: #00FF00;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+body.white-theme .post-popup-header .close-btn {
+    color: #000000;
+}
+
+.post-popup-content {
+    font-size: 0.95em;
+    line-height: 1.4;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Estilo do Terminal Popup */
+.terminal-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    background-color: #000000;
+    border: 2px solid #00FF00;
+    padding: 10px;
+    z-index: 100;
+    box-shadow: 0 0 10px #00FF00;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+body.white-theme .terminal-popup {
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    box-shadow: 0 0 10px #000000;
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #00FF00;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+
+body.white-theme .terminal-header {
+    border-bottom: 1px solid #000000;
+}
+
+.terminal-header span {
+    color: #00FF00;
+    font-size: 12px;
+    transition: color 0.3s;
+}
+
+body.white-theme .terminal-header span {
+    color: #000000;
+}
+
+.terminal-header .close-btn {
+    color: #00FF00;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+body.white-theme .terminal-header .close-btn {
+    color: #000000;
+}
+
+.terminal-body {
+    height: 200px;
+    overflow-y: auto;
+    font-size: 12px;
+    color: #FFFFFF;
+    transition: color 0.3s;
+}
+
+body.white-theme .terminal-body {
+    color: #000000;
+}
+
+.terminal-input {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.terminal-input span {
+    color: #00FF00;
+    margin-right: 5px;
+    transition: color 0.3s;
+}
+
+body.white-theme .terminal-input span {
+    color: #000000;
+}
+
+.terminal-input input {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    flex-grow: 1;
+    outline: none;
+    transition: color 0.3s;
+}
+
+body.white-theme .terminal-input input {
+    color: #000000;
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 5px;
+        flex-wrap: wrap;
+    }
+    .theme-toggle-btn {
+        margin-left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    .theme-icon {
+        font-size: 20px;
+    }
+    .topbar .menu {
+        margin-right: 10px;
+    }
+    .topbar .menu a {
+        margin: 5px;
+        font-size: 12px;
+    }
+    .container {
+        margin-top: 60px;
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.2em;
+    }
+    h2 {
+        font-size: 1em;
+    }
+    .section {
+        margin: 10px 0;
+    }
+    .ascii {
+        font-size: 8px;
+    }
+    .marquee-text {
+        font-size: 10px;
+    }
+    .post {
+        padding: 5px;
+    }
+    .post-preview {
+        padding: 5px;
+        margin-left: 5px;
+    }
+    .post-popup {
+        width: 90%;
+    }
+    .terminal-popup {
+        width: 90%;
+    }
+    .about-content {
+        gap: 8px; /* Reduzido para telas menores */
+    }
+    .about-text p {
+        font-size: 0.9em; /* Reduz o tamanho do texto para caber melhor */
+    }
+    .profile-image {
+        width: 160px; /* Mantido conforme última solicitação */
+    }
+}

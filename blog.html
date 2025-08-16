@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErickDev Blog</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Placeholder para a Topbar -->
+    <div id="topbar-placeholder"></div>
+
+    <div class="container">
+        
+        <h1>[ BLOG ]</h1>
+
+        <!-- Postagens -->
+        <div class="section" id="posts-list">
+            <!-- Postagem 1 -->
+            <div class="post" data-post-file="posts/post1.html" data-post-date="2025-01-11">
+                <div class="post-header">
+                    <h3>Seu site!</h3>
+                    <div class="post-date">11/01/2025</div>
+                </div>
+                <div class="post-preview"></div>
+            </div>
+
+            <!-- Postagem 2 -->
+            <div class="post" data-post-file="posts/post2.html" data-post-date="2025-02-22">
+                <div class="post-header">
+                    <h3>Segurança é crucial</h3>
+                    <div class="post-date">22/02/2025</div>
+                </div>
+                <div class="post-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Placeholder para o Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Popup de Postagem -->
+    <div class="post-popup" id="post-popup">
+        <div class="post-popup-header">
+            <h3 id="post-popup-title"></h3>
+            <span class="close-btn" id="close-post">[X]</span>
+        </div>
+        <div class="post-popup-content" id="post-popup-content"></div>
+    </div>
+
+    <!-- Terminal Popup -->
+    <div class="terminal-popup" id="terminal">
+        <div class="terminal-header">
+            <span>root@erickdev:~$</span>
+            <span class="close-btn" id="close-terminal">[X]</span>
+        </div>
+        <div class="terminal-body" id="terminal-output">
+            <p>Terminal iniciado. Digite 'help' para ver os comandos disponíveis.</p>
+        </div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" autofocus>
+        </div>
+    </div>
+
+    <!-- Incluir Scripts -->
+    <script src="js/scripts.js"></script>
+</body>
+</html>
