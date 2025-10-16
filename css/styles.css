@@ -40,7 +40,7 @@ body.white-theme .topbar {
 }
 
 .topbar .menu {
-    margin-right: 20px;
+    margin-right: 355px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -67,7 +67,7 @@ body.white-theme .topbar .menu a {
     background: none;
     border: 0px dashed #00FF00;
     padding: 5px;
-    margin-left: 20px;
+    margin-left: 355px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -537,4 +537,96 @@ body.white-theme #matrix-canvas {
 body.white-theme #white-theme-canvas {
     display: block;
 }
+
+/* Esconde os canvas de animação nas páginas de post/tutorial */
+body.post-page #matrix-canvas,
+body.post-page #white-theme-canvas {
+    display: none !important;
+}
+
+/* --- Estilos para a página de post individual --- */
+
+/* 
+ * Limita a largura do conteúdo principal em todas as páginas para melhor legibilidade.
+ * Aplica-se ao artigo em páginas de post/tutorial e aos elementos principais nas outras páginas.
+*/
+.post-full,
+.container > .ascii,
+.container > h1,
+.container > .marquee-text,
+.container > .section {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 900px) {
+    .post-full,
+    .container > .ascii,
+    .container > h1,
+    .container > .marquee-text,
+    .container > .section {
+        width: 95%; /* Aumenta a largura em telas menores */
+    }
+}
+
+/* --- Estilos para Conteúdo do Post e Blocos de Código --- */
+
+.post-full-content {
+    line-height: 1.7;
+    font-size: 1.1em;
+}
+
+.post-full-content a {
+    text-decoration: underline;
+}
+
+/* Container para o bloco de código, para posicionar o botão */
+.post-full-content .code-block-wrapper {
+    position: relative;
+    margin: 20px 0;
+}
+
+/* Estilo do bloco de código gerado pelo highlight.js */
+.post-full-content pre {
+    background-color: #1a1a1a; /* Fundo escuro para o bloco */
+    border: 1px solid #00FF00;
+    padding: 20px;
+    overflow-x: auto; /* Rolagem horizontal se o código for muito longo */
+    border-radius: 4px;
+    margin: 0; /* Remove a margem padrão do <pre> */
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+    transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+body.white-theme .post-full-content pre {
+    background-color: #f0f0f0;
+    border: 1px solid #000000;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo do botão "Copiar" */
+.copy-code-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    padding: 5px 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.copy-code-btn:hover {
+    opacity: 1;
+}
+
+body.white-theme .copy-code-btn {
+    background-color: #ddd;
+    color: #000000;
+    border: 1px solid #000000;
 }
