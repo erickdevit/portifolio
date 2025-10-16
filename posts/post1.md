@@ -16,7 +16,7 @@ Eu queria uma solução "plug-and-play". Um jeito de clonar um repositório, rod
 O OdooBR é, em essência, um template de projeto que utiliza Docker e Docker Compose para orquestrar um ambiente de desenvolvimento Odoo completo e isolado. O objetivo é simples: **acelerar o setup inicial para que possamos focar no que realmente importa: desenvolver.**
 
 A estrutura do projeto foi pensada para ser mínima, mas completa. Vamos dar uma olhada nos componentes principais:
-
+<code>
 ```
 /
 ├── docker-compose.yml
@@ -25,7 +25,7 @@ A estrutura do projeto foi pensada para ser mínima, mas completa. Vamos dar uma
 ├── requirements.txt
 └── ...
 ```
-
+</code>
 #### `docker-compose.yml`: O Maestro da Orquestra
 
 Este é o coração do projeto. O `docker-compose.yml` define e conecta os dois serviços essenciais para o nosso ambiente:
@@ -98,6 +98,14 @@ A simplicidade é o maior benefício do projeto. Para ter seu ambiente Odoo roda
 
 3.  **Acesse o Odoo:**
     Abra seu navegador e acesse `http://localhost:8069`. Pronto! Você verá a tela de criação de banco de dados do Odoo, com tudo funcionando.
+
+### Video de Apoio
+
+Fiz um video pradido explorando o projeto e como fazer a utilização tanto em produção quanto para desenvolvimento.
+</br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RvB_0ip-ics?si=vr4BXm5u1DhYZrf9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</br>
+</br>
 
 ### A força da comunidade
 
