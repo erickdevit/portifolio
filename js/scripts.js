@@ -105,55 +105,273 @@ if (closeTerminal && terminalOutput && terminalInput) {
     });
 }
 
-// Lidar com os posts na página do blog
-const postPopup = document.getElementById('post-popup');
-const postPopupTitle = document.getElementById('post-popup-title');
-const postPopupContent = document.getElementById('post-popup-content');
-const closePost = document.getElementById('close-post');
-const postsList = document.getElementById('posts-list');
+// Lógica do Blog
+function loadBlogPosts() {
+    const postsList = document.getElementById('posts-list');
+    if (!postsList) return;
 
-// Verificar se estamos na página do blog (se os elementos existem)
-if (postPopup && closePost && postsList) {
-    closePost.addEventListener('click', () => {
-        postPopup.style.display = 'none';
-    });
+    fetch('posts/posts.json')
+        .then(response => response.json())
+        .then(posts => {
+            // Ordenar posts por data (mais recente primeiro)
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    const posts = Array.from(document.querySelectorAll('.post'));
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
 
-    // Ordenar postagens por data (mais recente primeiro)
-    posts.sort((a, b) => {
-        const dateA = new Date(a.getAttribute('data-post-date'));
-        const dateB = new Date(b.getAttribute('data-post-date'));
-        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
-    });
+                const formattedDate = new Date(post.date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
-    // Reorganizar os elementos no DOM
-    posts.forEach(post => postsList.appendChild(post));
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        <h3><a href="post.html?file=${post.file}&title=${encodeURIComponent(post.title)}&date=${post.date}">${post.title}</a></h3>
+                        <div class="post-date">${formattedDate}</div>
+                    </div>
+                    <div class="post-preview" id="preview-${post.file.replace(/\W/g, '')}">Carregando prévia...</div>
+                `;
+                postsList.appendChild(postElement);
 
-    // Carregar prévias e configurar eventos para abrir os posts
-    posts.forEach(post => {
-        const title = post.querySelector('h3');
-        const previewDiv = post.querySelector('.post-preview');
-        const postFile = post.getAttribute('data-post-file');
+                // Carregar a prévia do post
+                fetch(post.file)
+                    .then(res => res.text())
+                    .then(text => {
+                        const previewContainer = document.getElementById(`preview-${post.file.replace(/\W/g, '')}`);
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = text;
+                        const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
+                        previewContainer.textContent = previewText;
+                    });
+            });
+        })
+        .catch(error => {
+            postsList.innerHTML = '<p>Erro ao carregar os posts. Tente novamente mais tarde.</p>';
+            console.error('Erro ao carregar o arquivo de posts:', error);
+        });
+}
+
+// Lógica da Página de Post Individual
+function loadSinglePost() {
+    const postTitleElement = document.getElementById('post-title');
+    if (!postTitleElement) return; // Só executa na página de post
+
+    const params = new URLSearchParams(window.location.search);
+    const postFile = params.get('file');
+    const postTitle = params.get('title');
+    const postDate = params.get('date');
+
+    if (postFile && postTitle && postDate) {
+        document.title = postTitle; // Atualiza o título da aba do navegador
+        postTitleElement.textContent = postTitle;
+        document.getElementById('post-date').textContent = new Date(postDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
         fetch(postFile)
             .then(response => response.text())
             .then(data => {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = data;
-                const fullText = tempDiv.textContent || tempDiv.innerText;
-                const previewText = fullText.split(' ').slice(0, 30).join(' ') + '...';
-                previewDiv.textContent = previewText;
-
-                title.addEventListener('click', () => {
-                    postPopupTitle.textContent = title.textContent;
-                    postPopupContent.innerHTML = data;
-                    postPopup.style.display = 'block';
-                });
+                document.getElementById('post-content').innerHTML = marked.parse(data);
             })
             .catch(error => {
-                previewDiv.textContent = 'Erro ao carregar a prévia.';
+                document.getElementById('post-content').innerHTML = '<p>Erro ao carregar o conteúdo do post.</p>';
                 console.error('Erro ao carregar o post:', error);
             });
+    }
+}
+
+// Lógica dos Tutoriais
+function loadTutorials() {
+    const tutorialsList = document.getElementById('tutorials-list');
+    if (!tutorialsList) return;
+
+    fetch('tutoriais/tutoriais.json')
+        .then(response => response.json())
+        .then(tutorials => {
+            // Ordenar tutoriais por data (mais recente primeiro)
+            tutorials.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            tutorials.forEach(tutorial => {
+                const tutorialElement = document.createElement('div');
+                tutorialElement.className = 'post'; // Reutilizando a classe .post
+
+                const formattedDate = new Date(tutorial.date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+
+                tutorialElement.innerHTML = `
+                    <div class="post-header">
+                        <h3><a href="tutorial.html?file=${tutorial.file}&title=${encodeURIComponent(tutorial.title)}&date=${tutorial.date}">${tutorial.title}</a></h3>
+                        <div class="post-date">${formattedDate}</div>
+                    </div>
+                    <div class="post-preview" id="preview-${tutorial.file.replace(/\W/g, '')}">Carregando prévia...</div>
+                `;
+                tutorialsList.appendChild(tutorialElement);
+
+                // Carregar a prévia do tutorial
+                fetch(tutorial.file)
+                    .then(res => res.text())
+                    .then(text => {
+                        const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = text;
+                        const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
+                        previewContainer.textContent = previewText;
+                    });
+            });
+        })
+        .catch(error => {
+            tutorialsList.innerHTML = '<p>Erro ao carregar os tutoriais. Tente novamente mais tarde.</p>';
+            console.error('Erro ao carregar o arquivo de tutoriais:', error);
+        });
+}
+
+// Lógica da Página de Tutorial Individual
+function loadSingleTutorial() {
+    const tutorialTitleElement = document.getElementById('tutorial-title');
+    if (!tutorialTitleElement) return; // Só executa na página de tutorial
+
+    const params = new URLSearchParams(window.location.search);
+    const tutorialFile = params.get('file');
+    const tutorialTitle = params.get('title');
+    const tutorialDate = params.get('date');
+
+    if (tutorialFile && tutorialTitle && tutorialDate) {
+        document.title = tutorialTitle;
+        tutorialTitleElement.textContent = tutorialTitle;
+        document.getElementById('tutorial-date').textContent = new Date(tutorialDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+
+        fetch(tutorialFile)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('tutorial-content').innerHTML = marked.parse(data);
+            })
+            .catch(error => {
+                document.getElementById('tutorial-content').innerHTML = '<p>Erro ao carregar o conteúdo do tutorial.</p>';
+                console.error('Erro ao carregar o tutorial:', error);
+            });
+    }
+}
+
+// Atualizar data e hora na página inicial
+const datetimeElement = document.getElementById('datetime');
+if (datetimeElement) {
+    function updateDateTime() {
+        const now = new Date();
+        const date = now.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const time = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        datetimeElement.textContent = `${date} ${time}`;
+    }
+
+    // Atualiza imediatamente e depois a cada segundo
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
+
+// Executa as funções de acordo com a página
+document.addEventListener('DOMContentLoaded', () => {
+    loadBlogPosts();
+    loadSinglePost();
+    loadTutorials();
+    loadSingleTutorial();
+});
+
+// Efeito Matrix no Background
+const canvas = document.getElementById('matrix-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Caracteres a serem usados no efeito
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const rainDrops = [];
+
+    for (let x = 0; x < columns; x++) {
+        rainDrops[x] = 1;
+    }
+
+    const draw = () => {
+        // Fundo preto semi-transparente para criar o efeito de rastro
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Cria o gradiente de roxo para ciano
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#8A2BE2'); // Roxo
+        gradient.addColorStop(1, '#00FFFF'); // Ciano
+
+        ctx.fillStyle = gradient;
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            const x = i * fontSize;
+            const y = rainDrops[i] * fontSize;
+            ctx.fillText(text, x, y);
+            if (y > canvas.height && Math.random() > 0.975) {
+                rainDrops[i] = 0;
+            }
+            rainDrops[i]++;
+        }
+    };
+
+    setInterval(draw, 30);
+}
+
+// Efeito de partículas para o tema branco
+const whiteCanvas = document.getElementById('white-theme-canvas');
+if (whiteCanvas) {
+    const ctx = whiteCanvas.getContext('2d');
+    let particles = [];
+    let rainDrops = [];
+    let columns = 0;
+    const fontSize = 16;
+    const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    
+    const resizeCanvas = () => {
+        whiteCanvas.width = window.innerWidth;
+        whiteCanvas.height = window.innerHeight;
+        columns = whiteCanvas.width / fontSize;
+        rainDrops = [];
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+    };
+    
+    const animate = () => {
+        // Fundo que apaga lentamente para criar rastro nas partículas
+        ctx.fillStyle = 'rgba(245, 245, 245, 0.05)';
+        ctx.fillRect(0, 0, whiteCanvas.width, whiteCanvas.height);
+
+        // Cria o gradiente de verde para lilás
+        const gradient = ctx.createLinearGradient(0, 0, 0, whiteCanvas.height);
+        gradient.addColorStop(0, '#FFA500'); // Laranja
+        gradient.addColorStop(1, '#C8A2C8'); // Lilás
+
+        ctx.fillStyle = gradient;
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+            if (rainDrops[i] * fontSize > whiteCanvas.height && Math.random() > 0.975) {
+                rainDrops[i] = 0;
+            }
+            rainDrops[i]++;
+        }
+
+        requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('resize', () => {
+        resizeCanvas();
     });
+
+    // Inicia a animação
+    resizeCanvas();
+    animate();
 }

@@ -1,19 +1,21 @@
 body {
-    background-color: #000000;
+    background-color: #000000; /* Fundo padrão para o tema escuro */
     color: #FFFFFF;
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Garante que o body ocupe a altura total da tela */
+    min-height: 100vh;
     transition: background-color 0.3s, color 0.3s; /* Transição suave para o tema */
+    text-shadow: 0 0 5px #000, 0 0 7px #000; /* Sombra para legibilidade no tema escuro */
 }
 
 /* Estilo para o tema branco */
 body.white-theme {
-    background-color: #FFFFFF;
+    background-color: #f5f5f5; /* Um branco levemente acinzentado para o fundo */
     color: #000000;
+    text-shadow: none; /* Remove a sombra no tema claro */
 }
 
 .topbar {
@@ -90,10 +92,10 @@ body.white-theme .theme-icon {
 }
 
 .container {
-    width: 100%;
-    margin: 70px 0 20px 0;
+    width: 100%; /* Usa 90% da largura da tela */
+    margin: 70px auto 20px auto; /* Centraliza o container */
     border: 2px solid #00FF00;
-    padding: 15px;
+    padding: 15px; /* Padding interno */
     box-sizing: border-box;
     flex: 1; /* Faz o container crescer para empurrar o footer para baixo */
     transition: border-color 0.3s;
@@ -148,7 +150,7 @@ h3 {
 }
 
 .blink {
-    animation: blink 1s step-end infinite;
+    animation: blink 0s step-end infinite;
 }
 
 @keyframes blink {
@@ -201,34 +203,25 @@ body.white-theme .footer {
 
 .about-content {
     display: flex;
-    align-items: stretch; /* Garante que os elementos filhos tenham a mesma altura */
-    gap: 10px; /* Reduzido para acomodar a imagem maior */
+    align-items: center;
+    gap: 20px;
 }
 
 .about-text {
-    flex: 1; /* O texto ocupa o espaço restante */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza o texto verticalmente */
+    flex: 1;
 }
 
 .about-image {
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
 }
 
 .profile-image {
-    width: 200px; /* Mantido conforme última solicitação */
-    height: 100%; /* Mantém a altura igual à do contêiner pai */
-    object-fit: cover; /* Mantém a proporção, mas preenche o espaço */
+    width: 400px; /* Mantido conforme última solicitação */
     border-radius: 08px; /* Bordas arredondadas */
-    border: 1px solid #00FF00; /* Estilo consistente com o tema */
-    transition: border-color 0.3s;
 }
 
 body.white-theme .profile-image {
-    border: 2px solid #000000;
+    /* A borda foi removida para uma melhor integração */
 }
 
 .post {
@@ -500,7 +493,11 @@ body.white-theme .terminal-input input {
         width: 90%;
     }
     .about-content {
-        gap: 8px; /* Reduzido para telas menores */
+        flex-direction: column;
+        gap: 15px;
+    }
+    .about-image {
+        order: -1; /* Move a imagem para o topo no layout flexível */
     }
     .about-text p {
         font-size: 0.9em; /* Reduz o tamanho do texto para caber melhor */
@@ -508,4 +505,36 @@ body.white-theme .terminal-input input {
     .profile-image {
         width: 160px; /* Mantido conforme última solicitação */
     }
+}
+
+/* Efeito Matrix */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
+}
+
+/* Esconde o efeito Matrix no tema branco */
+body.white-theme #matrix-canvas {
+    display: none;
+}
+
+/* Efeito de partículas para o tema branco */
+#white-theme-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: none; /* Escondido por padrão */
+}
+
+/* Mostra o canvas de partículas apenas no tema branco */
+body.white-theme #white-theme-canvas {
+    display: block;
+}
 }
