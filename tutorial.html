@@ -5,33 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutorial</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- CSS para o Highlight.js (tema escuro) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
-<body>
+<body class="post-page">
+    <canvas id="matrix-canvas"></canvas>
+    <canvas id="white-theme-canvas"></canvas>
+
     <!-- Placeholder para a Topbar -->
     <div id="topbar-placeholder"></div>
 
     <div class="container">
-        <h1 id="tutorial-title">[ Carregando Título... ]</h1>
-        <div class="post-date" id="tutorial-date"></div>
-        <div class="section" id="tutorial-content">
-            <p>Carregando conteúdo do tutorial...</p>
-        </div>
+        <article class="post-full">
+            <header class="post-full-header">
+                <h1 id="tutorial-title">Carregando...</h1>
+                <div class="post-date" id="tutorial-date"></div>
+            </header>
+            <section class="post-full-content" id="tutorial-content">
+                <p>Carregando conteúdo do tutorial...</p>
+            </section>
+        </article>
     </div>
 
     <!-- Placeholder para o Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Terminal Popup (opcional, mas mantém a consistência) -->
+    <!-- Terminal Popup -->
     <div class="terminal-popup" id="terminal">
         <div class="terminal-header">
-            <span>[ Terminal ]</span>
-            <span class="close-btn" id="close-terminal">[ X ]</span>
+            <span>root@erickdev:~$</span>
+            <span class="close-btn" id="close-terminal">[X]</span>
         </div>
         <div class="terminal-body" id="terminal-output"></div>
-        <div class="terminal-input"><span>$</span><input type="text" id="terminal-input"></div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" autofocus>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Incluir Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 </html>

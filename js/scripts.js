@@ -135,11 +135,16 @@ function loadBlogPosts() {
                 fetch(post.file)
                     .then(res => res.text())
                     .then(text => {
+                        // Primeiro, converte o Markdown para HTML para a prévia
+                        const html = marked.parse(text);
+
                         const previewContainer = document.getElementById(`preview-${post.file.replace(/\W/g, '')}`);
                         const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = text;
+                        tempDiv.innerHTML = html;
+                        // Remove o conteúdo de blocos de código da prévia para não poluir
+                        tempDiv.querySelectorAll('pre').forEach(pre => pre.remove());
                         const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
-                        previewContainer.textContent = previewText;
+                        previewContainer.textContent = previewText.replace(/\s+/g, ' ').trim();
                     });
             });
         })
@@ -167,13 +172,48 @@ function loadSinglePost() {
         fetch(postFile)
             .then(response => response.text())
             .then(data => {
-                document.getElementById('post-content').innerHTML = marked.parse(data);
+                const contentElement = document.getElementById('post-content');
+                // Verifica se o arquivo é .md antes de processar com marked
+                if (postFile.endsWith('.md')) {
+                    contentElement.innerHTML = marked.parse(data);
+                    // Adiciona os botões de cópia aos blocos de código
+                    enhanceCodeBlocks(contentElement);
+                } else {
+                    contentElement.innerHTML = data;
+                }
             })
             .catch(error => {
                 document.getElementById('post-content').innerHTML = '<p>Erro ao carregar o conteúdo do post.</p>';
                 console.error('Erro ao carregar o post:', error);
             });
     }
+}
+
+// Função para adicionar botões de "Copiar" aos blocos de código
+function enhanceCodeBlocks(container) {
+    const codeBlocks = container.querySelectorAll('pre');
+    codeBlocks.forEach(pre => {
+        // Cria um wrapper para posicionar o botão
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-code-btn';
+        copyButton.textContent = 'Copiar';
+        wrapper.appendChild(copyButton);
+
+        copyButton.addEventListener('click', () => {
+            const code = pre.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                copyButton.textContent = 'Copiado!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Copiar';
+                }, 2000);
+            });
+        });
+    });
 }
 
 // Lógica dos Tutoriais
@@ -206,11 +246,16 @@ function loadTutorials() {
                 fetch(tutorial.file)
                     .then(res => res.text())
                     .then(text => {
+                        // Primeiro, converte o Markdown para HTML para a prévia
+                        const html = marked.parse(text);
+
                         const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
                         const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = text;
+                        tempDiv.innerHTML = html;
+                        // Remove o conteúdo de blocos de código da prévia para não poluir
+                        tempDiv.querySelectorAll('pre').forEach(pre => pre.remove());
                         const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
-                        previewContainer.textContent = previewText;
+                        previewContainer.textContent = previewText.replace(/\s+/g, ' ').trim();
                     });
             });
         })
@@ -238,7 +283,15 @@ function loadSingleTutorial() {
         fetch(tutorialFile)
             .then(response => response.text())
             .then(data => {
-                document.getElementById('tutorial-content').innerHTML = marked.parse(data);
+                const contentElement = document.getElementById('tutorial-content');
+                // Verifica se o arquivo é .md antes de processar com marked
+                if (tutorialFile.endsWith('.md')) {
+                    contentElement.innerHTML = marked.parse(data);
+                    // Adiciona os botões de cópia aos blocos de código
+                    enhanceCodeBlocks(contentElement);
+                } else {
+                    contentElement.innerHTML = data;
+                }
             })
             .catch(error => {
                 document.getElementById('tutorial-content').innerHTML = '<p>Erro ao carregar o conteúdo do tutorial.</p>';
@@ -264,6 +317,16 @@ if (datetimeElement) {
 
 // Executa as funções de acordo com a página
 document.addEventListener('DOMContentLoaded', () => {
+    // Configura o marked.js para usar o highlight.js para syntax highlighting
+    if (typeof marked !== 'undefined' && typeof hljs !== 'undefined') {
+        marked.setOptions({
+            highlight: function(code, lang) {
+                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(code, { language }).value;
+            }
+        });
+    }
+
     loadBlogPosts();
     loadSinglePost();
     loadTutorials();
