@@ -173,13 +173,14 @@ function loadSinglePost() {
             .then(response => response.text())
             .then(data => {
                 const contentElement = document.getElementById('post-content');
+                const processedData = processCustomTags(data);
                 // Verifica se o arquivo é .md antes de processar com marked
                 if (postFile.endsWith('.md')) {
-                    contentElement.innerHTML = marked.parse(data);
+                    contentElement.innerHTML = marked.parse(processedData);
                     // Adiciona os botões de cópia aos blocos de código
                     enhanceCodeBlocks(contentElement);
                 } else {
-                    contentElement.innerHTML = data;
+                    contentElement.innerHTML = processedData;
                 }
             })
             .catch(error => {
@@ -284,13 +285,14 @@ function loadSingleTutorial() {
             .then(response => response.text())
             .then(data => {
                 const contentElement = document.getElementById('tutorial-content');
+                const processedData = processCustomTags(data);
                 // Verifica se o arquivo é .md antes de processar com marked
                 if (tutorialFile.endsWith('.md')) {
-                    contentElement.innerHTML = marked.parse(data);
+                    contentElement.innerHTML = marked.parse(processedData);
                     // Adiciona os botões de cópia aos blocos de código
                     enhanceCodeBlocks(contentElement);
                 } else {
-                    contentElement.innerHTML = data;
+                    contentElement.innerHTML = processedData;
                 }
             })
             .catch(error => {
@@ -298,6 +300,18 @@ function loadSingleTutorial() {
                 console.error('Erro ao carregar o tutorial:', error);
             });
     }
+}
+
+// Função para processar tags customizadas como [youtube:ID]
+function processCustomTags(content) {
+    // Regex para encontrar [youtube:VIDEO_ID]
+    const youtubeRegex = /\[youtube:(.*?)\]/g;
+    return content.replace(youtubeRegex, (match, videoId) => {
+        // Substitui a tag pelo HTML do player responsivo
+        return `<div class="youtube-video-container">
+                    <iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>`;
+    });
 }
 
 // Atualizar data e hora na página inicial
