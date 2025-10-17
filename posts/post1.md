@@ -103,8 +103,7 @@ A simplicidade é o maior benefício do projeto. Para ter seu ambiente Odoo roda
 
 Fiz um video pradido explorando o projeto e como fazer a utilização tanto em produção quanto para desenvolvimento.
 </br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RvB_0ip-ics?si=vr4BXm5u1DhYZrf9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</br>
+[youtube:RvB_0ip-ics]
 </br>
 
 ### A força da comunidade
