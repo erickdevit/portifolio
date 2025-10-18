@@ -1,0 +1,36 @@
+/* Tema escuro personalizado para giscus */
+
+/* Cor primária (verde hacker) */
+:root {
+  --gsc-primary-color: #00FF00; /* Cor principal dos elementos ativos */
+  --gsc-main-border-color: transparent; /* Remove a borda principal */
+  --gsc-link-color: #00FF00;
+
+  --gsc-background-color: #000000;
+
+  --gsc-input-background-color: #111;
+  --gsc-input-border-color: #00FF00;
+  --gsc-input-text-color: #FFFFFF;
+
+  --gsc-button-background-color: #111;
+  --gsc-button-border-color: #00FF00;
+  --gsc-button-text-color: #00FF00;
+
+  --gsc-comment-background-color: #0a0a0a;
+  --gsc-comment-border-color: #333;
+
+  --gsc-header-text-color: #FFFFFF;
+  --gsc-reactions-border-color: #00FF00;
+  --gsc-reactions-count-color: #FFFFFF;
+  --gsc-timeline-color: #00FF00;
+}
+
+/* Usa a mesma fonte do site */
+body, input, textarea, button {
+  font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Remove bordas arredondadas para um look mais "quadrado" */
+.gsc-input, .gsc-button, .gsc-comment, .gsc-reactions-button {
+  border-radius: 0 !important;
+}

@@ -185,6 +185,8 @@ function loadSinglePost() {
                     // Adiciona os botões de cópia aos blocos de código
                     enhanceCodeBlocks(contentElement);
                 } else {
+                    // Para arquivos não-markdown, removemos o conteúdo de exemplo
+                    // e podemos decidir o que mostrar.
                     contentElement.innerHTML = processedData;
                 }
             })
@@ -192,6 +194,9 @@ function loadSinglePost() {
                 document.getElementById('post-content').innerHTML = '<p>Erro ao carregar o conteúdo do post.</p>';
                 console.error('Erro ao carregar o post:', error);
             });
+
+        // Carrega os comentários do giscus
+        loadGiscus();
     }
 }
 
@@ -309,6 +314,58 @@ function loadSingleTutorial() {
                 document.getElementById('tutorial-content').innerHTML = '<p>Erro ao carregar o conteúdo do tutorial.</p>';
                 console.error('Erro ao carregar o tutorial:', error);
             });
+
+        // Carrega os comentários do giscus
+        loadGiscus();
+    }
+}
+
+// Função para carregar o giscus (sistema de comentários)
+function loadGiscus() {
+    const commentsContainer = document.getElementById('comments-container');
+    if (!commentsContainer) return;
+
+    // Limpa o container caso já exista um script (útil para navegação SPA no futuro)
+    commentsContainer.innerHTML = '';
+
+    const script = document.createElement('script');
+    // Define o tema personalizado com base no tema do site.
+    // ATENÇÃO: O URL deve ser absoluto (com seu domínio).
+    const theme = document.body.classList.contains('white-theme')
+        ? 'url:https://erickdev.it/css/giscus-light.css'
+        : 'url:https://erickdev.it/css/giscus-dark.css';
+
+    script.src = 'https://giscus.app/client.js';
+    // Configurações do seu repositório giscus
+    script.setAttribute('data-repo', 'erickdevit/blog-comments-');
+    script.setAttribute('data-repo-id', 'R_kgDOQE81ng');
+    script.setAttribute('data-category', 'General');
+    script.setAttribute('data-category-id', 'DIC_kwDOQE81ns4CwzXN');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', 'pt');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    commentsContainer.appendChild(script);
+
+    // Adiciona um listener para trocar o tema do giscus quando o tema do site mudar
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const giscusFrame = document.querySelector('iframe.giscus-frame');
+            if (giscusFrame) {
+                const newTheme = document.body.classList.contains('white-theme')
+                    ? 'url:https://erickdev.it/css/giscus-light.css'
+                    : 'url:https://erickdev.it/css/giscus-dark.css';
+
+                giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: newTheme } } }, 'https://giscus.app');
+            }
+        });
     }
 }
 

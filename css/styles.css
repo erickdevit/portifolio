@@ -94,7 +94,9 @@ body.white-theme .theme-icon {
 .container {
     width: 100%; /* Usa 90% da largura da tela */
     margin: 70px auto 20px auto; /* Centraliza o container */
-    border: 2px solid #00FF00;
+    border-top: 2px solid #00FF00;
+    border-left: 2px solid #00FF00;
+    border-right: 2px solid #00FF00;
     padding: 15px; /* Padding interno */
     box-sizing: border-box;
     flex: 1; /* Faz o container crescer para empurrar o footer para baixo */
@@ -102,7 +104,9 @@ body.white-theme .theme-icon {
 }
 
 body.white-theme .container {
-    border: 2px solid #000000;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #000000;
 }
 
 h1, h2, h3 {
@@ -559,6 +563,10 @@ body.post-page #white-theme-canvas {
     margin-left: auto;
     margin-right: auto;
 }
+/* Adiciona a seção de comentários ao mesmo grupo de largura */
+.post-comments {
+    margin-top: 40px;
+}
 
 @media (max-width: 900px) {
     .post-full,
@@ -566,7 +574,8 @@ body.post-page #white-theme-canvas {
     .container > h1,
     .container > .marquee-text,
     .container > .section {
-        width: 95%; /* Aumenta a largura em telas menores */
+        width: 95%;
+        /* Aumenta a largura em telas menores */
     }
 }
 
