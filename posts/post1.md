@@ -10,12 +10,12 @@ Meu esforço será sempre para que você seja capaz de entender e colocar em pr�
 
 Vamos assumir que estamos partindo do absoluto zero, sem linguagens, frameworks, IDEs, distribuições e sistemas favoritos. Partindo do zero absoluto, poderíamos nesse momento pensar que o óbvio é aprender uma linguagem de programação, ou uma linguagem de lógica de programação, etc. Mas não, vamos começar por uma pequena lista de coisas que precisamos e que são realmente cruciais para se iniciar de verdade.
 
-**1 - Ambiente de desenvolvimento**
-**2 - Git é o seu melhor amigo**
-**3 - Python é sua melhor escolha**
-**4 - Cloudflare/Hospedagem**
-**5 - Redes e portas**
-**6 - Docker para 99% das coisas**
+* **1 - Ambiente de desenvolvimento**
+* **2 - Git é o seu melhor amigo**
+* **3 - Python é sua melhor escolha**
+* **4 - Cloudflare/Hospedagem**
+* **5 - Redes e portas**
+* **6 - Docker para 99% das coisas**
 
 Sim, é isso mesmo, apenas seis coisas. Parece muito simples, né? Montamos nosso ambiente, decidimos ir de Python, lemos um pouco e puff, estamos programando tudo que imaginarmos... Na verdade, não, não é nada simples. São 6 coisas, mas que podem levar anos para serem concluídas caso você faça as coisas da forma errada, mas esse é o caminho que pode ser mais bem otimizado para alcançar resultados em semanas, dependendo do seu esforço, apenas alguns dias.
 
