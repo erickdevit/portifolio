@@ -173,6 +173,11 @@ function loadSinglePost() {
             .then(response => response.text())
             .then(data => {
                 const contentElement = document.getElementById('post-content');
+
+                // Gera a descrição e atualiza as meta tags para o preview de link
+                const description = generatePreviewFromMarkdown(data, 50);
+                updateMetaTags(postTitle, description);
+
                 const processedData = processCustomTags(data);
                 // Verifica se o arquivo é .md antes de processar com marked
                 if (postFile.endsWith('.md')) {
@@ -285,6 +290,11 @@ function loadSingleTutorial() {
             .then(response => response.text())
             .then(data => {
                 const contentElement = document.getElementById('tutorial-content');
+
+                // Gera a descrição e atualiza as meta tags para o preview de link
+                const description = generatePreviewFromMarkdown(data, 50);
+                updateMetaTags(tutorialTitle, description);
+
                 const processedData = processCustomTags(data);
                 // Verifica se o arquivo é .md antes de processar com marked
                 if (tutorialFile.endsWith('.md')) {
@@ -300,6 +310,38 @@ function loadSingleTutorial() {
                 console.error('Erro ao carregar o tutorial:', error);
             });
     }
+}
+
+// Função para gerar uma prévia de texto a partir de um conteúdo Markdown
+function generatePreviewFromMarkdown(markdown, wordCount = 30) {
+    if (typeof marked === 'undefined') return '';
+
+    const html = marked.parse(markdown);
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+
+    // Remove elementos que não contribuem bem para uma prévia de texto
+    tempDiv.querySelectorAll('pre, code, h1, h2, h3, h4, h5, h6, blockquote, img, table').forEach(el => el.remove());
+
+    const text = (tempDiv.textContent || tempDiv.innerText || '').trim();
+    const preview = text.split(/\s+/).slice(0, wordCount).join(' ');
+
+    return preview ? (preview + '...').replace(/\s+/g, ' ') : 'Clique para ler mais.';
+}
+
+// Função para atualizar as meta tags Open Graph e Twitter Card
+function updateMetaTags(title, description) {
+    const url = window.location.href;
+
+    // Atualiza o título da página
+    document.title = title;
+
+    // Atualiza as meta tags
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[property="twitter:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="twitter:description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
 }
 
 // Função para processar tags customizadas como [youtube:ID]
