@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="img/erickport.png" type="image/png">
 </head>
-<body class="no-matrix">
+<body>
     <canvas id="matrix-canvas"></canvas>
     <canvas id="white-theme-canvas"></canvas>
 
@@ -46,19 +46,6 @@
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Terminal Popup -->
-    <div class="terminal-popup" id="terminal">
-        <div class="terminal-header">
-            <span>[ Terminal ]</span>
-            <span class="close-btn" id="close-terminal">[ X ]</span>
-        </div>
-        <div class="terminal-body" id="terminal-output"></div>
-        <div class="terminal-input">
-            <span>$</span>
-            <input type="text" id="terminal-input" placeholder="Digite um comando...">
-        </div>
-    </div>
-
-    <script src="js/scripts.js"></script>
+    <script type="module" src="js/scripts.js"></script>
 </body>
 </html>

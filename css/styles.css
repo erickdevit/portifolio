@@ -1,244 +1,204 @@
+:root {
+    /* Colors */
+    --bg-color: #000000;
+    --text-color: #00FF00;
+    --accent-color: #00FF00;
+    --border-color: #00FF00;
+    --secondary-text-color: #cccccc;
+    --hover-bg-color: #00FF00;
+    --hover-text-color: #000000;
+    --code-bg-color: #1a1a1a;
+    --card-bg-color: transparent;
+
+    /* Spacing */
+    --container-width: 60%;
+    --container-width-mobile: 95%;
+
+    /* Z-Index */
+    --z-background: -1;
+    --z-content: 1;
+    --z-popup: 100;
+    --z-topbar: 50;
+}
+
+body.white-theme {
+    --bg-color: #FFFFFF;
+    --text-color: #000000;
+    --accent-color: #000000;
+    --border-color: #000000;
+    --secondary-text-color: #333333;
+    --hover-bg-color: #000000;
+    --hover-text-color: #FFFFFF;
+    --code-bg-color: #f0f0f0;
+    --card-bg-color: #f0f0f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #000000; /* Fundo padrão para o tema escuro */
-    color: #FFFFFF;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s; /* Transição suave para o tema */
-    text-shadow: 0 0 5px #000, 0 0 7px #000; /* Sombra para legibilidade no tema escuro */
-}
-
-/* Estilo para o tema branco */
-body.white-theme {
-    background-color: #f5f5f5; /* Um branco levemente acinzentado para o fundo */
-    color: #000000;
-    text-shadow: none; /* Remove a sombra no tema claro */
-}
-
-.topbar {
-    background-color: #000000;
-    border-bottom: 2px solid #00FF00;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    box-sizing: border-box;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-body.white-theme .topbar {
-    background-color: #FFFFFF;
-    border-bottom: 2px solid #000000;
-}
-
-.topbar .menu {
-    margin-right: 355px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.topbar .menu a {
-    color: #00FF00;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-
-body.white-theme .topbar .menu a {
-    color: #000000;
-}
-
-.topbar .menu a:hover {
-    text-decoration: underline;
-}
-
-/* Estilo do botão de alternância de tema */
-.theme-toggle-btn {
-    background: none;
-    border: 0px dashed #00FF00;
-    padding: 5px;
-    margin-left: 355px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    transition: border-color 0.3s;
-}
-
-body.white-theme .theme-toggle-btn {
-    border: 0px dashed #000000;
-}
-
-.theme-icon {
-    font-size: 24px;
-    color: #00FF00;
-    transition: color 0.3s;
-}
-
-body.white-theme .theme-icon {
-    color: #000000;
-}
-
-.container {
-    width: 100%; /* Usa 90% da largura da tela */
-    margin: 70px auto 20px auto; /* Centraliza o container */
-    border-top: 2px solid #00FF00;
-    border-left: 2px solid #00FF00;
-    border-right: 2px solid #00FF00;
-    padding: 15px; /* Padding interno */
-    box-sizing: border-box;
-    flex: 1; /* Faz o container crescer para empurrar o footer para baixo */
-    transition: border-color 0.3s;
-}
-
-body.white-theme .container {
-    border-top: 2px solid #000000;
-    border-left: 2px solid #000000;
-    border-right: 2px solid #000000;
-}
-
-h1, h2, h3 {
-    color: #00FF00;
-    transition: color 0.3s;
-}
-
-body.white-theme h1,
-body.white-theme h2,
-body.white-theme h3 {
-    color: #000000;
-}
-
-h1 {
-    text-align: center;
-    text-transform: uppercase;
-    border-bottom: 2px dashed #00FF00;
-    padding-bottom: 10px;
-    letter-spacing: 2px;
-    font-size: 1.5em;
-    transition: border-color 0.3s;
-}
-
-body.white-theme h1 {
-    border-bottom: 2px dashed #000000;
-}
-
-h2 {
-    font-size: 1.2em;
-    border-bottom: 1px dashed #00FF00;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    transition: border-color 0.3s;
-}
-
-body.white-theme h2 {
-    border-bottom: 1px dashed #000000;
-}
-
-h3 {
-    font-size: 1em;
-    margin: 0;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.blink {
-    animation: blink 0s step-end infinite;
-}
-
-@keyframes blink {
-    50% { opacity: 0; }
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 a {
-    color: #00FF00;
+    color: var(--text-color);
     text-decoration: none;
     transition: color 0.3s;
-}
-
-body.white-theme a {
-    color: #000000;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-.ascii {
+/* --- Layout & Typography --- */
+
+.container {
+    max-width: 1200px;
+    width: var(--container-width);
+    margin: 80px auto 40px; /* Top margin for fixed header */
+    padding: 20px;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+h1 {
     text-align: center;
-    font-size: 10px;
-    line-height: 1;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+h2 {
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 5px;
+    margin-top: 30px;
     margin-bottom: 15px;
-}
-
-.footer {
-    text-align: center;
-    font-size: 10px;
-    line-height: 1;
-    padding: 10px;
-    border-top: 2px solid #00FF00;
-    background-color: #000000;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-body.white-theme .footer {
-    background-color: #FFFFFF;
-    border-top: 2px solid #000000;
+    transition: border-color 0.3s;
 }
 
 .section {
-    margin: 15px 0;
+    margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability on matrix */
+    padding: 15px;
+    border-radius: 4px;
 }
 
-.about-section {
-    margin: 15px 0;
+body.white-theme .section {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-.about-content {
+.ascii {
+    font-size: 10px;
+    white-space: pre;
+    text-align: center;
+    line-height: 10px;
+    overflow-x: hidden;
+    margin-bottom: 20px;
+}
+
+.blink {
+    animation: blink-animation 1s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+    to { visibility: hidden; }
+}
+
+.marquee-text {
+    margin-top: 10px;
+    font-size: 12px;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* --- Topbar --- */
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    padding: 10px 20px;
+    z-index: var(--z-topbar);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.about-text {
-    flex: 1;
+.topbar .menu {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-.about-image {
-    flex-shrink: 0;
+.topbar .menu a {
+    font-weight: bold;
+    font-size: 14px;
 }
 
-.profile-image {
-    width: 400px; /* Mantido conforme última solicitação */
-    border-radius: 08px; /* Bordas arredondadas */
+.topbar .menu a:hover {
+    background-color: var(--hover-bg-color);
+    color: var(--hover-text-color);
+    text-decoration: none;
+    padding: 2px 5px;
+    border-radius: 2px;
 }
 
-body.white-theme .profile-image {
-    /* A borda foi removida para uma melhor integração */
+.theme-toggle-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px 10px;
+    font-family: inherit;
+    transition: all 0.3s;
 }
 
-.post {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px dashed #00FF00;
-    background-color: #1a1a1a;
+.theme-toggle-btn:hover {
+    background-color: var(--hover-bg-color);
+    color: var(--hover-text-color);
+}
+
+/* --- Footer --- */
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8em;
+    background-color: var(--bg-color);
     transition: border-color 0.3s, background-color 0.3s;
 }
 
+/* --- Posts & Content --- */
+
+.post {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s, background-color 0.3s;
+    background-color: var(--card-bg-color);
+}
+
 body.white-theme .post {
-    border: 1px dashed #000000;
-    background-color: #f0f0f0;
+    border: 1px dashed var(--border-color);
 }
 
 .post-header {
@@ -246,312 +206,47 @@ body.white-theme .post {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .post-date {
     font-size: 0.9em;
-    color: #00FF00;
-    transition: color 0.3s;
-}
-
-body.white-theme .post-date {
-    color: #000000;
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
 .post-preview {
     font-size: 0.95em;
-    line-height: 1.4;
+    line-height: 1.6;
     padding: 10px;
-    border-left: 2px solid #00FF00;
+    border-left: 2px solid var(--border-color);
     margin-left: 10px;
-    color: #cccccc; /* Um tom mais claro para a prévia */
+    color: var(--secondary-text-color);
     transition: border-color 0.3s, color 0.3s;
 }
 
-body.white-theme .post-preview {
-    border-left: 2px solid #000000;
-    color: #333333;
-}
-
-.marquee-text {
-    margin-top: 10px;
-    font-size: 12px;
-    font-style: italic;
-}
-
-#background-music {
-    display: none; /* Esconde o elemento de áudio */
-}
-
-/* Estilo do Terminal Popup */
-.terminal-popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 500px;
-    background-color: #000000;
-    border: 2px solid #00FF00;
-    padding: 10px;
-    z-index: 100;
-    box-shadow: 0 0 10px #00FF00;
-    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-
-body.white-theme .terminal-popup {
-    background-color: #FFFFFF;
-    border: 2px solid #000000;
-    box-shadow: 0 0 10px #000000;
-}
-
-.terminal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #00FF00;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    transition: border-color 0.3s;
-}
-
-body.white-theme .terminal-header {
-    border-bottom: 1px solid #000000;
-}
-
-.terminal-header span {
-    color: #00FF00;
-    font-size: 12px;
-    transition: color 0.3s;
-}
-
-body.white-theme .terminal-header span {
-    color: #000000;
-}
-
-.terminal-header .close-btn {
-    color: #00FF00;
-    cursor: pointer;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-
-body.white-theme .terminal-header .close-btn {
-    color: #000000;
-}
-
-.terminal-body {
-    height: 200px;
-    overflow-y: auto;
-    font-size: 12px;
-    color: #FFFFFF;
-    transition: color 0.3s;
-}
-
-body.white-theme .terminal-body {
-    color: #000000;
-}
-
-.terminal-input {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.terminal-input span {
-    color: #00FF00;
-    margin-right: 5px;
-    transition: color 0.3s;
-}
-
-body.white-theme .terminal-input span {
-    color: #000000;
-}
-
-.terminal-input input {
-    background: none;
-    border: none;
-    color: #FFFFFF;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 12px;
-    flex-grow: 1;
-    outline: none;
-    transition: color 0.3s;
-}
-
-body.white-theme .terminal-input input {
-    color: #000000;
-}
-
-@media (max-width: 600px) {
-    .topbar {
-        padding: 5px;
-        flex-wrap: wrap;
-    }
-    .theme-toggle-btn {
-        margin-left: 10px;
-        width: 40px;
-        height: 40px;
-    }
-    .theme-icon {
-        font-size: 20px;
-    }
-    .topbar .menu {
-        margin-right: 10px;
-    }
-    .topbar .menu a {
-        margin: 5px;
-        font-size: 12px;
-    }
-    .container {
-        margin-top: 60px;
-        padding: 10px;
-    }
-    h1 {
-        font-size: 1.2em;
-    }
-    h2 {
-        font-size: 1em;
-    }
-    .section {
-        margin: 10px 0;
-    }
-    .ascii {
-        font-size: 8px;
-    }
-    .marquee-text {
-        font-size: 10px;
-    }
-    .post {
-        padding: 5px;
-    }
-    .post-preview {
-        padding: 5px;
-        margin-left: 5px;
-    }
-    .terminal-popup {
-        width: 90%;
-    }
-    .about-content {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .about-image {
-        order: -1; /* Move a imagem para o topo no layout flexível */
-    }
-    .about-text p {
-        font-size: 0.9em; /* Reduz o tamanho do texto para caber melhor */
-    }
-    .profile-image {
-        width: 160px; /* Mantido conforme última solicitação */
-    }
-}
-
-/* Efeito Matrix */
-#matrix-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
-}
-
-/* Esconde o efeito Matrix no tema branco */
-body.white-theme #matrix-canvas {
-    display: none;
-}
-
-/* Efeito de partículas para o tema branco */
-#white-theme-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: none; /* Escondido por padrão */
-}
-
-/* Mostra o canvas de partículas apenas no tema branco */
-body.white-theme #white-theme-canvas {
-    display: block;
-}
-
-/* Esconde os canvas de animação nas páginas de post/tutorial/sugestão/envio */
-body.no-matrix #matrix-canvas,
-body.no-matrix #white-theme-canvas {
-    display: none !important;
-}
-
-/* --- Estilos para a página de post individual --- */
-
-/* 
- * Limita a largura do conteúdo principal em todas as páginas para melhor legibilidade.
- * Aplica-se ao artigo em páginas de post/tutorial e aos elementos principais nas outras páginas.
-*/
-.post-full,
-.container > .ascii,
-.container > h1,
-.container > .marquee-text,
-.container > .section {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-}
-/* Adiciona a seção de comentários ao mesmo grupo de largura */
-.post-comments {
-    margin-top: 40px;
-}
-
-@media (max-width: 900px) {
-    .post-full,
-    .container > .ascii,
-    .container > h1,
-    .container > .marquee-text,
-    .container > .section {
-        width: 95%;
-        /* Aumenta a largura em telas menores */
-    }
-}
-
-/* --- Estilos para Conteúdo do Post e Blocos de Código --- */
-
 .post-full-content {
-    line-height: 1.7;
+    line-height: 1.8;
     font-size: 1.1em;
 }
 
-.post-full-content a {
-    text-decoration: underline;
+.post-full-content pre {
+    background-color: var(--code-bg-color);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    overflow-x: auto;
+    border-radius: 4px;
+    margin: 20px 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); /* Default shadow, adjust if needed */
 }
 
-/* Container para o bloco de código, para posicionar o botão */
-.post-full-content .code-block-wrapper {
+/* Code Copy Button */
+.code-block-wrapper {
     position: relative;
     margin: 20px 0;
 }
 
-/* Estilo do bloco de código gerado pelo highlight.js */
-.post-full-content pre {
-    background-color: #1a1a1a; /* Fundo escuro para o bloco */
-    border: 1px solid #00FF00;
-    padding: 20px;
-    overflow-x: auto; /* Rolagem horizontal se o código for muito longo */
-    border-radius: 4px;
-    margin: 0; /* Remove a margem padrão do <pre> */
-    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
-    transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
-}
-
-body.white-theme .post-full-content pre {
-    background-color: #f0f0f0;
-    border: 1px solid #000000;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo do botão "Copiar" */
 .copy-code-btn {
     position: absolute;
     top: 10px;
@@ -564,46 +259,26 @@ body.white-theme .post-full-content pre {
     font-size: 12px;
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+    transition: all 0.3s;
+}
+
+body.white-theme .copy-code-btn {
+    background-color: #ddd;
+    color: #000;
+    border-color: #000;
 }
 
 .copy-code-btn:hover {
     opacity: 1;
 }
 
-body.white-theme .copy-code-btn {
-    background-color: #ddd;
-    color: #000000;
-    border: 1px solid #000000;
-}
+/* --- Forms --- */
 
-/* --- Estilos para Vídeos Responsivos --- */
-
-/* Container para o vídeo */
-.youtube-video-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    padding-top: 56.25%; /* Proporção 16:9 */
-    margin: 20px 0;
-}
-
-/* Iframe do vídeo */
-.youtube-video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-/* --- Estilos para Formulários de Contribuição --- */
 .contribute-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 100%;
 }
 
 .form-group {
@@ -614,103 +289,209 @@ body.white-theme .copy-code-btn {
 .form-group label {
     margin-bottom: 5px;
     font-weight: bold;
-    color: #00FF00;
-    transition: color 0.3s;
-}
-
-body.white-theme .form-group label {
-    color: #000000;
+    color: var(--text-color);
 }
 
 .form-group input,
 .form-group textarea {
     padding: 10px;
     background-color: transparent;
-    border: 1px solid #00FF00;
-    color: #FFFFFF;
-    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-family: inherit;
     font-size: 1em;
     outline: none;
-    transition: border-color 0.3s, color 0.3s;
-}
-
-body.white-theme .form-group input,
-body.white-theme .form-group textarea {
-    border: 1px solid #000000;
-    color: #000000;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    box-shadow: 0 0 5px #00FF00;
+    box-shadow: 0 0 5px var(--accent-color);
 }
 
-body.white-theme .form-group input:focus,
-body.white-theme .form-group textarea:focus {
-    box-shadow: 0 0 5px #000000;
-}
-
-.contribute-form button {
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 2px solid #00FF00;
-    color: #00FF00;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    align-self: flex-start;
-}
-
-body.white-theme .contribute-form button {
-    border: 2px solid #000000;
-    color: #000000;
-}
-
-.contribute-form button:hover {
-    background-color: #00FF00;
-    color: #000000;
-}
-
-body.white-theme .contribute-form button:hover {
-    background-color: #000000;
-    color: #FFFFFF;
-}
-
-/* --- Estilos para o Botão de Ação --- */
+button[type="submit"],
 .action-btn {
     display: inline-block;
     padding: 10px 20px;
     background-color: transparent;
-    border: 2px solid #00FF00;
-    color: #00FF00;
-    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-family: inherit;
     font-size: 1em;
     font-weight: bold;
-    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    margin-bottom: 20px;
-}
-
-body.white-theme .action-btn {
-    border: 2px solid #000000;
-    color: #000000;
-}
-
-.action-btn:hover {
-    background-color: #00FF00;
-    color: #000000;
     text-decoration: none;
+    transition: all 0.3s;
+    align-self: flex-start;
 }
 
-body.white-theme .action-btn:hover {
-    background-color: #000000;
-    color: #FFFFFF;
+button[type="submit"]:hover,
+.action-btn:hover {
+    background-color: var(--hover-bg-color);
+    color: var(--hover-text-color);
 }
 
-/* --- Estilos para os Cards de Sugestão --- */
-.suggestion-card {
-    border-style: dotted; /* Diferencia visualmente dos posts normais */
+/* --- Terminal Popup --- */
+
+.terminal-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    padding: 10px;
+    z-index: var(--z-popup);
+    box-shadow: 0 0 15px var(--accent-color);
+    transition: all 0.3s;
+}
+
+body.white-theme .terminal-popup {
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.terminal-header span,
+.terminal-header .close-btn {
+    color: var(--text-color);
+}
+
+.terminal-header .close-btn {
+    cursor: pointer;
+}
+
+.terminal-body {
+    height: 300px;
+    overflow-y: auto;
+    font-size: 12px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.terminal-input {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-input span {
+    color: var(--text-color);
+    margin-right: 5px;
+}
+
+.terminal-input input {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 12px;
+    flex-grow: 1;
+    outline: none;
+}
+
+/* --- Background Effects --- */
+
+#matrix-canvas,
+#white-theme-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-background);
+}
+
+/* Matrix logic: default enabled. White theme hides matrix, shows white canvas. */
+body.white-theme #matrix-canvas {
+    display: none !important;
+}
+
+#white-theme-canvas {
+    display: none;
+}
+
+body.white-theme #white-theme-canvas {
+    display: block;
+}
+
+/* Explicitly disable effects if requested via class */
+body.no-matrix #matrix-canvas,
+body.no-matrix #white-theme-canvas {
+    display: none !important;
+}
+
+/* --- Responsiveness --- */
+
+@media (max-width: 900px) {
+    .container {
+        width: var(--container-width-mobile);
+        margin-top: 100px; /* More space for wrapped menu */
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin-top: 120px;
+        padding: 10px;
+    }
+
+    .topbar {
+        padding: 5px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .topbar .menu {
+        justify-content: center;
+    }
+
+    .topbar .menu a {
+        font-size: 12px;
+        margin: 2px;
+    }
+
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.2em; }
+
+    .about-content {
+        flex-direction: column;
+    }
+
+    .about-image {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: auto;
+    }
+}
+
+/* --- Utilities --- */
+.youtube-video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+    margin: 20px 0;
+}
+
+.youtube-video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
