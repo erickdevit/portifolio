@@ -1,10 +1,11 @@
 import { supabase } from './supabase-client.js';
 
 const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
 const errorMsg = document.getElementById('error-msg');
-const loginBtn = document.getElementById('login-btn');
 
 if (loginForm) {
+    const loginBtn = document.getElementById('login-btn');
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value;
@@ -12,7 +13,7 @@ if (loginForm) {
 
         loginBtn.disabled = true;
         loginBtn.textContent = 'Carregando...';
-        errorMsg.textContent = '';
+        if(errorMsg) errorMsg.textContent = '';
 
         const { data, error } = await supabase.auth.signInWithPassword({
             email,
@@ -20,11 +21,38 @@ if (loginForm) {
         });
 
         if (error) {
-            errorMsg.textContent = 'Erro ao fazer login: ' + error.message;
+            if(errorMsg) errorMsg.textContent = 'Erro ao fazer login: ' + error.message;
             loginBtn.disabled = false;
             loginBtn.textContent = 'Entrar';
         } else {
             window.location.href = 'dashboard.html';
+        }
+    });
+}
+
+if (signupForm) {
+    const signupBtn = document.getElementById('signup-btn');
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        signupBtn.disabled = true;
+        signupBtn.textContent = 'Criando...';
+        if(errorMsg) errorMsg.textContent = '';
+
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password
+        });
+
+        if (error) {
+            if(errorMsg) errorMsg.textContent = 'Erro ao criar conta: ' + error.message;
+            signupBtn.disabled = false;
+            signupBtn.textContent = 'Criar Conta';
+        } else {
+            alert('Conta criada com sucesso! Você já pode fazer login.');
+            window.location.href = 'login.html';
         }
     });
 }

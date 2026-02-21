@@ -168,7 +168,7 @@ async function loadSinglePost() {
         const processedData = processCustomTags(post.content || '');
 
         if (typeof marked !== 'undefined') {
-            contentElement.innerHTML = marked.parse(processedData);
+            contentElement.innerHTML = DOMPurify.sanitize(marked.parse(processedData), { ADD_TAGS: ['iframe'], ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] });
             enhanceCodeBlocks(contentElement);
         } else {
             contentElement.innerHTML = processedData;
@@ -234,7 +234,7 @@ async function loadSingleTutorial() {
             const processedData = processCustomTags(tutorial.content || '');
 
             if (typeof marked !== 'undefined') {
-                contentElement.innerHTML = marked.parse(processedData);
+                contentElement.innerHTML = DOMPurify.sanitize(marked.parse(processedData), { ADD_TAGS: ['iframe'], ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] });
                 enhanceCodeBlocks(contentElement);
             } else {
                 contentElement.innerHTML = processedData;

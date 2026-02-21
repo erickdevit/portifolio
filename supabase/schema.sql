@@ -47,3 +47,27 @@ create policy "Authors can update own posts" on public.posts for update using ( 
 create policy "Admins can update all posts" on public.posts for update using ( is_admin() );
 create policy "Authors can delete own posts" on public.posts for delete using ( auth.uid() = author_id );
 create policy "Admins can delete all posts" on public.posts for delete using ( is_admin() );
+
+-- Function to handle new user creation (auto profile + admin assignment)
+create or replace function public.handle_new_user()
+returns trigger as $$
+declare
+  is_admin boolean;
+begin
+  -- Check if any profiles exist
+  select count(*) = 0 into is_admin from public.profiles;
+
+  insert into public.profiles (id, username, role)
+  values (
+    new.id,
+    new.raw_user_meta_data->>'username',
+    case when is_admin then 'admin' else 'user' end
+  );
+  return new;
+end;
+$$ language plpgsql security definer;
+
+-- Trigger to call handle_new_user
+create or replace trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();

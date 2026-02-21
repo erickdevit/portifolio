@@ -174,8 +174,8 @@ function renderTable(container, posts, isAdminView) {
         }
 
         html += `<tr>
-            <td>${post.title}</td>
-            <td>${post.status}</td>
+            <td>${DOMPurify.sanitize(post.title)}</td>
+            <td>${DOMPurify.sanitize(post.status)}</td>
             <td>${date}</td>
             <td>${actions}</td>
         </tr>`;
