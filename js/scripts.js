@@ -105,6 +105,17 @@ if (closeTerminal && terminalOutput && terminalInput) {
     });
 }
 
+// Função para sanitizar HTML
+function sanitizeHTML(html) {
+    if (typeof DOMPurify !== 'undefined') {
+        return DOMPurify.sanitize(html, {
+            ADD_TAGS: ["iframe"],
+            ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling", "title", "src"]
+        });
+    }
+    return html;
+}
+
 // Lógica do Blog
 function loadBlogPosts() {
     const postsList = document.getElementById('posts-list');
@@ -137,10 +148,11 @@ function loadBlogPosts() {
                     .then(text => {
                         // Primeiro, converte o Markdown para HTML para a prévia
                         const html = marked.parse(text);
+                        const sanitizedHtml = sanitizeHTML(html);
 
                         const previewContainer = document.getElementById(`preview-${post.file.replace(/\W/g, '')}`);
                         const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = html;
+                        tempDiv.innerHTML = sanitizedHtml;
                         // Remove o conteúdo de blocos de código da prévia para não poluir
                         tempDiv.querySelectorAll('pre').forEach(pre => pre.remove());
                         const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
@@ -181,13 +193,14 @@ function loadSinglePost() {
                 const processedData = processCustomTags(data);
                 // Verifica se o arquivo é .md antes de processar com marked
                 if (postFile.endsWith('.md')) {
-                    contentElement.innerHTML = marked.parse(processedData);
+                    const html = marked.parse(processedData);
+                    contentElement.innerHTML = sanitizeHTML(html);
                     // Adiciona os botões de cópia aos blocos de código
                     enhanceCodeBlocks(contentElement);
                 } else {
                     // Para arquivos não-markdown, removemos o conteúdo de exemplo
                     // e podemos decidir o que mostrar.
-                    contentElement.innerHTML = processedData;
+                    contentElement.innerHTML = sanitizeHTML(processedData);
                 }
             })
             .catch(error => {
@@ -259,10 +272,11 @@ function loadTutorials() {
                     .then(text => {
                         // Primeiro, converte o Markdown para HTML para a prévia
                         const html = marked.parse(text);
+                        const sanitizedHtml = sanitizeHTML(html);
 
                         const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
                         const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = html;
+                        tempDiv.innerHTML = sanitizedHtml;
                         // Remove o conteúdo de blocos de código da prévia para não poluir
                         tempDiv.querySelectorAll('pre').forEach(pre => pre.remove());
                         const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
@@ -303,11 +317,12 @@ function loadSingleTutorial() {
                 const processedData = processCustomTags(data);
                 // Verifica se o arquivo é .md antes de processar com marked
                 if (tutorialFile.endsWith('.md')) {
-                    contentElement.innerHTML = marked.parse(processedData);
+                    const html = marked.parse(processedData);
+                    contentElement.innerHTML = sanitizeHTML(html);
                     // Adiciona os botões de cópia aos blocos de código
                     enhanceCodeBlocks(contentElement);
                 } else {
-                    contentElement.innerHTML = processedData;
+                    contentElement.innerHTML = sanitizeHTML(processedData);
                 }
             })
             .catch(error => {
@@ -374,8 +389,9 @@ function generatePreviewFromMarkdown(markdown, wordCount = 30) {
     if (typeof marked === 'undefined') return '';
 
     const html = marked.parse(markdown);
+    const sanitizedHtml = sanitizeHTML(html);
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
+    tempDiv.innerHTML = sanitizedHtml;
 
     // Remove elementos que não contribuem bem para uma prévia de texto
     tempDiv.querySelectorAll('pre, code, h1, h2, h3, h4, h5, h6, blockquote, img, table').forEach(el => el.remove());
