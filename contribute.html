@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Dev - Contribuir</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/erickport.png" type="image/png">
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <canvas id="white-theme-canvas"></canvas>
+
+    <!-- Topbar -->
+    <div id="topbar-placeholder"></div>
+
+    <!-- Conteúdo da Página -->
+    <div class="container">
+        <h1>[ CONTRIBUIR ]</h1>
+
+        <div class="section">
+            <h2>>> Sugira um Tópico</h2>
+            <p>Tem uma ideia legal para um post no blog? Compartilhe conosco!</p>
+            <form id="topic-form" class="contribute-form">
+                <div class="form-group">
+                    <label for="topic-name">Nome:</label>
+                    <input type="text" id="topic-name" name="name" required placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="topic-email">Email (opcional):</label>
+                    <input type="email" id="topic-email" name="email" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="topic-title">Tópico:</label>
+                    <input type="text" id="topic-title" name="topic" required placeholder="Título do tópico sugerido">
+                </div>
+                <div class="form-group">
+                    <label for="topic-details">Detalhes:</label>
+                    <textarea id="topic-details" name="details" required placeholder="Descreva sua ideia..." rows="5"></textarea>
+                </div>
+                <button type="submit">[ Enviar Sugestão ]</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>>> Envie um Tutorial</h2>
+            <p>Escreveu um tutorial bacana e quer vê-lo publicado aqui? Envie para nós!</p>
+            <form id="tutorial-form" class="contribute-form">
+                <div class="form-group">
+                    <label for="tutorial-name">Nome:</label>
+                    <input type="text" id="tutorial-name" name="name" required placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="tutorial-email">Email (opcional):</label>
+                    <input type="email" id="tutorial-email" name="email" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="tutorial-title">Título do Tutorial:</label>
+                    <input type="text" id="tutorial-title" name="title" required placeholder="Título do tutorial">
+                </div>
+                <div class="form-group">
+                    <label for="tutorial-content">Conteúdo ou Link:</label>
+                    <textarea id="tutorial-content" name="content" required placeholder="Cole o conteúdo ou o link para o tutorial..." rows="5"></textarea>
+                </div>
+                <button type="submit">[ Enviar Tutorial ]</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Terminal Popup -->
+    <div class="terminal-popup" id="terminal">
+        <div class="terminal-header">
+            <span>[ Terminal ]</span>
+            <span class="close-btn" id="close-terminal">[ X ]</span>
+        </div>
+        <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" placeholder="Digite um comando...">
+        </div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

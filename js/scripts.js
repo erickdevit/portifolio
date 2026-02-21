@@ -444,6 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSinglePost();
     loadTutorials();
     loadSingleTutorial();
+    initContributePage();
 });
 
 // Efeito Matrix no Background
@@ -550,4 +551,43 @@ if (whiteCanvas) {
     // Inicia a animação
     resizeCanvas();
     animate();
+}
+// Função para inicializar a página de contribuição
+function initContributePage() {
+    const topicForm = document.getElementById('topic-form');
+    const tutorialForm = document.getElementById('tutorial-form');
+
+    if (topicForm) {
+        topicForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('topic-name').value;
+            const email = document.getElementById('topic-email').value;
+            const topic = document.getElementById('topic-title').value;
+            const details = document.getElementById('topic-details').value;
+
+            const subject = encodeURIComponent(`Sugestão de Post: ${topic}`);
+            const body = encodeURIComponent(
+                `Nome: ${name}\nEmail: ${email}\n\nTópico: ${topic}\n\nDetalhes:\n${details}`
+            );
+
+            window.location.href = `mailto:erick@wornexs.com?subject=${subject}&body=${body}`;
+        });
+    }
+
+    if (tutorialForm) {
+        tutorialForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('tutorial-name').value;
+            const email = document.getElementById('tutorial-email').value;
+            const title = document.getElementById('tutorial-title').value;
+            const content = document.getElementById('tutorial-content').value;
+
+            const subject = encodeURIComponent(`Submissão de Tutorial: ${title}`);
+            const body = encodeURIComponent(
+                `Nome: ${name}\nEmail: ${email}\n\nTítulo do Tutorial: ${title}\n\nConteúdo/Link:\n${content}`
+            );
+
+            window.location.href = `mailto:erick@wornexs.com?subject=${subject}&body=${body}`;
+        });
+    }
 }
