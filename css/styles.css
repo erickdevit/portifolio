@@ -391,14 +391,27 @@ body.white-theme .terminal-header span {
 }
 
 .terminal-header .close-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
     color: #00FF00;
     cursor: pointer;
     font-size: 14px;
     transition: color 0.3s;
 }
 
+.terminal-header .close-btn:focus {
+    outline: 2px solid #00FF00;
+    outline-offset: 2px;
+}
+
 body.white-theme .terminal-header .close-btn {
     color: #000000;
+}
+
+body.white-theme .terminal-header .close-btn:focus {
+    outline-color: #000000;
 }
 
 .terminal-body {

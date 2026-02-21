@@ -1,3 +1,5 @@
+let lastFocusedElement = null;
+
 // Carregar Topbar
 fetch('components/topbar.html')
     .then(response => response.text())
@@ -35,6 +37,7 @@ fetch('components/topbar.html')
         const terminalBtn = document.getElementById('terminal-btn');
         terminalBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            lastFocusedElement = document.activeElement;
             terminalPopup.style.display = 'block';
             terminalInput.focus();
         });
@@ -59,6 +62,35 @@ const terminalInput = document.getElementById('terminal-input');
 if (closeTerminal && terminalOutput && terminalInput) {
     closeTerminal.addEventListener('click', () => {
         terminalPopup.style.display = 'none';
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+        }
+    });
+
+    // Handle Escape and Trap Focus
+    terminalPopup.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            terminalPopup.style.display = 'none';
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        if (e.key === 'Tab') {
+            const focusableContent = terminalPopup.querySelectorAll('button, input');
+            const firstFocusableElement = focusableContent[0];
+            const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
     });
 
     const commands = {

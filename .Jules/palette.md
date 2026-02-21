@@ -1,0 +1,3 @@
+## 2024-05-23 - Custom Modal Accessibility in Static Sites
+**Learning:** Implementing a custom modal (like the "Terminal") in a purely static site requires careful focus management (trap, escape, return) and manual duplication of HTML structure across pages if no templating engine is used. `aria-modal="true"` and `role="dialog"` are essential but insufficient without JS handling.
+**Action:** Always check all HTML files for duplicated components in static sites and ensure JS logic handles focus restoration correctly even when the trigger is inside a dynamically loaded component (like `topbar.html`).

@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    <canvas id="white-theme-canvas"></canvas>
+    <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+    <canvas id="white-theme-canvas" aria-hidden="true"></canvas>
 
     <!-- Placeholder para a Topbar -->
     <div id="topbar-placeholder"></div>
@@ -34,17 +34,17 @@
     </div>
 
     <!-- Terminal Popup -->
-    <div class="terminal-popup" id="terminal">
+    <div class="terminal-popup" id="terminal" role="dialog" aria-modal="true" aria-label="Terminal de comandos">
         <div class="terminal-header">
             <span>root@erickdev:~$</span>
-            <span class="close-btn" id="close-terminal">[X]</span>
+            <button class="close-btn" id="close-terminal" aria-label="Fechar terminal">[X]</button>
         </div>
         <div class="terminal-body" id="terminal-output">
             <p>Terminal iniciado. Digite 'help' para ver os comandos disponíveis.</p>
         </div>
         <div class="terminal-input">
             <span>$</span>
-            <input type="text" id="terminal-input" autofocus>
+            <input type="text" id="terminal-input" autofocus aria-label="Linha de comando">
         </div>
     </div>
 
