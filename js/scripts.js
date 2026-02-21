@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Efeito Matrix no Background
 const canvas = document.getElementById('matrix-canvas');
-if (canvas) {
+if (canvas && !document.body.classList.contains('no-matrix')) {
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
@@ -493,7 +493,7 @@ if (canvas) {
 
 // Efeito de partículas para o tema branco
 const whiteCanvas = document.getElementById('white-theme-canvas');
-if (whiteCanvas) {
+if (whiteCanvas && !document.body.classList.contains('no-matrix')) {
     const ctx = whiteCanvas.getContext('2d');
     let particles = [];
     let rainDrops = [];
