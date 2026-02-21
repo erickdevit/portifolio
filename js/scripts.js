@@ -253,21 +253,13 @@ function loadTutorials() {
                 `;
                 tutorialsList.appendChild(tutorialElement);
 
-                // Carregar a prévia do tutorial
-                fetch(tutorial.file)
-                    .then(res => res.text())
-                    .then(text => {
-                        // Primeiro, converte o Markdown para HTML para a prévia
-                        const html = marked.parse(text);
-
-                        const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = html;
-                        // Remove o conteúdo de blocos de código da prévia para não poluir
-                        tempDiv.querySelectorAll('pre').forEach(pre => pre.remove());
-                        const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
-                        previewContainer.textContent = previewText.replace(/\s+/g, ' ').trim();
-                    });
+                // Exibir a prévia do tutorial a partir do resumo no JSON
+                const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
+                if (tutorial.summary) {
+                    previewContainer.textContent = tutorial.summary;
+                } else {
+                    previewContainer.textContent = 'Clique para ler mais.';
+                }
             });
         })
         .catch(error => {

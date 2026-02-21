@@ -2,11 +2,13 @@
   {
     "file": "tutoriais/tutorial1.html",
     "title": "Como Instalar um Servidor Web Básico",
-    "date": "2025-10-16"
+    "date": "2025-10-16",
+    "summary": "Este é o conteúdo do primeiro tutorial sobre como instalar um servidor web básico. Em breve, mais detalhes aqui!"
   },
   {
     "file": "tutoriais/tutorial2.html",
     "title": "Introdução à Segurança de Redes",
-    "date": "2025-10-16"
+    "date": "2025-10-16",
+    "summary": "A segurança de redes é fundamental. Neste tutorial, vamos explorar os conceitos básicos para proteger sua infraestrutura. Fique ligado!"
   }
 ]
