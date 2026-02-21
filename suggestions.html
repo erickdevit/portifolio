@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Dev - Sugestões de Pauta</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/erickport.png" type="image/png">
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <canvas id="white-theme-canvas"></canvas>
+
+    <!-- Topbar -->
+    <div id="topbar-placeholder"></div>
+
+    <!-- Conteúdo da Página -->
+    <div class="container">
+        <h1>[ SUGESTÕES DA COMUNIDADE ]</h1>
+
+        <div class="section">
+            <p>Confira as sugestões de posts enviadas pela comunidade e envie a sua!</p>
+            <a href="suggest.html" class="action-btn">[ Nova Sugestão ]</a>
+        </div>
+
+        <div class="section" id="suggestions-list">
+            <!-- As sugestões serão carregadas aqui via JavaScript -->
+            <p>Carregando sugestões...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Terminal Popup -->
+    <div class="terminal-popup" id="terminal">
+        <div class="terminal-header">
+            <span>[ Terminal ]</span>
+            <span class="close-btn" id="close-terminal">[ X ]</span>
+        </div>
+        <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" placeholder="Digite um comando...">
+        </div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

@@ -740,3 +740,40 @@ body.white-theme .contribute-form button:hover {
     background-color: #000000;
     color: #FFFFFF;
 }
+
+/* --- Estilos para o Botão de Ação --- */
+.action-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid #00FF00;
+    color: #00FF00;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-bottom: 20px;
+}
+
+body.white-theme .action-btn {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.action-btn:hover {
+    background-color: #00FF00;
+    color: #000000;
+    text-decoration: none;
+}
+
+body.white-theme .action-btn:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+/* --- Estilos para os Cards de Sugestão --- */
+.suggestion-card {
+    border-style: dotted; /* Diferencia visualmente dos posts normais */
+}

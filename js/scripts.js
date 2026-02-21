@@ -445,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTutorials();
     loadSingleTutorial();
     initContributePage();
+    loadSuggestions();
 });
 
 // Efeito Matrix no Background
@@ -552,28 +553,53 @@ if (whiteCanvas) {
     resizeCanvas();
     animate();
 }
-// Função para inicializar a página de contribuição
-function initContributePage() {
-    const topicForm = document.getElementById('topic-form');
-    const tutorialForm = document.getElementById('tutorial-form');
+// Função para carregar as sugestões na página suggestions.html
+function loadSuggestions() {
+    const suggestionsList = document.getElementById('suggestions-list');
+    if (!suggestionsList) return;
 
-    if (topicForm) {
-        topicForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('topic-name').value;
-            const email = document.getElementById('topic-email').value;
-            const topic = document.getElementById('topic-title').value;
-            const details = document.getElementById('topic-details').value;
+    // Recupera as sugestões do localStorage
+    let suggestions = JSON.parse(localStorage.getItem('blog_suggestions')) || [];
 
-            const subject = encodeURIComponent(`Sugestão de Post: ${topic}`);
-            const body = encodeURIComponent(
-                `Nome: ${name}\nEmail: ${email}\n\nTópico: ${topic}\n\nDetalhes:\n${details}`
-            );
-
-            window.location.href = `mailto:erick@wornexs.com?subject=${subject}&body=${body}`;
-        });
+    // Se não houver sugestões, mostra uma mensagem
+    if (suggestions.length === 0) {
+        suggestionsList.innerHTML = '<p>Nenhuma sugestão enviada ainda. Seja o primeiro!</p>';
+        return;
     }
 
+    // Ordena por data (mais recente primeiro)
+    suggestions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Limpa o conteúdo de carregamento
+    suggestionsList.innerHTML = '';
+
+    // Renderiza cada sugestão
+    suggestions.forEach(suggestion => {
+        const suggestionCard = document.createElement('div');
+        suggestionCard.className = 'post suggestion-card'; // Reutiliza estilo .post
+
+        const formattedDate = new Date(suggestion.date).toLocaleDateString('pt-BR');
+
+        suggestionCard.innerHTML = `
+            <div class="post-header">
+                <h3>${suggestion.topic}</h3>
+                <div class="post-date">${formattedDate}</div>
+            </div>
+            <div style="font-size: 0.9em; margin-bottom: 5px; color: #00FF00;">
+                Sugerido por: <strong>${suggestion.nickname}</strong>
+            </div>
+            <div class="post-preview" style="white-space: pre-wrap;">${suggestion.details}</div>
+        `;
+        suggestionsList.appendChild(suggestionCard);
+    });
+}
+
+// Função para inicializar a página de contribuição e sugestão
+function initContributePage() {
+    const tutorialForm = document.getElementById('tutorial-form');
+    const suggestionForm = document.getElementById('suggestion-form');
+
+    // Lógica para envio de Tutorial (Email)
     if (tutorialForm) {
         tutorialForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -588,6 +614,33 @@ function initContributePage() {
             );
 
             window.location.href = `mailto:erick@wornexs.com?subject=${subject}&body=${body}`;
+        });
+    }
+
+    // Lógica para envio de Sugestão (LocalStorage)
+    if (suggestionForm) {
+        suggestionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nickname = document.getElementById('suggest-nickname').value;
+            const topic = document.getElementById('suggest-topic').value;
+            const details = document.getElementById('suggest-details').value;
+
+            if (nickname && topic && details) {
+                const newSuggestion = {
+                    nickname: nickname,
+                    topic: topic,
+                    details: details,
+                    date: new Date().toISOString()
+                };
+
+                // Recupera lista atual, adiciona e salva
+                let suggestions = JSON.parse(localStorage.getItem('blog_suggestions')) || [];
+                suggestions.push(newSuggestion);
+                localStorage.setItem('blog_suggestions', JSON.stringify(suggestions));
+
+                alert('Sugestão enviada com sucesso!');
+                window.location.href = 'suggestions.html';
+            }
         });
     }
 }
