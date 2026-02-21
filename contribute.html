@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Dev - Enviar Tutorial</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/erickport.png" type="image/png">
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <canvas id="white-theme-canvas"></canvas>
+
+    <!-- Topbar -->
+    <div id="topbar-placeholder"></div>
+
+    <!-- Conteúdo da Página -->
+    <div class="container">
+        <h1>[ ENVIAR TUTORIAL ]</h1>
+
+        <div class="section">
+            <h2>>> Compartilhe seu Conhecimento</h2>
+            <p>Escreveu um tutorial bacana e quer vê-lo publicado aqui? Envie para nós!</p>
+            <form id="tutorial-form" class="contribute-form">
+                <div class="form-group">
+                    <label for="tutorial-name">Nome:</label>
+                    <input type="text" id="tutorial-name" name="name" required placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="tutorial-email">Email (opcional):</label>
+                    <input type="email" id="tutorial-email" name="email" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="tutorial-title">Título do Tutorial:</label>
+                    <input type="text" id="tutorial-title" name="title" required placeholder="Título do tutorial">
+                </div>
+                <div class="form-group">
+                    <label for="tutorial-content">Conteúdo ou Link:</label>
+                    <textarea id="tutorial-content" name="content" required placeholder="Cole o conteúdo ou o link para o tutorial..." rows="5"></textarea>
+                </div>
+                <button type="submit">[ Enviar Tutorial ]</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Terminal Popup -->
+    <div class="terminal-popup" id="terminal">
+        <div class="terminal-header">
+            <span>[ Terminal ]</span>
+            <span class="close-btn" id="close-terminal">[ X ]</span>
+        </div>
+        <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" placeholder="Digite um comando...">
+        </div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

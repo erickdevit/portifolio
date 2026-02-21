@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Dev - Nova Sugestão</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/erickport.png" type="image/png">
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <canvas id="white-theme-canvas"></canvas>
+
+    <!-- Topbar -->
+    <div id="topbar-placeholder"></div>
+
+    <!-- Conteúdo da Página -->
+    <div class="container">
+        <h1>[ NOVA SUGESTÃO ]</h1>
+
+        <div class="section">
+            <p>O que você gostaria de ver no blog? Compartilhe sua ideia!</p>
+            <form id="suggestion-form" class="contribute-form">
+                <div class="form-group">
+                    <label for="suggest-nickname">Nickname:</label>
+                    <input type="text" id="suggest-nickname" name="nickname" required placeholder="Seu apelido">
+                </div>
+                <div class="form-group">
+                    <label for="suggest-topic">Tópico:</label>
+                    <input type="text" id="suggest-topic" name="topic" required placeholder="Título da sugestão">
+                </div>
+                <div class="form-group">
+                    <label for="suggest-details">Detalhes:</label>
+                    <textarea id="suggest-details" name="details" required placeholder="Descreva o que você gostaria de ler..." rows="5"></textarea>
+                </div>
+                <button type="submit">[ Enviar Sugestão ]</button>
+            </form>
+            <br>
+            <a href="suggestions.html" style="font-size: 0.9em;">[ < Voltar para a lista ]</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Terminal Popup -->
+    <div class="terminal-popup" id="terminal">
+        <div class="terminal-header">
+            <span>[ Terminal ]</span>
+            <span class="close-btn" id="close-terminal">[ X ]</span>
+        </div>
+        <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" placeholder="Digite um comando...">
+        </div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
