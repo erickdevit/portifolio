@@ -283,66 +283,6 @@ body.white-theme .post-preview {
     display: none; /* Esconde o elemento de áudio */
 }
 
-/* Estilo do Popup de Postagem */
-.post-popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    background-color: #000000;
-    border: 2px solid #00FF00;
-    padding: 15px;
-    z-index: 100;
-    box-shadow: 0 0 10px #00FF00;
-    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-
-body.white-theme .post-popup {
-    background-color: #FFFFFF;
-    border: 2px solid #000000;
-    box-shadow: 0 0 10px #000000;
-}
-
-.post-popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #00FF00;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    transition: border-color 0.3s;
-}
-
-body.white-theme .post-popup-header {
-    border-bottom: 1px solid #000000;
-}
-
-.post-popup-header h3 {
-    margin: 0;
-    font-size: 1em;
-}
-
-.post-popup-header .close-btn {
-    color: #00FF00;
-    cursor: pointer;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-
-body.white-theme .post-popup-header .close-btn {
-    color: #000000;
-}
-
-.post-popup-content {
-    font-size: 0.95em;
-    line-height: 1.4;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
 /* Estilo do Terminal Popup */
 .terminal-popup {
     display: none;
@@ -489,9 +429,6 @@ body.white-theme .terminal-input input {
     .post-preview {
         padding: 5px;
         margin-left: 5px;
-    }
-    .post-popup {
-        width: 90%;
     }
     .terminal-popup {
         width: 90%;
