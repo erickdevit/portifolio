@@ -255,9 +255,19 @@ body.white-theme .project-list span {
     float: right;
     width: min(46%, 400px);
     margin: 0 0 12px 22px;
-    shape-outside: url("../img/erickport.png");
-    shape-image-threshold: 0.08;
-    shape-margin: 10px;
+    shape-outside: polygon(
+        30% 0%,
+        70% 0%,
+        78% 36%,
+        72% 54%,
+        96% 65%,
+        100% 100%,
+        0% 100%,
+        4% 65%,
+        28% 54%,
+        22% 36%
+    );
+    shape-margin: 18px;
 }
 
 .profile-image {
