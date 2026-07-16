@@ -1,0 +1,11 @@
+{
+  "name": "erickdev-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-post-pages.mjs"
+  },
+  "devDependencies": {
+    "marked": "18.0.6"
+  }
+}

@@ -1,5 +1,5 @@
 // Carregar Topbar
-fetch('components/topbar.html')
+fetch('/components/topbar.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('topbar-placeholder').innerHTML = data;
@@ -7,7 +7,7 @@ fetch('components/topbar.html')
         // Verificar se estamos na página index.html e ocultar o link "Home"
         const homeLink = document.getElementById('home-link');
         const currentPath = window.location.pathname;
-        if (currentPath === '/' || currentPath.endsWith('index.html')) {
+        if (homeLink && (currentPath === '/' || currentPath.endsWith('index.html'))) {
             homeLink.style.display = 'none';
         }
 
@@ -42,7 +42,7 @@ fetch('components/topbar.html')
     .catch(error => console.error('Erro ao carregar a topbar:', error));
 
 // Carregar Footer
-fetch('components/footer.html')
+fetch('/components/footer.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('footer-placeholder').innerHTML = data;
@@ -115,21 +115,24 @@ function loadBlogPosts() {
         .then(posts => {
             // Ordenar posts por data (mais recente primeiro)
             posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            postsList.innerHTML = '';
 
             posts.forEach(post => {
-                const postElement = document.createElement('div');
+                const postElement = document.createElement('article');
                 postElement.className = 'post';
 
                 const formattedDate = new Date(post.date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
                 postElement.innerHTML = `
                     <div class="post-header">
-                        <h3><a href="post.html?file=${post.file}&title=${encodeURIComponent(post.title)}&date=${post.date}">${post.title}</a></h3>
+                        <h2><a href="${post.url || `post.html?file=${post.file}&title=${encodeURIComponent(post.title)}&date=${post.date}`}">${post.title}</a></h2>
                         <div class="post-date">${formattedDate}</div>
                     </div>
-                    <div class="post-preview" id="preview-${post.file.replace(/\W/g, '')}">Carregando prévia...</div>
+                    <div class="post-preview" id="preview-${post.file.replace(/\W/g, '')}">${post.description || 'Carregando prévia...'}</div>
                 `;
                 postsList.appendChild(postElement);
+
+                if (post.description) return;
 
                 // Carregar a prévia do post
                 fetch(post.file)
@@ -159,10 +162,27 @@ function loadSinglePost() {
     const postTitleElement = document.getElementById('post-title');
     if (!postTitleElement) return; // Só executa na página de post
 
+    const contentElement = document.getElementById('post-content');
+    if (document.body.dataset.staticPost === 'true') {
+        enhanceCodeBlocks(contentElement);
+        loadGiscus();
+        return;
+    }
+
     const params = new URLSearchParams(window.location.search);
     const postFile = params.get('file');
     const postTitle = params.get('title');
     const postDate = params.get('date');
+
+    const legacyPostUrls = {
+        'posts/post1.md': '/blog/do-zero-ao-hacker.html',
+        'posts/post2.md': '/blog/ambiente-de-desenvolvimento.html'
+    };
+
+    if (legacyPostUrls[postFile]) {
+        window.location.replace(legacyPostUrls[postFile]);
+        return;
+    }
 
     if (postFile && postTitle && postDate) {
         document.title = postTitle; // Atualiza o título da aba do navegador
@@ -172,8 +192,6 @@ function loadSinglePost() {
         fetch(postFile)
             .then(response => response.text())
             .then(data => {
-                const contentElement = document.getElementById('post-content');
-
                 // Gera a descrição e atualiza as meta tags para o preview de link
                 const description = generatePreviewFromMarkdown(data, 50);
                 updateMetaTags(postTitle, description);
@@ -202,8 +220,17 @@ function loadSinglePost() {
 
 // Função para adicionar botões de "Copiar" aos blocos de código
 function enhanceCodeBlocks(container) {
+    if (!container) return;
+
     const codeBlocks = container.querySelectorAll('pre');
     codeBlocks.forEach(pre => {
+        if (pre.parentElement?.classList.contains('code-block-wrapper')) return;
+
+        const code = pre.querySelector('code');
+        if (code && typeof hljs !== 'undefined' && !code.dataset.highlighted) {
+            hljs.highlightElement(code);
+        }
+
         // Cria um wrapper para posicionar o botão
         const wrapper = document.createElement('div');
         wrapper.className = 'code-block-wrapper';
@@ -216,8 +243,8 @@ function enhanceCodeBlocks(container) {
         wrapper.appendChild(copyButton);
 
         copyButton.addEventListener('click', () => {
-            const code = pre.querySelector('code').innerText;
-            navigator.clipboard.writeText(code).then(() => {
+            const codeText = pre.querySelector('code')?.innerText || pre.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
                 copyButton.textContent = 'Copiado!';
                 setTimeout(() => {
                     copyButton.textContent = 'Copiar';
@@ -239,14 +266,14 @@ function loadTutorials() {
             tutorials.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             tutorials.forEach(tutorial => {
-                const tutorialElement = document.createElement('div');
+                const tutorialElement = document.createElement('article');
                 tutorialElement.className = 'post'; // Reutilizando a classe .post
 
                 const formattedDate = new Date(tutorial.date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 
                 tutorialElement.innerHTML = `
                     <div class="post-header">
-                        <h3><a href="tutorial.html?file=${tutorial.file}&title=${encodeURIComponent(tutorial.title)}&date=${tutorial.date}">${tutorial.title}</a></h3>
+                        <h2><a href="tutorial.html?file=${tutorial.file}&title=${encodeURIComponent(tutorial.title)}&date=${tutorial.date}">${tutorial.title}</a></h2>
                         <div class="post-date">${formattedDate}</div>
                     </div>
                     <div class="post-preview" id="preview-${tutorial.file.replace(/\W/g, '')}">Carregando prévia...</div>
@@ -448,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Efeito Matrix no Background
 const canvas = document.getElementById('matrix-canvas');
-if (canvas) {
+if (canvas && getComputedStyle(canvas).display !== 'none') {
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
@@ -499,7 +526,7 @@ if (canvas) {
 
 // Efeito de partículas para o tema branco
 const whiteCanvas = document.getElementById('white-theme-canvas');
-if (whiteCanvas) {
+if (whiteCanvas && getComputedStyle(whiteCanvas).display !== 'none') {
     const ctx = whiteCanvas.getContext('2d');
     let particles = [];
     let rainDrops = [];

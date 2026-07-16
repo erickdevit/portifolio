@@ -2,11 +2,25 @@
   {
     "file": "posts/post2.md",
     "title": "Seu ambiente de desenvolvimento é onde tudo começa",
-    "date": "2026-07-16"
+    "seoTitle": "Ambiente de desenvolvimento: WSL, Bash, Git e Docker | Erick Dev",
+    "description": "Aprenda a montar um ambiente de desenvolvimento no Windows, macOS e Linux com WSL, Bash, editor, Git, Docker e uma estrutura simples para projetos.",
+    "slug": "ambiente-de-desenvolvimento",
+    "url": "/blog/ambiente-de-desenvolvimento.html",
+    "date": "2026-07-16",
+    "dateModified": "2026-07-16",
+    "section": "Ambiente de desenvolvimento",
+    "tags": ["ambiente de desenvolvimento", "WSL", "Bash", "Git", "Docker", "Linux", "Windows", "macOS"]
   },
   {
     "file": "posts/post1.md",
     "title": "Do zero ao Hacker, da forma correta!",
-    "date": "2025-10-18"
+    "seoTitle": "Do zero ao Hacker: os 6 pilares da programação | Erick Dev",
+    "description": "Um mapa em seis pilares para sair do zero e aprender programação com ambiente, Git, Python, hospedagem, redes e Docker, sem se perder no caminho.",
+    "slug": "do-zero-ao-hacker",
+    "url": "/blog/do-zero-ao-hacker.html",
+    "date": "2025-10-18",
+    "dateModified": "2025-10-18",
+    "section": "Programação",
+    "tags": ["programação", "Git", "Python", "Cloudflare", "redes", "Docker", "Linux"]
   }
 ]

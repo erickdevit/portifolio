@@ -2,10 +2,14 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     // Basic GSAP entry animations
-    gsap.from("h1", { opacity: 0, y: -20, duration: 0.8, ease: "power2.out", delay: 0.1 });
-    gsap.from(".ascii", { opacity: 0, scale: 0.9, duration: 0.8, ease: "power2.out", delay: 0.2 });
-    gsap.from(".marquee-text", { opacity: 0, x: -50, duration: 0.8, ease: "power2.out", delay: 0.3 });
-    gsap.from(".section", { opacity: 0, y: 30, duration: 0.8, ease: "power2.out", stagger: 0.2, delay: 0.4 });
+    const animateIfPresent = (selector, options) => {
+        if (document.querySelector(selector)) gsap.from(selector, options);
+    };
+
+    animateIfPresent("h1", { opacity: 0, y: -20, duration: 0.8, ease: "power2.out", delay: 0.1 });
+    animateIfPresent(".ascii", { opacity: 0, scale: 0.9, duration: 0.8, ease: "power2.out", delay: 0.2 });
+    animateIfPresent(".marquee-text", { opacity: 0, x: -50, duration: 0.8, ease: "power2.out", delay: 0.3 });
+    animateIfPresent(".section", { opacity: 0, y: 30, duration: 0.8, ease: "power2.out", stagger: 0.2, delay: 0.4 });
 
     // Micro-interactions for buttons and links
     const topbarLinks = document.querySelectorAll(".menu a, .theme-toggle-btn");
@@ -81,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Animate Posts and Tutorials dynamically loaded
     // We observe the containers
     const postsList = document.getElementById("posts-list");
-    const tutorialsList = document.getElementById("tutoriais-list");
+    const tutorialsList = document.getElementById("tutorials-list");
 
     const observeList = (list) => {
         if(list) {

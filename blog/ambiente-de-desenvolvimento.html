@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambiente de desenvolvimento: WSL, Bash, Git e Docker | Erick Dev</title>
+    <meta name="description" content="Aprenda a montar um ambiente de desenvolvimento no Windows, macOS e Linux com WSL, Bash, editor, Git, Docker e uma estrutura simples para projetos.">
+    <meta name="author" content="Erick Dev">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://erickdev.it/blog/ambiente-de-desenvolvimento.html">
+    <link rel="alternate" type="application/rss+xml" title="Blog do Erick Dev" href="https://erickdev.it/feed.xml">
+
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Erick Dev">
+    <meta property="og:url" content="https://erickdev.it/blog/ambiente-de-desenvolvimento.html">
+    <meta property="og:title" content="Ambiente de desenvolvimento: WSL, Bash, Git e Docker | Erick Dev">
+    <meta property="og:description" content="Aprenda a montar um ambiente de desenvolvimento no Windows, macOS e Linux com WSL, Bash, editor, Git, Docker e uma estrutura simples para projetos.">
+    <meta property="og:image" content="https://erickdev.it/img/erickportifolio.png">
+    <meta property="og:image:secure_url" content="https://erickdev.it/img/erickportifolio.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:image:alt" content="Erick Dev em uma composição visual escura com código ao fundo">
+    <meta property="article:published_time" content="2026-07-16T09:00:00-03:00">
+    <meta property="article:modified_time" content="2026-07-16T09:00:00-03:00">
+    <meta property="article:author" content="https://erickdev.it/#erick-dev">
+    <meta property="article:section" content="Ambiente de desenvolvimento">
+    <meta property="article:tag" content="ambiente de desenvolvimento">
+    <meta property="article:tag" content="WSL">
+    <meta property="article:tag" content="Bash">
+    <meta property="article:tag" content="Git">
+    <meta property="article:tag" content="Docker">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Windows">
+    <meta property="article:tag" content="macOS">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ambiente de desenvolvimento: WSL, Bash, Git e Docker | Erick Dev">
+    <meta name="twitter:description" content="Aprenda a montar um ambiente de desenvolvimento no Windows, macOS e Linux com WSL, Bash, editor, Git, Docker e uma estrutura simples para projetos.">
+    <meta name="twitter:image" content="https://erickdev.it/img/erickportifolio.png">
+    <meta name="twitter:image:alt" content="Erick Dev em uma composição visual escura com código ao fundo">
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://erickdev.it/blog/ambiente-de-desenvolvimento.html#article","mainEntityOfPage":"https://erickdev.it/blog/ambiente-de-desenvolvimento.html","headline":"Seu ambiente de desenvolvimento é onde tudo começa","description":"Aprenda a montar um ambiente de desenvolvimento no Windows, macOS e Linux com WSL, Bash, editor, Git, Docker e uma estrutura simples para projetos.","image":{"@type":"ImageObject","url":"https://erickdev.it/img/erickportifolio.png","width":1920,"height":1080},"datePublished":"2026-07-16T09:00:00-03:00","dateModified":"2026-07-16T09:00:00-03:00","inLanguage":"pt-BR","articleSection":"Ambiente de desenvolvimento","keywords":["ambiente de desenvolvimento","WSL","Bash","Git","Docker","Linux","Windows","macOS"],"author":{"@type":"Person","@id":"https://erickdev.it/#erick-dev","name":"Erick Dev","url":"https://erickdev.it/"},"publisher":{"@id":"https://erickdev.it/#erick-dev"},"isPartOf":{"@type":"Blog","@id":"https://erickdev.it/blog.html#blog","name":"Blog do Erick Dev","url":"https://erickdev.it/blog.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Erick Dev","item":"https://erickdev.it/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://erickdev.it/blog.html"},{"@type":"ListItem","position":3,"name":"Seu ambiente de desenvolvimento é onde tudo começa","item":"https://erickdev.it/blog/ambiente-de-desenvolvimento.html"}]}]}</script>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/erickport.png" type="image/png">
+    <link rel="apple-touch-icon" href="/img/erickport.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+<body class="post-page" data-static-post="true">
+    <canvas id="matrix-canvas"></canvas>
+    <canvas id="white-theme-canvas"></canvas>
+    <div id="topbar-placeholder"></div>
+
+    <main class="container">
+        <article class="post-full">
+            <header class="post-full-header">
+                <h1 id="post-title">Seu ambiente de desenvolvimento é onde tudo começa</h1>
+                <div class="post-date">Por <a href="/">Erick Dev</a> · <time id="post-date" datetime="2026-07-16">16 de julho de 2026</time></div>
+            </header>
+            <section class="post-full-content" id="post-content">
+<hr>
+<p>Bom, no <a href="/blog/do-zero-ao-hacker.html">post anterior</a> eu apresentei os seis pilares que considero fundamentais para sair do absoluto zero e chegar ao ponto de criar soluções de verdade. Agora vamos parar de olhar o mapa inteiro e colocar o pé na primeira parte da trilha: montar nosso ambiente de desenvolvimento, da forma mais simples possível e sem transformar isso em uma aventura desnecessária.</p>
+<p>Talvez isso pareça apenas uma preparação para começar a programar, aquela etapa chata em que instalamos algumas coisas, escolhemos um editor e seguimos em frente. Mas não é. <strong>Montar seu ambiente já é começar a programar.</strong> É nele que você vai escrever, errar, apagar, testar, quebrar e entender tudo aquilo que antes existia somente na sua cabeça.</p>
+<p>No post anterior contei que escrevia HTML em um caderno porque ainda não tinha um computador, e aquilo era literalmente todo o ambiente de desenvolvimento disponível para mim. Não tinha como executar, não tinha como descobrir se uma tag estava errada e nem mesmo como ver a página horrorosa que eu provavelmente estava criando. Ainda assim eu fazia. Não estou falando que você precisa aprender da forma mais difícil, seria uma grande besteira romantizar aquela falta de recursos. O que quero deixar claro é que esperar pelo ambiente perfeito pode te atrasar muito mais do que começar com aquilo que você tem agora.</p>
+<p>E é exatamente isso que construiremos agora.</p>
+<h2>Seu ambiente não precisa impressionar ninguém</h2>
+<p>Uma das primeiras distrações de quem começa é acreditar que precisa ter o computador mais forte, a distribuição Linux mais bonita, um teclado que pisca até o teto e aquele terminal transparente cheio de informações que ninguém realmente lê. Você abre um vídeo de programação e antes de aprender a criar uma variável já está pesquisando qual tema deixa o VS Code mais parecido com uma nave espacial. Quando percebe, perdeu o tempo que usaria para aprender configurando algo que nem sabe para que serve.</p>
+<p>Eu entendo. Deixar o nosso espaço com a nossa cara é legal e faz parte da experiência. O problema começa quando a personalização toma o lugar da prática. Você passa três dias escolhendo fonte, tema, ícones, shell, prompt e atalhos, mas ainda não executou uma única linha de código.</p>
+<p>Então vamos deixar uma coisa bem definida desde o início: seu ambiente precisa permitir que você tenha uma ideia e consiga testá-la sem lutar contra a própria máquina. É isso. Se toda vez que for estudar você precisar corrigir o editor, atualizar cinco plugins e descobrir por que seu terminal deixou de funcionar, tem alguma coisa muito errada nessa montagem.</p>
+<p>Se você tem um computador com Windows, use o Windows. Se já usa Linux, continue no Linux. Se tem um Mac, use o macOS e não ache que precisa instalar outro sistema para acompanhar essa jornada. Se a única coisa disponível agora é um computador antigo, use esse computador antigo. A ferramenta que está nas suas mãos hoje é infinitamente mais útil do que a ferramenta perfeita que você pretende ter algum dia.</p>
+<h2>O que realmente forma um ambiente de desenvolvimento?</h2>
+<p>Quando falamos em ambiente, não estamos falando de um único programa. Estamos falando do conjunto mínimo de ferramentas que permite criar e executar aquilo que você está aprendendo. Para começar, precisamos de quatro coisas:</p>
+<ul>
+<li><strong>Um sistema operacional funcionando e que você já saiba usar no dia a dia</strong></li>
+<li><strong>Um terminal para conversar diretamente com o sistema</strong></li>
+<li><strong>Um editor para escrever seus arquivos</strong></li>
+<li><strong>Uma pasta organizada para guardar seus projetos</strong></li>
+</ul>
+<p>Sim, apenas isso. Python, Git e Docker vão entrar nessa estrutura agora, mas Git e Docker terão seus próprios momentos de atenção nos próximos pilares. Por enquanto, vamos instalar e testar tudo, sem tentar dominar ferramentas que ainda nem começamos a usar.</p>
+<p>Você não precisa começar configurando banco de dados, servidor web, cinco versões de Node e quarenta extensões no editor. Vamos deixar Python, Git e Docker preparados porque eles fazem parte da base que seguiremos, mas não vamos sair ativando tudo que aparecer pela frente. Isso só criaria quarenta novas formas de algo dar errado sem que você saiba o motivo.</p>
+<p>Comece pequeno. Entenda cada peça que está colocando na sua bancada. Depois nós aumentamos essa bancada juntos.</p>
+<h2>Windows, macOS ou Linux?</h2>
+<p>Essa pergunta já me fez perder muito tempo no passado e provavelmente vai fazer você perder também se não tomar cuidado. Meu primeiro contato com um computador foi em um laboratório usando Ubuntu, quando eu ainda queria encontrar o tal Windows sobre o qual tinha lido. Eu vi aquele nome estranho, abri o Firefox, encontrei um monte de coisa em inglês e desisti. Naquele momento fiquei triste de verdade, pois achei que não poderia colocar meu HTML em prática só porque o sistema não era o que aparecia no livro. Mais à frente, meu primeiro computador veio com Windows XP e foi nele que finalmente executei aquele HTML que havia praticado tantas vezes no caderno.</p>
+<p>O sistema era diferente, mas o HTML continuaria funcionando. Eu só não sabia disso ainda. Hoje gosto muito de Linux, trabalho com ele e minha escolha pessoal seria Linux com toda certeza. Aprender seu funcionamento vai abrir possibilidades enormes na sua vida, principalmente quando chegarmos aos servidores. Mas não transforme minha preferência em uma obrigação sua logo no primeiro dia. Windows, macOS e Linux são totalmente capazes de nos levar por essa jornada. Trocar de sistema sem ainda saber diferenciar um problema do código de um problema do ambiente pode colocar uma dificuldade totalmente desnecessária no caminho.</p>
+<p>Minha recomendação será bem direta:</p>
+<ul>
+<li>Se você já usa <strong>Windows</strong>, continue no Windows, mas vamos preparar o WSL com Ubuntu para termos Bash de verdade.</li>
+<li>Se você já usa <strong>macOS</strong>, comece com macOS e o Terminal.</li>
+<li>Se você já usa <strong>Linux</strong>, continue na sua distribuição atual e use o terminal dela ou aquele que você já prefere.</li>
+</ul>
+<p>Agora, se você quer aproveitar essa jornada para experimentar Linux, recomendo Ubuntu. Ele entrega uma experiência simples, tem muita documentação e dificilmente vai fazer você passar a primeira semana tentando descobrir por que o Wi-Fi virou um conceito abstrato. Quer ir para um lado um pouco mais diferente? Você também pode testar o <a href="https://omybuntu.com">Omybuntu</a>, minha própria distribuição baseada no Ubuntu e focada em um ambiente bonito e pronto para desenvolvimento. Ela já está disponível em alfa, então pode usar, testar e até reclamar diretamente com o culpado, que no caso sou eu mesmo. Mas alfa é alfa: teste primeiro em uma máquina virtual ou computador secundário e mantenha backup dos seus arquivos antes de pensar em usar como sistema principal. Não quero que nossa primeira conversa seja você me perguntando onde foi parar a pasta Documentos.</p>
+<h2>Windows: preparando o WSL com Ubuntu</h2>
+<p>No Windows, vamos usar o WSL 2 porque precisaremos do Bash e de ferramentas que nasceram no Linux. WSL significa <strong>Windows Subsystem for Linux</strong>, ou Subsistema do Windows para Linux. O nome parece coisa criada para assustar gente normal, mas a ideia é bem simples: ele permite executar um ambiente Linux dentro do Windows, lado a lado com seus programas de sempre, sem formatar o computador e sem fazer dual boot.</p>
+<p>Sim, é isso mesmo: para deixar nosso Windows pronto, uma das primeiras coisas que faremos será colocar um Linux dentro dele. Como alguém que prefere Linux, eu jamais perderia a oportunidade de observar que isso parece o Windows admitindo bem baixinho que às vezes precisa pedir ajuda ao vizinho. Não se preocupe, ele continuará sendo Windows por fora; só vamos dar a ele um pequeno coração de pinguim para as tarefas mais interessantes.</p>
+<p>Mas não transforme minha provocação em mais uma daquelas guerras inúteis de sistema operacional. Eu poderia simplesmente mandar você formatar tudo e instalar Linux, claramente seria tentador, mas isso iria contra o ponto principal deste post: seu sistema base não define sua capacidade. O WSL existe justamente para juntar os dois mundos. Você mantém as ferramentas e a familiaridade do Windows enquanto usa o Bash e o ambiente Linux onde eles fazem mais sentido. No final, o que importa é ter uma estrutura que funcione e permita colocar a mão na massa.</p>
+<p>Dual boot seria dividir o computador entre dois sistemas e escolher um deles toda vez que ele liga. No WSL você não precisa reiniciar para sair do Windows e entrar no Linux. O Windows continua sendo seu sistema principal, com navegador, arquivos e aplicativos normalmente, enquanto o Ubuntu abre em uma janela como qualquer outro programa. Por baixo disso, o WSL 2 usa uma máquina virtual leve com um kernel Linux real. Esse kernel é o coração do sistema, a parte que conversa com processador, memória, discos e processos. É justamente por ter esse Linux real nos bastidores que comandos, programas e serviços funcionam de forma muito parecida com um servidor Ubuntu.</p>
+<p>Isso é importante porque grande parte da internet roda em Linux. Quando você aprende Bash, Python, Git e Docker dentro do Ubuntu no WSL, não está brincando em uma imitação estranha do terminal. Está usando praticamente as mesmas ferramentas que encontrará em servidores, clouds e pipelines de automação. Assim você continua com a praticidade do Windows, mas ganha um pedacinho muito poderoso do mundo Linux sem precisar sacrificar sua instalação inteira aos deuses do particionamento.</p>
+<p>Abra o PowerShell como administrador e execute:</p>
+<pre><code class="language-powershell">wsl --install -d Ubuntu
+</code></pre>
+<p>Reinicie o computador quando o Windows pedir. Na primeira vez que abrir o Ubuntu pelo menu Iniciar, ele solicitará um nome de usuário e uma senha. A senha não mostra bolinhas, asteriscos e nem sinal de vida enquanto você digita, mas está funcionando. Isso já assustou muita gente, então confie nos seus dedos e pressione Enter.</p>
+<p>Depois volte ao PowerShell e confira se o Ubuntu está usando WSL 2:</p>
+<pre><code class="language-powershell">wsl --update
+wsl --list --verbose
+</code></pre>
+<p>Se a coluna <code>VERSION</code> do Ubuntu mostrar <code>1</code>, corrija com:</p>
+<pre><code class="language-powershell">wsl --set-version Ubuntu 2
+</code></pre>
+<p>Abra novamente o Ubuntu e atualize o sistema:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt upgrade -y
+</code></pre>
+<p>Vamos entender esse comando antes de fingir que <code>sudo apt alguma-coisa</code> é um feitiço. <code>sudo</code> executa uma ação com permissão de administrador e por isso pode pedir a senha que você criou no Ubuntu. Use com cuidado, pois o sistema vai acreditar que você sabe o que está fazendo, mesmo quando claramente ainda estamos descobrindo. <code>apt update</code> atualiza a lista de programas e versões disponíveis; ele não atualiza tudo sozinho. Depois, <code>apt upgrade -y</code> instala as atualizações encontradas, e o <code>-y</code> responde “sim” automaticamente às confirmações.</p>
+<p>As versões atuais do Ubuntu instaladas pelo WSL já usam <code>systemd</code>, que mais à frente manterá o serviço do Docker funcionando. Confirme com <code>systemctl status</code>. Se o comando informar que o sistema não iniciou com <code>systemd</code>, abra o arquivo de configuração:</p>
+<pre><code class="language-bash">sudo nano /etc/wsl.conf
+</code></pre>
+<p>Adicione estas linhas:</p>
+<pre><code class="language-ini">[boot]
+systemd=true
+</code></pre>
+<p>No Nano, pressione <code>Ctrl + O</code> e Enter para salvar, depois <code>Ctrl + X</code> para sair. Feche o Ubuntu, abra o PowerShell e reinicie completamente o WSL:</p>
+<pre><code class="language-powershell">wsl --shutdown
+</code></pre>
+<p>Abra o Ubuntu novamente e repita <code>systemctl status</code>. Agora ele deve mostrar o sistema em execução.</p>
+<p>Esse <code>systemd</code> também merece uma tradução. Ele é o gerenciador que inicia e acompanha serviços do Linux. Um serviço é um programa que fica funcionando nos bastidores, sem precisar de uma janela aberta. O Docker Engine será um desses serviços. Quando usamos <code>systemctl status</code>, estamos perguntando se esse gerenciador está vivo e cuidando corretamente do que precisa rodar no sistema.</p>
+<p>Pronto. Sempre que eu falar em terminal no Windows daqui para frente, abra o Ubuntu pelo menu Iniciar ou pelo perfil Ubuntu do Windows Terminal. O PowerShell continuará útil, mas nossos comandos de programação e Shell Script serão executados dentro do Bash no WSL.</p>
+<p>Também guarde seus projetos dentro do próprio Ubuntu, em uma pasta como <code>~/projetos</code>. O símbolo <code>~</code> representa a pasta pessoal do seu usuário Linux. O WSL consegue acessar o disco do Windows em caminhos como <code>/mnt/c</code>, mas trabalhar diretamente ali pode trazer diferenças de permissão e desempenho. Para nossos projetos, códigos e containers, deixe tudo na casa do Linux e acesse esses arquivos pelo VS Code com a extensão WSL. Menos caminhos estranhos, menos problemas estranhos.</p>
+<p>Não formate sua máquina porque alguém disse que programador de verdade usa determinada distribuição. O sistema operacional é uma ferramenta, não um certificado dizendo se você é ou não capaz de programar. Então não entre nessa briga agora.</p>
+<h2>O terminal não é um monstro</h2>
+<p>O terminal costuma assustar porque ele não mostra botões explicando o que deve ser feito. Você encontra uma tela vazia, um cursor piscando e a impressão de que qualquer comando errado vai fazer o computador explodir. Fique tranquilo, ele é muito menos dramático do que parece.</p>
+<p>Pense no terminal como uma conversa mais direta com o seu sistema. Em vez de abrir uma pasta clicando duas vezes nela, você escreve o comando para entrar. Em vez de clicar em &quot;Nova pasta&quot;, você pede que ele crie uma. A diferença é que essas ações podem ser repetidas, documentadas e automatizadas, algo que vai se tornar muito poderoso mais à frente.</p>
+<p>Mas existe uma diferença importante que quase ninguém explica no começo: <strong>terminal e Bash não são a mesma coisa</strong>. O terminal é a janela onde a conversa acontece. O Bash é o intérprete que fica dentro dela, recebendo o texto que você digitou, entendendo o comando e pedindo ao sistema para executar aquilo. Pense no terminal como a tela de um chat e no Bash como a pessoa do outro lado lendo e respondendo suas mensagens. Sem o intérprete, aquela janela seria só um retângulo bonito esperando alguma coisa acontecer.</p>
+<p>Bash significa <strong>Bourne Again Shell</strong>, uma brincadeira com o nome de um shell mais antigo chamado Bourne Shell. Um <em>shell</em> é justamente esse interpretador de comandos. Bash não serve apenas para digitar <code>ls</code> e se sentir um hacker olhando uma lista de pastas. Ele também é uma linguagem de programação. Podemos colocar vários comandos dentro de um arquivo, criar condições, repetições, funções e automatizar tarefas que seriam extremamente chatas de fazer uma por uma.</p>
+<p>É aí que mora sua importância. Com Bash você pode preparar um servidor, instalar dependências, organizar arquivos, fazer backups, iniciar aplicações, executar testes e automatizar um deploy inteiro. Muitos processos de Git, Docker, servidores e CI/CD acabam passando por comandos de shell em algum momento. Você não precisa decorar centenas deles agora, mas precisa perder o medo dessa tela, pois ela vai aparecer muitas vezes na nossa caminhada.</p>
+<p>No Windows, abra o Ubuntu do WSL. No macOS, abra o aplicativo Terminal e execute <code>bash</code> para entrar no Bash. No Linux, use o terminal da sua distribuição ou qualquer outro da sua preferência. O importante é confirmar que o Bash está disponível:</p>
+<pre><code class="language-bash">bash --version
+</code></pre>
+<p>No Ubuntu do WSL ele já estará pronto. No macOS o Bash também já vem disponível, mesmo que o shell padrão seja o Zsh. A versão incluída pela Apple costuma ser a antiga 3.2, mas todos os comandos desta etapa funcionam nela; quando aprofundarmos nossos conhecimentos em Shell Script, veremos se precisamos instalar uma versão mais atual. No Linux, caso sua distribuição não traga Bash por padrão, instale o pacote <code>bash</code> pelo gerenciador dela. Agora descubra em qual pasta você está:</p>
+<pre><code class="language-bash">pwd
+</code></pre>
+<p>Liste o que existe nela:</p>
+<pre><code class="language-bash">ls
+</code></pre>
+<p>Crie a pasta onde ficarão nossos estudos e entre nela:</p>
+<pre><code class="language-bash">mkdir projetos
+cd projetos
+</code></pre>
+<p>Esses comandos funcionam no Bash do WSL, no macOS e no Linux. Não tente decorar tudo de uma vez. Use, erre, consulte e use de novo. Em pouco tempo seus dedos vão lembrar antes mesmo de você pensar.</p>
+<p>Observe também o formato dos comandos. Em <code>mkdir projetos</code>, <code>mkdir</code> é o programa que cria uma pasta e <code>projetos</code> é o argumento, ou seja, a informação que entregamos para ele trabalhar. Em <code>apt upgrade -y</code>, o <code>-y</code> é uma opção que modifica o comportamento do comando. Programa, argumentos e opções: você encontrará essa mesma estrutura muitas vezes, mesmo quando os nomes mudarem completamente.</p>
+<p>Antes de abrir nosso primeiro projeto, escolha seu editor. Pode ser VS Code, Neovim ou qualquer outro da sua preferência. Eu vou usar o VS Code nos exemplos por ser uma experiência bem simples para quem está começando, mas se você já vive feliz dentro do Neovim não serei eu quem vai tentar te tirar de lá.</p>
+<p>Se for acompanhar com ele, instale o <a href="https://code.visualstudio.com/Download">VS Code pelo site oficial</a>, escolhendo a versão do seu sistema. No Windows, siga o instalador e adicione a extensão <strong>WSL</strong> para abrir diretamente as pastas do Ubuntu. No macOS, abra o arquivo baixado e mova o Visual Studio Code para a pasta <code>Applications</code>. No Linux, use o pacote indicado para sua distribuição. Abra o editor pelo menos uma vez e instale somente a extensão oficial do Python, nada de sair enchendo ele de coisas agora.</p>
+<h2>Uma casa para cada projeto</h2>
+<p>Organização parece uma preocupação pequena quando temos apenas um arquivo chamado <code>teste.py</code>. O problema aparece quando começamos a ter <code>teste2.py</code>, <code>teste_agora_vai.py</code>, <code>teste_final.py</code> e o clássico <code>teste_final_certo_agora.py</code> espalhados pela Área de Trabalho.</p>
+<p>Não faça isso com você mesmo.</p>
+<p>Dentro da pasta <code>projetos</code>, cada ideia deve ter sua própria casa. Vamos criar a primeira:</p>
+<pre><code class="language-bash">mkdir primeiro-ambiente
+cd primeiro-ambiente
+</code></pre>
+<p>Use nomes simples, sem espaços e que expliquem o que existe ali. Não precisa criar uma arquitetura de empresa para guardar um Hello World, mas também não jogue tudo no mesmo lugar. Essa pequena disciplina vai facilitar o uso do Git, dos ambientes virtuais, do Docker e de praticamente tudo que aprenderemos depois.</p>
+<p>Agora abra exatamente essa pasta no editor escolhido. No VS Code:</p>
+<pre><code class="language-bash">code .
+</code></pre>
+<p>No Neovim:</p>
+<pre><code class="language-bash">nvim .
+</code></pre>
+<p>O ponto no final significa &quot;a pasta em que estou agora&quot;. No Windows com WSL e no Linux, a instalação do VS Code normalmente já deixa o comando <code>code</code> disponível. No macOS, abra o VS Code, pressione <code>Command + Shift + P</code> e execute <strong>Shell Command: Install &#39;code&#39; command in PATH</strong>. Se o comando ainda não funcionar, não entre em pânico e nem reinstale tudo imediatamente. Abra seu editor normalmente e selecione a pasta <code>primeiro-ambiente</code>; depois podemos corrigir o comando com calma.</p>
+<p>Olha só o que já aconteceu: você abriu o terminal, navegou pelo sistema, criou uma estrutura organizada e entregou uma pasta inteira para o editor. Talvez ainda não pareça programação, mas você já começou a pensar como alguém que controla o próprio ambiente.</p>
+<h2>Instale somente o necessário</h2>
+<p>Para seguir esta jornada, minha escolha continua sendo Python. No Windows, vamos instalar o Python dentro do Ubuntu no WSL, pois é ali que nosso ambiente de desenvolvimento vai viver. Use os mesmos comandos de Ubuntu que estão logo abaixo.</p>
+<p>No macOS, use o <a href="https://www.python.org/downloads/macos/">instalador oficial para Mac</a>, abra o arquivo <code>.pkg</code> e conclua a instalação normalmente. O macOS pode até trazer alguma coisa relacionada a Python no sistema, mas não vamos depender disso. A versão que instalamos será chamada pelo comando <code>python3</code>.</p>
+<p>No Linux, não saia baixando e substituindo o Python do sistema na unha, pois muitas distribuições usam ele em ferramentas internas e você pode criar um problema bem maior do que nosso Hello World. Primeiro verifique se <code>python3</code> já existe. Se não existir, instale pelo gerenciador de pacotes da sua distribuição. Em Debian e Ubuntu, por exemplo:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install python3
+</code></pre>
+<p>Depois da instalação, volte ao terminal e verifique. Como nosso Windows também está usando o Ubuntu no WSL, o comando será o mesmo nos três sistemas:</p>
+<pre><code class="language-bash">python3 --version
+</code></pre>
+<p>Você deve receber algo parecido com <code>Python 3.x.x</code>. O número exato pode ser diferente e está tudo bem. O importante aqui é entender o teste: nós fizemos uma pergunta ao sistema e ele respondeu qual versão consegue executar.</p>
+<p>Agora vamos preparar o Git, nosso segundo pilar. Git é um sistema de controle de versão: uma ferramenta que registra como os arquivos de um projeto mudam ao longo do tempo. Gosto de pensar nele como uma máquina do tempo onde você mesmo decide quais momentos merecem virar um ponto seguro. Fez algo funcionar? Cria um checkpoint. Tentou uma ideia e transformou seu projeto em uma criatura irreconhecível? Volta para um checkpoint anterior e respira.</p>
+<p>Git e GitHub não são a mesma coisa. O Git é o programa que funciona na sua máquina, inclusive sem internet. GitHub, GitLab e Gitea são serviços onde você pode guardar uma cópia remota do repositório e colaborar com outras pessoas. Você pode usar Git sem GitHub, da mesma forma que pode escrever um documento sem colocar ele no Google Drive. Misturar os dois no começo é muito comum, mas agora você já não tem mais essa desculpa.</p>
+<p>Quando uma pasta passa a ser controlada pelo Git, ela vira um <strong>repositório</strong>. Dentro dela, o Git guarda o histórico e algumas informações em uma pasta escondida chamada <code>.git</code>. Seus arquivos passam por quatro estados principais:</p>
+<ol>
+<li><strong>Não rastreado:</strong> o arquivo é novo e o Git ainda não começou a acompanhar suas mudanças.</li>
+<li><strong>Modificado:</strong> o arquivo já era acompanhado, mas foi alterado desde o último commit.</li>
+<li><strong>Preparado:</strong> você escolheu quais alterações farão parte do próximo checkpoint. Essa área de preparação também é chamada de <em>staging area</em>.</li>
+<li><strong>Commitado:</strong> o checkpoint foi criado e entrou no histórico local do projeto.</li>
+</ol>
+<p>Depois de concluirmos a instalação e criarmos nosso primeiro arquivo, vamos executar esse fluxo sem pular etapas. <code>git init</code> transformará a pasta atual em um repositório, <code>git status</code> mostrará o estado dos arquivos, <code>git add</code> levará as alterações escolhidas para a área de preparação e <code>git commit</code> criará nosso checkpoint. Não execute ainda, pois o arquivo que colocaremos no histórico será criado em alguns minutos.</p>
+<p>Um <strong>commit</strong> não é simplesmente apertar “salvar”. Salvar escreve o arquivo atual no disco; o commit registra um estado do projeto com uma mensagem explicando o que mudou. Por isso mensagens como <code>coisas</code>, <code>teste</code> ou <code>agora vai</code> são péssimas. No futuro você vai olhar para aquilo e não fará ideia do que sua versão do passado estava pensando. Escreva algo que ajude, como <code>adiciona validação do formulário</code>.</p>
+<p>A importância do Git não está apenas em recuperar arquivos apagados. Ele permite comparar mudanças, descobrir quando um problema apareceu, testar ideias em ramificações separadas e trabalhar com outras pessoas sem ficar enviando <code>projeto-final-agora-vai.zip</code> pelo WhatsApp. E mesmo trabalhando sozinho, você continua sendo uma equipe formada por você hoje, você amanhã e você daqui a seis meses, que com toda certeza não lembrará por que aquela linha estranha existe.</p>
+<p>No Windows, o Git também será instalado dentro do Ubuntu no WSL usando o mesmo comando de Debian e Ubuntu abaixo. Assim o histórico, os arquivos e as permissões ficam todos no mesmo ambiente.</p>
+<p>No macOS, instale as ferramentas de linha de comando da Apple, que já incluem o Git:</p>
+<pre><code class="language-bash">xcode-select --install
+</code></pre>
+<p>No Linux, use o gerenciador de pacotes da sua distribuição. Em Debian e Ubuntu:</p>
+<pre><code class="language-bash">sudo apt install git
+</code></pre>
+<p>Depois faça o mesmo teste de versão:</p>
+<pre><code class="language-bash">git --version
+</code></pre>
+<p>Agora vamos instalar também o Docker. Sim, ele é nosso sexto pilar e ainda estamos no primeiro, mas preciso que você entenda por que estamos trazendo essa ferramenta tão cedo. Docker é uma plataforma para empacotar e executar aplicações em ambientes isolados chamados <strong>containers</strong>. Em vez de instalar PostgreSQL, Redis, Nginx e mais uma dúzia de coisas diretamente no seu sistema, podemos colocar cada serviço em seu próprio cantinho, com as versões e dependências que ele realmente precisa.</p>
+<p>Isso ataca um problema clássico do desenvolvimento: o famoso “na minha máquina funciona”. Às vezes a aplicação funciona no computador de quem criou porque ali existe uma versão específica do Python, uma biblioteca instalada na mão e uma configuração que ninguém documentou. Ao levar essa aplicação para outro computador, puff, nada funciona. Com Docker, descrevemos o ambiente junto do projeto e conseguimos reproduzir aquilo em outra máquina, em um servidor ou na cloud com muito menos surpresa.</p>
+<p>Docker não é exatamente uma máquina virtual. Uma máquina virtual simula um computador inteiro, incluindo outro sistema operacional completo. No Linux e no Ubuntu do WSL, um container isola processos e arquivos, mas compartilha o kernel Linux do ambiente onde está rodando. Por isso containers costumam iniciar mais rápido e consumir menos recursos. No macOS existe um detalhe: o Docker Desktop cria uma pequena máquina virtual Linux nos bastidores, e os containers compartilham o kernel dessa VM, não o kernel do macOS. Você quase não vê essa camada, mas agora sabe que ela está lá trabalhando. Isolado também não significa magicamente invencível: configurações ruins, imagens desconhecidas e portas abertas continuam sendo problemas reais. Docker organiza muita coisa, mas não substitui cuidado e bom senso.</p>
+<p>Antes dos comandos, vamos traduzir os nomes que sempre aparecem:</p>
+<ul>
+<li><strong>Imagem:</strong> é um pacote somente de leitura com os arquivos, bibliotecas e instruções necessárias para criar um ambiente. Pense nela como a planta de uma casa.</li>
+<li><strong>Container:</strong> é uma instância criada a partir daquela imagem. Ele pode estar em execução ou parado e continua existindo até ser removido. Se a imagem é a planta, o container é a casa construída, mesmo que ninguém esteja dentro dela naquele momento. A mesma imagem pode criar vários containers.</li>
+<li><strong>Volume:</strong> é um espaço usado para manter dados fora da vida temporária do container. Sem um volume, você pode apagar o container de um banco de dados e descobrir da pior forma que apagou os dados junto.</li>
+<li><strong>Rede:</strong> permite que containers conversem entre si e, quando configurado, com o lado de fora. É assim que uma aplicação encontra seu banco sem precisar morar dentro do mesmo container.</li>
+<li><strong>Docker Engine:</strong> é o serviço que realmente cria imagens, inicia containers, configura redes e cuida dos volumes. O processo que fica nos bastidores é chamado de <em>daemon</em>.</li>
+<li><strong>Cliente Docker:</strong> é o comando <code>docker</code> que usamos no terminal. Ele recebe o que digitamos e envia o pedido para o Engine. Por isso <code>docker --version</code> pode funcionar enquanto <code>docker info</code> falha: o cliente existe, mas talvez não esteja conseguindo conversar com o serviço.</li>
+<li><strong>Docker Compose:</strong> é a ferramenta que descreve vários containers em um arquivo, normalmente <code>compose.yml</code>. Assim podemos definir aplicação, banco, rede e volumes juntos e subir tudo com um comando, sem realizar um ritual diferente toda vez.</li>
+</ul>
+<p>Parece muita coisa, eu sei. Mas guarde principalmente esta sequência: <strong>imagem cria container, volume guarda dados, rede conecta serviços e Engine faz tudo acontecer</strong>. O restante vai ficando natural conforme usarmos.</p>
+<p>No Windows, não vamos usar o Docker Desktop. Nosso Docker Engine será instalado diretamente dentro do Ubuntu no WSL, junto do Bash, do Git, do Python e dos projetos. Docker depende profundamente de recursos do kernel Linux; como o WSL 2 já nos entrega esse kernel, conseguimos executar o Engine dentro do próprio Ubuntu. Isso deixa nosso ambiente mais próximo de um servidor Linux de verdade e evita termos duas instalações diferentes brigando para decidir quem manda nos containers.</p>
+<p>No macOS, baixe o <a href="https://docs.docker.com/desktop/setup/install/mac-install/">Docker Desktop para Mac</a> escolhendo corretamente entre <strong>Apple Silicon</strong> e <strong>Intel</strong>. Abra o <code>.dmg</code>, arraste o Docker para <code>Applications</code>, execute o aplicativo e conclua a configuração inicial.</p>
+<p>No Linux e no Ubuntu do WSL, o Docker Engine deve ser instalado dentro da própria distribuição. Para nosso ambiente de estudo em Debian ou Ubuntu, o próprio Docker oferece um script de conveniência para desenvolvimento. Primeiro baixe e confira o que ele pretende fazer:</p>
+<pre><code class="language-bash">curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh --dry-run
+</code></pre>
+<p>Não copie esse bloco sem entender pelo menos a intenção. <code>curl</code> baixa conteúdo da internet. As opções <code>-fsSL</code> fazem o comando falhar quando o servidor responde com erro, trabalhar sem poluir o terminal, ainda mostrar erros importantes e seguir redirecionamentos. <code>-o get-docker.sh</code> salva o resultado em um arquivo com esse nome. Já o <code>--dry-run</code> pede ao instalador uma simulação: ele mostra o que faria sem instalar de verdade. É nossa chance de conferir antes de dar permissão de administrador para um script vindo da internet.</p>
+<p>Se a prévia terminar sem problemas, execute a instalação:</p>
+<pre><code class="language-bash">sudo sh get-docker.sh
+</code></pre>
+<p>Aqui o <code>sh</code> executa o arquivo e o <code>sudo</code> entrega permissão administrativa. É exatamente por isso que a prévia anterior importa. Rodar scripts da internet com <code>sudo</code> sem conhecer a origem é como entregar a chave da sua casa para alguém porque o panfleto era bonito. Neste caso estamos usando o endereço oficial do Docker e um ambiente de aprendizado, mas o hábito de conferir precisa começar agora.</p>
+<p>Esse atalho é útil para nosso ambiente de aprendizado, mas não deve ser usado cegamente em um servidor de produção. Em outras distribuições, siga a <a href="https://docs.docker.com/engine/install/">instalação oficial do Docker Engine</a> para seu sistema.</p>
+<p>No Ubuntu do WSL e no Linux, deixe o serviço iniciado e permita que seu usuário execute Docker sem precisar escrever <code>sudo</code> em toda linha:</p>
+<pre><code class="language-bash">sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+newgrp docker
+</code></pre>
+<p>O primeiro comando pede ao <code>systemd</code> que inicie o Docker agora e também nas próximas inicializações. O segundo adiciona seu usuário ao grupo <code>docker</code>; <code>-aG</code> significa adicionar a um grupo complementar sem remover os grupos que você já possui. O <code>newgrp docker</code> abre uma sessão reconhecendo essa nova permissão imediatamente. Sem isso, normalmente seria necessário fechar o Ubuntu inteiro e abrir novamente.</p>
+<p>O grupo <code>docker</code> oferece acesso elevado ao sistema, então só faça isso na sua própria máquina e para usuários em quem você confia. No macOS, abra o Docker Desktop e espere ele informar que está em execução. Depois, em qualquer um dos três sistemas, feche e abra o terminal novamente e teste nossas três ferramentas:</p>
+<pre><code class="language-bash">python3 --version
+git --version
+docker --version
+docker compose version
+docker info
+docker run --rm hello-world
+</code></pre>
+<p>Os comandos de versão confirmam quais ferramentas e versões foram instaladas. <code>docker info</code> vai além e pergunta ao Engine sobre containers, imagens, armazenamento e configuração; se ele responder, cliente e serviço estão conversando. Por fim, <code>docker run --rm hello-world</code> baixa uma pequena imagem de teste, cria um container, executa a mensagem de confirmação e remove o container quando ele termina. O <code>--rm</code> significa justamente “remova depois de executar”. É um teste pequeno, mas atravessa praticamente o fluxo inteiro que acabamos de explicar.</p>
+<p>No Windows, todos esses comandos devem ser executados dentro do Ubuntu no WSL. No macOS e no Linux também continuaremos usando o Bash que preparamos. Caso o <code>docker info</code> ainda informe falta de permissão no Linux ou no WSL, feche totalmente o terminal e abra novamente para o novo grupo do usuário ser reconhecido.</p>
+<p>Se Python, Git e Docker responderem com suas versões, ótimo. Se algum comando não for encontrado, leia a mensagem. Não saia reinstalando tudo dez vezes. Feche e abra o terminal novamente, confirme se a instalação terminou e verifique o PATH. O erro não está tentando te expulsar da programação, ele está dizendo exatamente qual peça ainda não conseguiu encontrar.</p>
+<p>Não me leve a mal, eu sei que no início uma mensagem dizendo que o comando não existe parece simplesmente dizer que nada deu certo. Mas muitas vezes ela está entregando o problema na nossa cara. Aprender a ler isso vai te poupar horas e, com toda certeza, será uma das coisas mais importantes que você aprenderá aqui.</p>
+<h2>Execute algo seu</h2>
+<p>No editor que você escolheu, crie um arquivo chamado <code>hello.py</code> e escreva:</p>
+<pre><code class="language-python">nome = input(&quot;Digite seu nome: &quot;)
+print(f&quot;Seu ambiente está pronto, {nome}!&quot;)
+</code></pre>
+<p>Salve o arquivo. Volte ao Bash, confira se ainda está dentro da pasta <code>primeiro-ambiente</code> e execute. O comando será o mesmo no Ubuntu do WSL, no macOS e no Linux:</p>
+<pre><code class="language-bash">python3 hello.py
+</code></pre>
+<p>Digite seu nome e veja a resposta.</p>
+<p>Pode parecer simples demais, e realmente é. Mas existe uma diferença gigantesca entre assistir alguém executando um código em um vídeo e preparar seu próprio ambiente, criar o arquivo e ver sua máquina obedecer a uma instrução que você escreveu. Nossa, essa primeira execução faz toda diferença.</p>
+<p>Foi essa sensação que tive quando vi meu primeiro HTML funcionando depois de tanto tempo escrevendo código no papel. O código era simples, a página era feia e não resolvia qualquer problema do mundo. Ainda assim, naquele momento uma coisa ficou provada: eu conseguia criar algo e fazer uma máquina executar.</p>
+<p>Você acabou de provar a mesma coisa para si.</p>
+<h2>Crie seu primeiro checkpoint no Git</h2>
+<p>Agora o arquivo existe e funciona, então finalmente temos algo real para guardar. Antes do primeiro commit, configure o nome e email que identificarão seus checkpoints. Isso não precisa ser feito novamente em cada projeto, pois <code>--global</code> aplica a configuração ao seu usuário:</p>
+<pre><code class="language-bash">git config --global user.name &quot;Seu Nome&quot;
+git config --global user.email &quot;voce@exemplo.com&quot;
+</code></pre>
+<p>Use seus próprios dados no lugar dos exemplos. Agora transforme a pasta <code>primeiro-ambiente</code> em um repositório e pergunte ao Git o que ele está vendo:</p>
+<pre><code class="language-bash">git init
+git status
+</code></pre>
+<p>O <code>hello.py</code> deve aparecer como <strong>não rastreado</strong>, pois o Git encontrou o arquivo, mas ainda não recebeu autorização para acompanhar ele. Prepare apenas esse arquivo e consulte o estado novamente:</p>
+<pre><code class="language-bash">git add hello.py
+git status
+</code></pre>
+<p>Agora ele deve aparecer na área de preparação. Isso não criou o checkpoint ainda, apenas separou aquilo que queremos incluir. Finalmente, faça o primeiro commit e confira o estado pela última vez:</p>
+<pre><code class="language-bash">git commit -m &quot;adiciona primeiro programa em Python&quot;
+git status
+</code></pre>
+<p>Se tudo deu certo, o Git informará que não há mudanças pendentes. Você também verá muito o comando <code>git add .</code>, que prepara todas as mudanças da pasta atual. Ele é prático, mas olhe o <code>git status</code> antes para não incluir senhas, arquivos enormes ou qualquer outra surpresa. Praticidade sem conferir é uma excelente forma de criar problemas com muita velocidade.</p>
+<h2>Quebre de propósito</h2>
+<p>Agora apague uma das aspas do código e execute novamente. Veja o erro aparecer. Leia a última linha, observe o nome do arquivo e o número indicado. Depois devolva a aspa e execute outra vez.</p>
+<p>Por que quebrar algo que acabou de funcionar? Porque seu ambiente não serve somente para confirmar acertos. Ele é principalmente o lugar seguro onde você pode errar sem medo. Quanto mais confortável ficar em criar um erro, ler sua mensagem e corrigir o problema, menos assustadores serão os erros que aparecerem sem convite.</p>
+<p>Não trate o texto vermelho do terminal como uma derrota. Ele é uma resposta, muitas vezes bem direta inclusive. A máquina não está dizendo que você não sabe programar, só está dizendo: &quot;Olha, nessa linha aqui tem algo que eu não consegui entender&quot;. Leia antes de correr para copiar o erro inteiro no Google, pois a solução pode literalmente estar escrita na sua frente.</p>
+<p>Programar será repetir esse ciclo incontáveis vezes:</p>
+<ol>
+<li>Pensar em algo.</li>
+<li>Tentar transformar isso em código.</li>
+<li>Executar.</li>
+<li>Entender o que aconteceu.</li>
+<li>Corrigir e tentar novamente.</li>
+</ol>
+<p>Seu ambiente precisa tornar esse ciclo simples. É por isso que ele é o primeiro pilar.</p>
+<h2>O que você não precisa fazer agora</h2>
+<p>Você não precisa instalar vinte extensões no VS Code, trocar o terminal que já gosta ou configurar atalhos para ações que ainda nem conhece. E, principalmente, não precisa apagar tudo e começar novamente sempre que encontrar um erro. Todas essas coisas podem ser úteis em algum momento, mas agora vão mais te distrair do que ajudar.</p>
+<p>No início, instale no editor somente a extensão oficial da linguagem que estiver usando. Para nós, a extensão oficial do Python será suficiente. Conforme uma necessidade real aparecer, colocamos uma ferramenta nova e entendemos qual problema ela resolve. É bem melhor do que encher o editor de coisas e depois não saber qual delas quebrou tudo.</p>
+<p>Também evite copiar configurações gigantes da internet sem entender o que elas mudam. Um arquivo de configuração com quinhentas linhas pode deixar o ambiente de outra pessoa perfeito e o seu completamente quebrado. Personalize aos poucos, depois que souber reconhecer o que está melhorando.</p>
+<p>Lembra do nosso objetivo: criar o menor caminho possível entre aprender algo e colocar esse algo em prática.</p>
+<h2>Seu primeiro checkpoint</h2>
+<p>Antes de seguir para o próximo pilar, confirme se você consegue fazer estas coisas. Não tem problema consultar os comandos e nem usar a interface quando precisar; nosso objetivo é entender o caminho, não decorar tudo no primeiro dia:</p>
+<ul>
+<li>Abrir o terminal.</li>
+<li>Descobrir em qual pasta está com <code>pwd</code>.</li>
+<li>Listar arquivos com <code>ls</code>.</li>
+<li>Criar e acessar uma pasta com <code>mkdir</code> e <code>cd</code>.</li>
+<li>Abrir essa pasta no editor.</li>
+<li>Criar e salvar um arquivo.</li>
+<li>Verificar as versões do Python, do Git, do Docker e do Docker Compose.</li>
+<li>Abrir o Docker Desktop no macOS, ou confirmar que o Docker Engine está em execução no Linux e no Ubuntu do WSL.</li>
+<li>Executar <code>hello.py</code>, provocar um erro e corrigi-lo.</li>
+</ul>
+<p>Se conseguiu, seu ambiente está pronto. Não pronto para sempre, porque nenhum ambiente está. Ele vai mudar junto com você, receber ferramentas novas, configurações melhores e talvez até outro sistema operacional. Mas está pronto para o que realmente importa agora: aprender fazendo.</p>
+<p>Se alguma parte não funcionou, volte somente um passo. Leia o erro, confirme onde está e tente novamente. Não transforme um problema pequeno em uma reforma completa na máquina.</p>
+<hr>
+<p><strong>Uma última palavra antes do próximo pilar:</strong></p>
+<p>Seu ambiente de desenvolvimento é sua oficina. Você não precisa começar com todas as máquinas, todas as ferramentas e todas as respostas. Precisa apenas de uma bancada organizada onde seja possível construir a primeira peça.</p>
+<p>No meu caso, essa bancada já foi um caderno, depois um computador com Windows XP e, ao longo do tempo, muitos sistemas e ferramentas diferentes. Nenhuma delas substituiu a vontade de colocar em prática aquilo que eu estava aprendendo. Com mais recursos tudo foi ficando mais rápido, claramente, mas aquela primeira página só chegou a existir porque eu não esperei ter o cenário que o livro dizia ser o correto.</p>
+<p>Então não espere o computador melhor ou o momento perfeito aparecer. Abra seu terminal, crie sua pasta e execute alguma coisa hoje, mesmo que seja simples. Se você vai programar no Windows, no macOS, no Linux, no Android ou na calculadora da sua avó, apenas faça. Foi assim que terminamos o post anterior e é assim que começamos de verdade esse primeiro pilar.</p>
+<p>No próximo pilar, vamos fazer do Git nosso melhor amigo e criar o primeiro ponto seguro dessa jornada. Agora sim, nosso ambiente está preparado para guardar cada acerto, cada erro e cada evolução que virá.</p>
+
+            </section>
+        </article>
+
+        <section class="post-comments post-full" aria-labelledby="comments-title">
+            <h2 id="comments-title">&gt;&gt; Comentários</h2>
+            <div id="comments-container"></div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <div class="terminal-popup" id="terminal">
+        <div class="terminal-header"><span>root@erickdev:~$</span><span class="close-btn" id="close-terminal">[X]</span></div>
+        <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-input"><span>$</span><input type="text" id="terminal-input" aria-label="Comando do terminal"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

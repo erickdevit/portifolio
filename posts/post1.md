@@ -29,7 +29,7 @@ Você pode estar olhando para essa lista e pensando: "Preciso aprender tudo isso
 
 Esses pilares seguem uma progressão orgânica que vou guiar nos próximos posts:
 
-- **Ambiente de desenvolvimento** → É o primeiro passo, literal. Sem ele, você não faz nada.
+- **[Ambiente de desenvolvimento](/blog/ambiente-de-desenvolvimento.html)** → É o primeiro passo, literal. Sem ele, você não faz nada.
 - **Git** → Vai entrar naturalmente assim que você tiver alguns arquivos de código para gerenciar.
 - **Python** → É onde você vai passar a maior parte do tempo inicial, criando e quebrando coisas.
 - **Cloudflare/Hospedagem** → Surge quando você quiser mostrar algo para o mundo além do seu localhost.
