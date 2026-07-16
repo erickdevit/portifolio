@@ -40,10 +40,66 @@ O sistema era diferente, mas o HTML continuaria funcionando. Eu só não sabia d
 
 Minha recomendação será bem direta:
 
-- Se você já usa **Windows**, comece com Windows, PowerShell e VS Code.
-- Se você já usa **macOS**, comece com macOS, Terminal e VS Code.
-- Se você já usa **Linux**, comece com sua distribuição atual, o terminal dela e VS Code.
-- Se usa Windows e quer conhecer Linux, deixe o **WSL** para quando o ambiente básico já estiver funcionando.
+- Se você já usa **Windows**, continue no Windows, mas vamos preparar o WSL com Ubuntu para termos Bash de verdade.
+- Se você já usa **macOS**, comece com macOS e o Terminal.
+- Se você já usa **Linux**, continue na sua distribuição atual e use o terminal dela ou aquele que você já prefere.
+
+Agora, se você quer aproveitar essa jornada para experimentar Linux, recomendo Ubuntu. Ele entrega uma experiência simples, tem muita documentação e dificilmente vai fazer você passar a primeira semana tentando descobrir por que o Wi-Fi virou um conceito abstrato. Quer ir para um lado um pouco mais diferente? Você também pode testar o [Omybuntu](https://omybuntu.com), minha própria distribuição baseada no Ubuntu e focada em um ambiente bonito e pronto para desenvolvimento. Ela já está disponível em alfa, então pode usar, testar e até reclamar diretamente com o culpado, que no caso sou eu mesmo. Mas alfa é alfa: teste primeiro em uma máquina virtual ou computador secundário e mantenha backup dos seus arquivos antes de pensar em usar como sistema principal. Não quero que nossa primeira conversa seja você me perguntando onde foi parar a pasta Documentos.
+
+## Windows: preparando o WSL com Ubuntu
+
+No Windows, vamos usar o WSL 2 porque o primeiro curso depois de lógica será Shell Script e precisaremos do Bash. Assim você continua com seu Windows normalmente, mas ganha um Ubuntu completo para desenvolver, usar o terminal e rodar nosso Docker.
+
+Abra o PowerShell como administrador e execute:
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Reinicie o computador quando o Windows pedir. Na primeira vez que abrir o Ubuntu pelo menu Iniciar, ele solicitará um nome de usuário e uma senha. A senha não mostra bolinhas, asteriscos e nem sinal de vida enquanto você digita, mas está funcionando. Isso já assustou muita gente, então confie nos seus dedos e pressione Enter.
+
+Depois volte ao PowerShell e confira se o Ubuntu está usando WSL 2:
+
+```powershell
+wsl --update
+wsl --list --verbose
+```
+
+Se a coluna `VERSION` do Ubuntu mostrar `1`, corrija com:
+
+```powershell
+wsl --set-version Ubuntu 2
+```
+
+Abra novamente o Ubuntu e atualize o sistema:
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+As versões atuais do Ubuntu instaladas pelo WSL já usam `systemd`, que mais à frente manterá o serviço do Docker funcionando. Confirme com `systemctl status`. Se o comando informar que o sistema não iniciou com `systemd`, abra o arquivo de configuração:
+
+```bash
+sudo nano /etc/wsl.conf
+```
+
+Adicione estas linhas:
+
+```ini
+[boot]
+systemd=true
+```
+
+No Nano, pressione `Ctrl + O` e Enter para salvar, depois `Ctrl + X` para sair. Feche o Ubuntu, abra o PowerShell e reinicie completamente o WSL:
+
+```powershell
+wsl --shutdown
+```
+
+Abra o Ubuntu novamente e repita `systemctl status`. Agora ele deve mostrar o sistema em execução.
+
+Pronto. Sempre que eu falar em terminal no Windows daqui para frente, abra o Ubuntu pelo menu Iniciar ou pelo perfil Ubuntu do Windows Terminal. O PowerShell continuará útil, mas nossos comandos de programação e Shell Script serão executados dentro do Bash no WSL.
 
 Não formate sua máquina porque alguém disse que programador de verdade usa determinada distribuição. O sistema operacional é uma ferramenta, não um certificado dizendo se você é ou não capaz de programar. Então não entre nessa briga agora.
 
@@ -53,28 +109,36 @@ O terminal costuma assustar porque ele não mostra botões explicando o que deve
 
 Pense no terminal como uma conversa mais direta com o seu sistema. Em vez de abrir uma pasta clicando duas vezes nela, você escreve o comando para entrar. Em vez de clicar em "Nova pasta", você pede que ele crie uma. A diferença é que essas ações podem ser repetidas, documentadas e automatizadas, algo que vai se tornar muito poderoso mais à frente.
 
-No Windows, abra o PowerShell. No macOS, abra o aplicativo Terminal. No Linux, abra o terminal que já veio com seu sistema. Agora descubra em qual pasta você está:
+No Windows, abra o Ubuntu do WSL. No macOS, abra o aplicativo Terminal e execute `bash` para entrar no Bash. No Linux, use o terminal da sua distribuição ou qualquer outro da sua preferência. O importante é confirmar que o Bash está disponível:
 
-```powershell
+```bash
+bash --version
+```
+
+No Ubuntu do WSL ele já estará pronto. No macOS o Bash também já vem disponível, mesmo que o shell padrão seja o Zsh. A versão incluída pela Apple costuma ser a antiga 3.2, mas todos os comandos desta etapa funcionam nela; quando chegarmos ao curso de Shell Script, veremos se precisamos instalar uma versão mais atual. No Linux, caso sua distribuição não traga Bash por padrão, instale o pacote `bash` pelo gerenciador dela. Agora descubra em qual pasta você está:
+
+```bash
 pwd
 ```
 
 Liste o que existe nela:
 
-```powershell
+```bash
 ls
 ```
 
 Crie a pasta onde ficarão nossos estudos e entre nela:
 
-```powershell
+```bash
 mkdir projetos
 cd projetos
 ```
 
-Esses comandos funcionam no PowerShell, no Terminal do macOS e na maioria dos terminais Linux. Não tente decorar tudo de uma vez. Use, erre, consulte e use de novo. Em pouco tempo seus dedos vão lembrar antes mesmo de você pensar.
+Esses comandos funcionam no Bash do WSL, no macOS e no Linux. Não tente decorar tudo de uma vez. Use, erre, consulte e use de novo. Em pouco tempo seus dedos vão lembrar antes mesmo de você pensar.
 
-Antes de abrir nosso primeiro projeto, instale o [VS Code pelo site oficial](https://code.visualstudio.com/Download), escolhendo a versão do seu sistema. No Windows, siga o instalador. No macOS, abra o arquivo baixado e mova o Visual Studio Code para a pasta `Applications`. No Linux, use o pacote indicado para sua distribuição. Abra o editor pelo menos uma vez e instale somente a extensão oficial do Python, nada de sair enchendo ele de coisas agora.
+Antes de abrir nosso primeiro projeto, escolha seu editor. Pode ser VS Code, Neovim ou qualquer outro da sua preferência. Eu vou usar o VS Code nos exemplos por ser uma experiência bem simples para quem está começando, mas se você já vive feliz dentro do Neovim não serei eu quem vai tentar te tirar de lá.
+
+Se for acompanhar com ele, instale o [VS Code pelo site oficial](https://code.visualstudio.com/Download), escolhendo a versão do seu sistema. No Windows, siga o instalador e adicione a extensão **WSL** para abrir diretamente as pastas do Ubuntu. No macOS, abra o arquivo baixado e mova o Visual Studio Code para a pasta `Applications`. No Linux, use o pacote indicado para sua distribuição. Abra o editor pelo menos uma vez e instale somente a extensão oficial do Python, nada de sair enchendo ele de coisas agora.
 
 ## Uma casa para cada projeto
 
@@ -84,26 +148,32 @@ Não faça isso com você mesmo.
 
 Dentro da pasta `projetos`, cada ideia deve ter sua própria casa. Vamos criar a primeira:
 
-```powershell
+```bash
 mkdir primeiro-ambiente
 cd primeiro-ambiente
 ```
 
 Use nomes simples, sem espaços e que expliquem o que existe ali. Não precisa criar uma arquitetura de empresa para guardar um Hello World, mas também não jogue tudo no mesmo lugar. Essa pequena disciplina vai facilitar o uso do Git, dos ambientes virtuais, do Docker e de praticamente tudo que aprenderemos depois.
 
-Agora peça para o VS Code abrir exatamente essa pasta:
+Agora abra exatamente essa pasta no editor escolhido. No VS Code:
 
-```powershell
+```bash
 code .
 ```
 
-O ponto no final significa "a pasta em que estou agora". No Windows e no Linux, a instalação do VS Code normalmente já adiciona o comando `code` ao PATH. No macOS, abra o VS Code, pressione `Command + Shift + P` e execute **Shell Command: Install 'code' command in PATH**. Se o comando ainda não funcionar, não entre em pânico e nem reinstale tudo imediatamente. Abra o VS Code normalmente, escolha **Abrir Pasta** e selecione `primeiro-ambiente`; depois feche e abra o terminal para ele reconhecer a mudança.
+No Neovim:
+
+```bash
+nvim .
+```
+
+O ponto no final significa "a pasta em que estou agora". No Windows com WSL e no Linux, a instalação do VS Code normalmente já deixa o comando `code` disponível. No macOS, abra o VS Code, pressione `Command + Shift + P` e execute **Shell Command: Install 'code' command in PATH**. Se o comando ainda não funcionar, não entre em pânico e nem reinstale tudo imediatamente. Abra seu editor normalmente e selecione a pasta `primeiro-ambiente`; depois podemos corrigir o comando com calma.
 
 Olha só o que já aconteceu: você abriu o terminal, navegou pelo sistema, criou uma estrutura organizada e entregou uma pasta inteira para o editor. Talvez ainda não pareça programação, mas você já começou a pensar como alguém que controla o próprio ambiente.
 
 ## Instale somente o necessário
 
-Para seguir esta jornada, minha escolha continua sendo Python. No Windows, baixe uma versão estável pelo [site oficial do Python](https://www.python.org/downloads/windows/) e marque a opção para adicionar o Python ao `PATH` durante a instalação. Esse tal PATH é uma lista de lugares onde o sistema procura os programas quando você digita um comando. Se o Python estiver nessa lista, você poderá chamá-lo de qualquer pasta.
+Para seguir esta jornada, minha escolha continua sendo Python. No Windows, vamos instalar o Python dentro do Ubuntu no WSL, pois é ali que nosso ambiente de desenvolvimento vai viver. Use os mesmos comandos de Ubuntu que estão logo abaixo.
 
 No macOS, use o [instalador oficial para Mac](https://www.python.org/downloads/macos/), abra o arquivo `.pkg` e conclua a instalação normalmente. O macOS pode até trazer alguma coisa relacionada a Python no sistema, mas não vamos depender disso. A versão que instalamos será chamada pelo comando `python3`.
 
@@ -114,13 +184,7 @@ sudo apt update
 sudo apt install python3
 ```
 
-Depois da instalação, volte ao terminal e verifique:
-
-```powershell
-python --version
-```
-
-No macOS e na maioria das distribuições Linux, o comando será:
+Depois da instalação, volte ao terminal e verifique. Como nosso Windows também está usando o Ubuntu no WSL, o comando será o mesmo nos três sistemas:
 
 ```bash
 python3 --version
@@ -128,15 +192,7 @@ python3 --version
 
 Você deve receber algo parecido com `Python 3.x.x`. O número exato pode ser diferente e está tudo bem. O importante aqui é entender o teste: nós fizemos uma pergunta ao sistema e ele respondeu qual versão consegue executar.
 
-Agora instale o Git. Não vamos abordar seu funcionamento ainda, pois ele é nosso segundo pilar, mas quero ele pronto desde já.
-
-No Windows, abra o PowerShell e execute:
-
-```powershell
-winget install --id Git.Git -e --source winget
-```
-
-Se o `winget` não estiver disponível, use o [instalador oficial do Git para Windows](https://git-scm.com/install/windows) e mantenha as opções recomendadas se ainda não souber o que cada uma faz.
+Agora instale o Git. Não vamos abordar seu funcionamento ainda, pois ele é nosso segundo pilar, mas quero ele pronto desde já. No Windows, ele também será instalado dentro do Ubuntu no WSL usando o mesmo comando de Debian e Ubuntu abaixo.
 
 No macOS, instale as ferramentas de linha de comando da Apple, que já incluem o Git:
 
@@ -152,17 +208,17 @@ sudo apt install git
 
 Depois faça o mesmo teste de versão:
 
-```powershell
+```bash
 git --version
 ```
 
 Agora vamos instalar também o Docker. Sim, ele é nosso sexto pilar e ainda estamos no primeiro. Não vou explicar imagens, containers, volumes e todas aquelas coisas agora, só quero deixar a ferramenta instalada e confirmar que ela consegue funcionar.
 
-No Windows, baixe e instale o [Docker Desktop para Windows](https://docs.docker.com/desktop/setup/install/windows-install/). Mantenha o uso do WSL 2 quando o instalador recomendar e reinicie a máquina caso seja solicitado. Isso não significa que precisamos começar a desenvolver dentro do WSL agora; ele será apenas a base usada pelo Docker.
+No Windows, não vamos usar o Docker Desktop. Nosso Docker Engine será instalado diretamente dentro do Ubuntu no WSL, junto do Bash, do Git, do Python e dos projetos. Isso deixa nosso ambiente mais próximo de um servidor Linux de verdade e evita termos duas instalações diferentes brigando para decidir quem manda nos containers.
 
 No macOS, baixe o [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) escolhendo corretamente entre **Apple Silicon** e **Intel**. Abra o `.dmg`, arraste o Docker para `Applications`, execute o aplicativo e conclua a configuração inicial.
 
-No Linux, o Docker Engine deve ser instalado conforme sua distribuição. Para nosso ambiente de estudo em Debian ou Ubuntu, o próprio Docker oferece um script de conveniência para desenvolvimento. Primeiro baixe e confira o que ele pretende fazer:
+No Linux e no Ubuntu do WSL, o Docker Engine deve ser instalado dentro da própria distribuição. Para nosso ambiente de estudo em Debian ou Ubuntu, o próprio Docker oferece um script de conveniência para desenvolvimento. Primeiro baixe e confira o que ele pretende fazer:
 
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -177,7 +233,15 @@ sudo sh get-docker.sh
 
 Esse atalho é útil para nosso ambiente de aprendizado, mas não deve ser usado cegamente em um servidor de produção. Em outras distribuições, siga a [instalação oficial do Docker Engine](https://docs.docker.com/engine/install/) para seu sistema.
 
-No Windows e no macOS, abra o Docker Desktop e espere ele informar que está em execução. Depois, em qualquer um dos três sistemas, feche e abra o terminal novamente e teste nossas três ferramentas:
+No Ubuntu do WSL e no Linux, deixe o serviço iniciado e permita que seu usuário execute Docker sem precisar escrever `sudo` em toda linha:
+
+```bash
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+O grupo `docker` oferece acesso elevado ao sistema, então só faça isso na sua própria máquina e para usuários em quem você confia. No macOS, abra o Docker Desktop e espere ele informar que está em execução. Depois, em qualquer um dos três sistemas, feche e abra o terminal novamente e teste nossas três ferramentas:
 
 ```bash
 python3 --version
@@ -187,7 +251,7 @@ docker compose version
 docker info
 ```
 
-No Windows, lembre que o primeiro comando provavelmente será `python --version`. No Linux, caso o `docker info` informe falta de permissão para conversar com o serviço, use `sudo docker info` neste primeiro teste e deixe o ajuste definitivo de permissões para quando realmente abordarmos Docker.
+No Windows, todos esses comandos devem ser executados dentro do Ubuntu no WSL. No macOS e no Linux também continuaremos usando o Bash que preparamos. Caso o `docker info` ainda informe falta de permissão no Linux ou no WSL, feche totalmente o terminal e abra novamente para o novo grupo do usuário ser reconhecido.
 
 Se Python, Git e Docker responderem com suas versões, ótimo. Se algum comando não for encontrado, leia a mensagem. Não saia reinstalando tudo dez vezes. Feche e abra o terminal novamente, confirme se a instalação terminou e verifique o PATH. O erro não está tentando te expulsar da programação, ele está dizendo exatamente qual peça ainda não conseguiu encontrar.
 
@@ -195,20 +259,14 @@ Não me leve a mal, eu sei que no início uma mensagem dizendo que o comando nã
 
 ## Execute algo seu
 
-Dentro do VS Code, crie um arquivo chamado `hello.py` e escreva:
+No editor que você escolheu, crie um arquivo chamado `hello.py` e escreva:
 
 ```python
 nome = input("Digite seu nome: ")
 print(f"Seu ambiente está pronto, {nome}!")
 ```
 
-Salve o arquivo. Volte ao terminal, confira se ainda está dentro da pasta `primeiro-ambiente` e execute:
-
-```powershell
-python hello.py
-```
-
-No macOS e no Linux, caso seu comando seja `python3`:
+Salve o arquivo. Volte ao Bash, confira se ainda está dentro da pasta `primeiro-ambiente` e execute. O comando será o mesmo no Ubuntu do WSL, no macOS e no Linux:
 
 ```bash
 python3 hello.py
@@ -242,7 +300,7 @@ Seu ambiente precisa tornar esse ciclo simples. É por isso que ele é o primeir
 
 ## O que você não precisa fazer agora
 
-Você não precisa instalar vinte extensões no VS Code, trocar o PowerShell por outro terminal ou configurar atalhos para ações que ainda nem conhece. E, principalmente, não precisa apagar tudo e começar novamente sempre que encontrar um erro. Todas essas coisas podem ser úteis em algum momento, mas agora vão mais te distrair do que ajudar.
+Você não precisa instalar vinte extensões no VS Code, trocar o terminal que já gosta ou configurar atalhos para ações que ainda nem conhece. E, principalmente, não precisa apagar tudo e começar novamente sempre que encontrar um erro. Todas essas coisas podem ser úteis em algum momento, mas agora vão mais te distrair do que ajudar.
 
 No início, instale no editor somente a extensão oficial da linguagem que estiver usando. Para nós, a extensão oficial do Python será suficiente. Conforme uma necessidade real aparecer, colocamos uma ferramenta nova e entendemos qual problema ela resolve. É bem melhor do que encher o editor de coisas e depois não saber qual delas quebrou tudo.
 
@@ -261,7 +319,7 @@ Antes de seguir para o próximo pilar, confirme se você consegue fazer estas co
 - Abrir essa pasta no editor.
 - Criar e salvar um arquivo.
 - Verificar as versões do Python, do Git, do Docker e do Docker Compose.
-- Abrir o Docker Desktop no Windows ou macOS, ou confirmar que o Docker Engine está em execução no Linux.
+- Abrir o Docker Desktop no macOS, ou confirmar que o Docker Engine está em execução no Linux e no Ubuntu do WSL.
 - Executar `hello.py`, provocar um erro e corrigi-lo.
 
 Se conseguiu, seu ambiente está pronto. Não pronto para sempre, porque nenhum ambiente está. Ele vai mudar junto com você, receber ferramentas novas, configurações melhores e talvez até outro sistema operacional. Mas está pronto para o que realmente importa agora: aprender fazendo.
