@@ -359,8 +359,8 @@ function loadGiscus() {
     // Define o tema personalizado com base no tema do site.
     // ATENÇÃO: O URL deve ser absoluto (com seu domínio).
     const theme = document.body.classList.contains('white-theme')
-        ? 'url:https://erickdev.it/css/giscus-light.css'
-        : 'url:https://erickdev.it/css/giscus-dark.css';
+        ? 'url:https://erickdevs.it/css/giscus-light.css'
+        : 'url:https://erickdevs.it/css/giscus-dark.css';
 
     script.src = 'https://giscus.app/client.js';
     // Configurações do seu repositório giscus
@@ -387,8 +387,8 @@ function loadGiscus() {
             const giscusFrame = document.querySelector('iframe.giscus-frame');
             if (giscusFrame) {
                 const newTheme = document.body.classList.contains('white-theme')
-                    ? 'url:https://erickdev.it/css/giscus-light.css'
-                    : 'url:https://erickdev.it/css/giscus-dark.css';
+                    ? 'url:https://erickdevs.it/css/giscus-light.css'
+                    : 'url:https://erickdevs.it/css/giscus-dark.css';
 
                 giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: newTheme } } }, 'https://giscus.app');
             }

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog do Erick Dev</title>
-    <link>https://erickdev.it/blog.html</link>
+    <link>https://erickdevs.it/blog.html</link>
     <description>Programação, Linux, ambiente de desenvolvimento, Git, Docker e DevOps.</description>
     <language>pt-BR</language>
-    <atom:link href="https://erickdev.it/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://erickdevs.it/feed.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Seu ambiente de desenvolvimento é onde tudo começa</title>
-      <link>https://erickdev.it/blog/ambiente-de-desenvolvimento.html</link>
-      <guid isPermaLink="true">https://erickdev.it/blog/ambiente-de-desenvolvimento.html</guid>
+      <link>https://erickdevs.it/blog/ambiente-de-desenvolvimento.html</link>
+      <guid isPermaLink="true">https://erickdevs.it/blog/ambiente-de-desenvolvimento.html</guid>
       <pubDate>Thu, 16 Jul 2026 12:00:00 GMT</pubDate>
       <description>Aprenda a montar um ambiente de desenvolvimento no Windows, macOS e Linux com WSL, Bash, editor, Git, Docker e uma estrutura simples para projetos.</description>
     </item>
     <item>
       <title>Do zero ao Hacker, da forma correta!</title>
-      <link>https://erickdev.it/blog/do-zero-ao-hacker.html</link>
-      <guid isPermaLink="true">https://erickdev.it/blog/do-zero-ao-hacker.html</guid>
+      <link>https://erickdevs.it/blog/do-zero-ao-hacker.html</link>
+      <guid isPermaLink="true">https://erickdevs.it/blog/do-zero-ao-hacker.html</guid>
       <pubDate>Sat, 18 Oct 2025 12:00:00 GMT</pubDate>
       <description>Um mapa em seis pilares para sair do zero e aprender programação com ambiente, Git, Python, hospedagem, redes e Docker, sem se perder no caminho.</description>
     </item>

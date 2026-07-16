@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const siteUrl = 'https://erickdev.it';
+const siteUrl = 'https://erickdevs.it';
 const socialImage = `${siteUrl}/img/erickportifolio.png`;
 const posts = JSON.parse(await readFile(join(root, 'posts/posts.json'), 'utf8'));
 
