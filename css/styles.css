@@ -238,22 +238,35 @@ body.white-theme .project-list span {
 }
 
 .about-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    display: block;
+}
+
+.about-content::after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
 .about-text {
-    flex: 1;
+    display: block;
 }
 
 .about-image {
-    flex-shrink: 0;
+    float: right;
+    width: min(46%, 400px);
+    margin: 0 0 12px 22px;
+    shape-outside: url("../img/erickport.png");
+    shape-image-threshold: 0.08;
+    shape-margin: 10px;
 }
 
 .profile-image {
-    width: 400px; /* Mantido conforme última solicitação */
-    border-radius: 08px; /* Bordas arredondadas */
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 body.white-theme .profile-image {
@@ -529,17 +542,20 @@ body.white-theme .terminal-input input {
         width: 90%;
     }
     .about-content {
-        flex-direction: column;
-        gap: 15px;
+        display: block;
     }
     .about-image {
-        order: -1; /* Move a imagem para o topo no layout flexível */
+        float: none;
+        width: min(78%, 280px);
+        margin: 0 auto 16px;
+        shape-outside: none;
     }
     .about-text p {
         font-size: 0.9em; /* Reduz o tamanho do texto para caber melhor */
     }
     .profile-image {
-        width: 160px; /* Mantido conforme última solicitação */
+        width: 100%;
+        height: auto;
     }
 }
 
@@ -638,6 +654,18 @@ body.post-page #white-theme-canvas {
     margin: 0; /* Remove a margem padrão do <pre> */
     box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
     transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Remove o segundo fundo/padding aplicado pelo Highlight.js.
+   Todos os blocos mantêm o mesmo contêiner visual, com ou sem linguagem reconhecida. */
+.post-full-content pre code,
+.post-full-content pre code.hljs {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    box-sizing: border-box;
+    font: inherit;
 }
 
 body.white-theme .post-full-content pre {
