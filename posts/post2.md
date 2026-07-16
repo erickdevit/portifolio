@@ -1,9 +1,9 @@
 ---
-Bom, no texto anterior eu apresentei os seis pilares que considero fundamentais para sair do absoluto zero e chegar ao ponto de criar soluções de verdade. Agora vamos parar de olhar o mapa inteiro e colocar o pé na primeira parte da trilha: montar nosso ambiente de desenvolvimento, da forma mais simples possível e sem transformar isso em uma aventura desnecessária.
+Bom, no post anterior eu apresentei os seis pilares que considero fundamentais para sair do absoluto zero e chegar ao ponto de criar soluções de verdade. Agora vamos parar de olhar o mapa inteiro e colocar o pé na primeira parte da trilha: montar nosso ambiente de desenvolvimento, da forma mais simples possível e sem transformar isso em uma aventura desnecessária.
 
 Talvez isso pareça apenas uma preparação para começar a programar, aquela etapa chata em que instalamos algumas coisas, escolhemos um editor e seguimos em frente. Mas não é. **Montar seu ambiente já é começar a programar.** É nele que você vai escrever, errar, apagar, testar, quebrar e entender tudo aquilo que antes existia somente na sua cabeça.
 
-No primeiro texto contei que escrevia HTML em um caderno porque ainda não tinha um computador, e aquilo era literalmente todo o ambiente de desenvolvimento disponível para mim. Não tinha como executar, não tinha como descobrir se uma tag estava errada e nem mesmo como ver a página horrorosa que eu provavelmente estava criando. Ainda assim eu fazia. Não estou falando que você precisa aprender da forma mais difícil, seria uma grande besteira romantizar aquela falta de recursos. O que quero deixar claro é que esperar pelo ambiente perfeito pode te atrasar muito mais do que começar com aquilo que você tem agora.
+No post anterior contei que escrevia HTML em um caderno porque ainda não tinha um computador, e aquilo era literalmente todo o ambiente de desenvolvimento disponível para mim. Não tinha como executar, não tinha como descobrir se uma tag estava errada e nem mesmo como ver a página horrorosa que eu provavelmente estava criando. Ainda assim eu fazia. Não estou falando que você precisa aprender da forma mais difícil, seria uma grande besteira romantizar aquela falta de recursos. O que quero deixar claro é que esperar pelo ambiente perfeito pode te atrasar muito mais do que começar com aquilo que você tem agora.
 
 E é exatamente isso que construiremos agora.
 
@@ -15,7 +15,7 @@ Eu entendo. Deixar o nosso espaço com a nossa cara é legal e faz parte da expe
 
 Então vamos deixar uma coisa bem definida desde o início: seu ambiente precisa permitir que você tenha uma ideia e consiga testá-la sem lutar contra a própria máquina. É isso. Se toda vez que for estudar você precisar corrigir o editor, atualizar cinco plugins e descobrir por que seu terminal deixou de funcionar, tem alguma coisa muito errada nessa montagem.
 
-Se você tem um computador com Windows, use o Windows. Se já usa Linux, continue no Linux. Se a única coisa disponível agora é um computador antigo, use esse computador antigo. A ferramenta que está nas suas mãos hoje é infinitamente mais útil do que a ferramenta perfeita que você pretende ter algum dia.
+Se você tem um computador com Windows, use o Windows. Se já usa Linux, continue no Linux. Se tem um Mac, use o macOS e não ache que precisa instalar outro sistema para acompanhar essa jornada. Se a única coisa disponível agora é um computador antigo, use esse computador antigo. A ferramenta que está nas suas mãos hoje é infinitamente mais útil do que a ferramenta perfeita que você pretende ter algum dia.
 
 ## O que realmente forma um ambiente de desenvolvimento?
 
@@ -26,21 +26,22 @@ Quando falamos em ambiente, não estamos falando de um único programa. Estamos 
 * **Um editor para escrever seus arquivos**
 * **Uma pasta organizada para guardar seus projetos**
 
-Sim, apenas isso. O Git e o Python vão entrar nessa estrutura, mas terão seus próprios momentos de atenção nos próximos pilares. Por enquanto, eles serão instalados apenas para provar que nosso ambiente está vivo e pronto para o que virá.
+Sim, apenas isso. Python, Git e Docker vão entrar nessa estrutura agora, mas Git e Docker terão seus próprios momentos de atenção nos próximos pilares. Por enquanto, vamos instalar e testar tudo, sem tentar dominar ferramentas que ainda nem começamos a usar.
 
-Você não precisa começar com Docker, banco de dados, servidor web, cinco versões de Node e quarenta extensões no editor. Na verdade, instalar tudo isso agora só vai criar quarenta novas formas de algo dar errado sem que você saiba o motivo.
+Você não precisa começar configurando banco de dados, servidor web, cinco versões de Node e quarenta extensões no editor. Vamos deixar Python, Git e Docker preparados porque eles fazem parte da base que seguiremos, mas não vamos sair ativando tudo que aparecer pela frente. Isso só criaria quarenta novas formas de algo dar errado sem que você saiba o motivo.
 
 Comece pequeno. Entenda cada peça que está colocando na sua bancada. Depois nós aumentamos essa bancada juntos.
 
-## Windows ou Linux?
+## Windows, macOS ou Linux?
 
 Essa pergunta já me fez perder muito tempo no passado e provavelmente vai fazer você perder também se não tomar cuidado. Meu primeiro contato com um computador foi em um laboratório usando Ubuntu, quando eu ainda queria encontrar o tal Windows sobre o qual tinha lido. Eu vi aquele nome estranho, abri o Firefox, encontrei um monte de coisa em inglês e desisti. Naquele momento fiquei triste de verdade, pois achei que não poderia colocar meu HTML em prática só porque o sistema não era o que aparecia no livro. Mais à frente, meu primeiro computador veio com Windows XP e foi nele que finalmente executei aquele HTML que havia praticado tantas vezes no caderno.
 
-O sistema era diferente, mas o HTML continuaria funcionando. Eu só não sabia disso ainda. Hoje gosto muito de Linux, trabalho com ele e minha escolha pessoal seria Linux com toda certeza. Aprender seu funcionamento vai abrir possibilidades enormes na sua vida, principalmente quando chegarmos aos servidores. Mas não transforme minha preferência em uma obrigação sua logo no primeiro dia. Trocar de sistema sem ainda saber diferenciar um problema do código de um problema do ambiente pode colocar uma dificuldade totalmente desnecessária no caminho.
+O sistema era diferente, mas o HTML continuaria funcionando. Eu só não sabia disso ainda. Hoje gosto muito de Linux, trabalho com ele e minha escolha pessoal seria Linux com toda certeza. Aprender seu funcionamento vai abrir possibilidades enormes na sua vida, principalmente quando chegarmos aos servidores. Mas não transforme minha preferência em uma obrigação sua logo no primeiro dia. Windows, macOS e Linux são totalmente capazes de nos levar por essa jornada. Trocar de sistema sem ainda saber diferenciar um problema do código de um problema do ambiente pode colocar uma dificuldade totalmente desnecessária no caminho.
 
 Minha recomendação será bem direta:
 
 - Se você já usa **Windows**, comece com Windows, PowerShell e VS Code.
+- Se você já usa **macOS**, comece com macOS, Terminal e VS Code.
 - Se você já usa **Linux**, comece com sua distribuição atual, o terminal dela e VS Code.
 - Se usa Windows e quer conhecer Linux, deixe o **WSL** para quando o ambiente básico já estiver funcionando.
 
@@ -52,7 +53,7 @@ O terminal costuma assustar porque ele não mostra botões explicando o que deve
 
 Pense no terminal como uma conversa mais direta com o seu sistema. Em vez de abrir uma pasta clicando duas vezes nela, você escreve o comando para entrar. Em vez de clicar em "Nova pasta", você pede que ele crie uma. A diferença é que essas ações podem ser repetidas, documentadas e automatizadas, algo que vai se tornar muito poderoso mais à frente.
 
-No Windows, abra o PowerShell. No Linux, abra o terminal que já veio com seu sistema. Agora descubra em qual pasta você está:
+No Windows, abra o PowerShell. No macOS, abra o aplicativo Terminal. No Linux, abra o terminal que já veio com seu sistema. Agora descubra em qual pasta você está:
 
 ```powershell
 pwd
@@ -71,7 +72,9 @@ mkdir projetos
 cd projetos
 ```
 
-Esses comandos funcionam no PowerShell e na maioria dos terminais Linux. Não tente decorar tudo de uma vez. Use, erre, consulte e use de novo. Em pouco tempo seus dedos vão lembrar antes mesmo de você pensar.
+Esses comandos funcionam no PowerShell, no Terminal do macOS e na maioria dos terminais Linux. Não tente decorar tudo de uma vez. Use, erre, consulte e use de novo. Em pouco tempo seus dedos vão lembrar antes mesmo de você pensar.
+
+Antes de abrir nosso primeiro projeto, instale o [VS Code pelo site oficial](https://code.visualstudio.com/Download), escolhendo a versão do seu sistema. No Windows, siga o instalador. No macOS, abra o arquivo baixado e mova o Visual Studio Code para a pasta `Applications`. No Linux, use o pacote indicado para sua distribuição. Abra o editor pelo menos uma vez e instale somente a extensão oficial do Python, nada de sair enchendo ele de coisas agora.
 
 ## Uma casa para cada projeto
 
@@ -94,13 +97,15 @@ Agora peça para o VS Code abrir exatamente essa pasta:
 code .
 ```
 
-O ponto no final significa "a pasta em que estou agora". Ao instalar o VS Code, habilite a opção de adicionar o comando `code` ao PATH. Se você já instalou e o comando não funcionar, não entre em pânico e nem reinstale tudo imediatamente. Abra o VS Code normalmente, escolha **Abrir Pasta** e selecione `primeiro-ambiente`; depois consulte a documentação do editor para habilitar o comando no seu sistema.
+O ponto no final significa "a pasta em que estou agora". No Windows e no Linux, a instalação do VS Code normalmente já adiciona o comando `code` ao PATH. No macOS, abra o VS Code, pressione `Command + Shift + P` e execute **Shell Command: Install 'code' command in PATH**. Se o comando ainda não funcionar, não entre em pânico e nem reinstale tudo imediatamente. Abra o VS Code normalmente, escolha **Abrir Pasta** e selecione `primeiro-ambiente`; depois feche e abra o terminal para ele reconhecer a mudança.
 
 Olha só o que já aconteceu: você abriu o terminal, navegou pelo sistema, criou uma estrutura organizada e entregou uma pasta inteira para o editor. Talvez ainda não pareça programação, mas você já começou a pensar como alguém que controla o próprio ambiente.
 
 ## Instale somente o necessário
 
-Para seguir esta jornada, minha escolha continua sendo Python. No Windows, baixe uma versão estável pelo site oficial e marque a opção para adicionar o Python ao `PATH` durante a instalação. Esse tal PATH é uma lista de lugares onde o sistema procura os programas quando você digita um comando. Se o Python estiver nessa lista, você poderá chamá-lo de qualquer pasta.
+Para seguir esta jornada, minha escolha continua sendo Python. No Windows, baixe uma versão estável pelo [site oficial do Python](https://www.python.org/downloads/windows/) e marque a opção para adicionar o Python ao `PATH` durante a instalação. Esse tal PATH é uma lista de lugares onde o sistema procura os programas quando você digita um comando. Se o Python estiver nessa lista, você poderá chamá-lo de qualquer pasta.
+
+No macOS, use o [instalador oficial para Mac](https://www.python.org/downloads/macos/), abra o arquivo `.pkg` e conclua a instalação normalmente. O macOS pode até trazer alguma coisa relacionada a Python no sistema, mas não vamos depender disso. A versão que instalamos será chamada pelo comando `python3`.
 
 No Linux, não saia baixando e substituindo o Python do sistema na unha, pois muitas distribuições usam ele em ferramentas internas e você pode criar um problema bem maior do que nosso Hello World. Primeiro verifique se `python3` já existe. Se não existir, instale pelo gerenciador de pacotes da sua distribuição. Em Debian e Ubuntu, por exemplo:
 
@@ -115,7 +120,7 @@ Depois da instalação, volte ao terminal e verifique:
 python --version
 ```
 
-Em algumas distribuições Linux, o comando será:
+No macOS e na maioria das distribuições Linux, o comando será:
 
 ```bash
 python3 --version
@@ -123,7 +128,23 @@ python3 --version
 
 Você deve receber algo parecido com `Python 3.x.x`. O número exato pode ser diferente e está tudo bem. O importante aqui é entender o teste: nós fizemos uma pergunta ao sistema e ele respondeu qual versão consegue executar.
 
-Agora instale o Git. No Windows, use o instalador do site oficial do Git e mantenha as opções recomendadas se ainda não souber o que cada uma faz. Em Debian e Ubuntu, ele pode ser instalado assim:
+Agora instale o Git. Não vamos abordar seu funcionamento ainda, pois ele é nosso segundo pilar, mas quero ele pronto desde já.
+
+No Windows, abra o PowerShell e execute:
+
+```powershell
+winget install --id Git.Git -e --source winget
+```
+
+Se o `winget` não estiver disponível, use o [instalador oficial do Git para Windows](https://git-scm.com/install/windows) e mantenha as opções recomendadas se ainda não souber o que cada uma faz.
+
+No macOS, instale as ferramentas de linha de comando da Apple, que já incluem o Git:
+
+```bash
+xcode-select --install
+```
+
+No Linux, use o gerenciador de pacotes da sua distribuição. Em Debian e Ubuntu:
 
 ```bash
 sudo apt install git
@@ -135,7 +156,40 @@ Depois faça o mesmo teste de versão:
 git --version
 ```
 
-Se os dois comandos responderem, ótimo. Se algum deles disser que o comando não foi encontrado, leia a mensagem. Não saia reinstalando tudo dez vezes. Feche e abra o terminal novamente, confirme se a instalação terminou e verifique o PATH. O erro não está tentando te expulsar da programação, ele está dizendo exatamente qual peça ainda não conseguiu encontrar.
+Agora vamos instalar também o Docker. Sim, ele é nosso sexto pilar e ainda estamos no primeiro. Não vou explicar imagens, containers, volumes e todas aquelas coisas agora, só quero deixar a ferramenta instalada e confirmar que ela consegue funcionar.
+
+No Windows, baixe e instale o [Docker Desktop para Windows](https://docs.docker.com/desktop/setup/install/windows-install/). Mantenha o uso do WSL 2 quando o instalador recomendar e reinicie a máquina caso seja solicitado. Isso não significa que precisamos começar a desenvolver dentro do WSL agora; ele será apenas a base usada pelo Docker.
+
+No macOS, baixe o [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) escolhendo corretamente entre **Apple Silicon** e **Intel**. Abra o `.dmg`, arraste o Docker para `Applications`, execute o aplicativo e conclua a configuração inicial.
+
+No Linux, o Docker Engine deve ser instalado conforme sua distribuição. Para nosso ambiente de estudo em Debian ou Ubuntu, o próprio Docker oferece um script de conveniência para desenvolvimento. Primeiro baixe e confira o que ele pretende fazer:
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh --dry-run
+```
+
+Se a prévia terminar sem problemas, execute a instalação:
+
+```bash
+sudo sh get-docker.sh
+```
+
+Esse atalho é útil para nosso ambiente de aprendizado, mas não deve ser usado cegamente em um servidor de produção. Em outras distribuições, siga a [instalação oficial do Docker Engine](https://docs.docker.com/engine/install/) para seu sistema.
+
+No Windows e no macOS, abra o Docker Desktop e espere ele informar que está em execução. Depois, em qualquer um dos três sistemas, feche e abra o terminal novamente e teste nossas três ferramentas:
+
+```bash
+python3 --version
+git --version
+docker --version
+docker compose version
+docker info
+```
+
+No Windows, lembre que o primeiro comando provavelmente será `python --version`. No Linux, caso o `docker info` informe falta de permissão para conversar com o serviço, use `sudo docker info` neste primeiro teste e deixe o ajuste definitivo de permissões para quando realmente abordarmos Docker.
+
+Se Python, Git e Docker responderem com suas versões, ótimo. Se algum comando não for encontrado, leia a mensagem. Não saia reinstalando tudo dez vezes. Feche e abra o terminal novamente, confirme se a instalação terminou e verifique o PATH. O erro não está tentando te expulsar da programação, ele está dizendo exatamente qual peça ainda não conseguiu encontrar.
 
 Não me leve a mal, eu sei que no início uma mensagem dizendo que o comando não existe parece simplesmente dizer que nada deu certo. Mas muitas vezes ela está entregando o problema na nossa cara. Aprender a ler isso vai te poupar horas e, com toda certeza, será uma das coisas mais importantes que você aprenderá aqui.
 
@@ -154,7 +208,7 @@ Salve o arquivo. Volte ao terminal, confira se ainda está dentro da pasta `prim
 python hello.py
 ```
 
-No Linux, caso seu comando seja `python3`:
+No macOS e no Linux, caso seu comando seja `python3`:
 
 ```bash
 python3 hello.py
@@ -206,7 +260,8 @@ Antes de seguir para o próximo pilar, confirme se você consegue fazer estas co
 - Criar e acessar uma pasta com `mkdir` e `cd`.
 - Abrir essa pasta no editor.
 - Criar e salvar um arquivo.
-- Verificar as versões do Python e do Git.
+- Verificar as versões do Python, do Git, do Docker e do Docker Compose.
+- Abrir o Docker Desktop no Windows ou macOS, ou confirmar que o Docker Engine está em execução no Linux.
 - Executar `hello.py`, provocar um erro e corrigi-lo.
 
 Se conseguiu, seu ambiente está pronto. Não pronto para sempre, porque nenhum ambiente está. Ele vai mudar junto com você, receber ferramentas novas, configurações melhores e talvez até outro sistema operacional. Mas está pronto para o que realmente importa agora: aprender fazendo.
@@ -221,6 +276,6 @@ Seu ambiente de desenvolvimento é sua oficina. Você não precisa começar com 
 
 No meu caso, essa bancada já foi um caderno, depois um computador com Windows XP e, ao longo do tempo, muitos sistemas e ferramentas diferentes. Nenhuma delas substituiu a vontade de colocar em prática aquilo que eu estava aprendendo. Com mais recursos tudo foi ficando mais rápido, claramente, mas aquela primeira página só chegou a existir porque eu não esperei ter o cenário que o livro dizia ser o correto.
 
-Então não espere o computador melhor ou o curso perfeito aparecer. Abra seu terminal, crie sua pasta e execute alguma coisa hoje, mesmo que seja simples. Se você vai programar no Windows, no Linux, no Android ou na calculadora da sua avó, apenas faça. Foi assim que terminamos o texto anterior e é assim que começamos de verdade esse primeiro pilar.
+Então não espere o computador melhor ou o curso perfeito aparecer. Abra seu terminal, crie sua pasta e execute alguma coisa hoje, mesmo que seja simples. Se você vai programar no Windows, no macOS, no Linux, no Android ou na calculadora da sua avó, apenas faça. Foi assim que terminamos o post anterior e é assim que começamos de verdade esse primeiro pilar.
 
 No próximo pilar, vamos fazer do Git nosso melhor amigo e criar o primeiro ponto seguro dessa jornada. Agora sim, nosso ambiente está preparado para guardar cada acerto, cada erro e cada evolução que virá.
