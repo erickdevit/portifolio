@@ -1,5 +1,10 @@
 [
   {
+    "file": "posts/post2.md",
+    "title": "Seu ambiente de desenvolvimento é onde tudo começa",
+    "date": "2026-07-16"
+  },
+  {
     "file": "posts/post1.md",
     "title": "Do zero ao Hacker, da forma correta!",
     "date": "2025-10-18"
