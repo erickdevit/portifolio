@@ -19,7 +19,7 @@ fetch('/components/topbar.html')
         const savedTheme = localStorage.getItem('theme') || 'dark';
         if (savedTheme === 'white') {
             document.body.classList.add('white-theme');
-            themeIcon.textContent = '☀'; // Ícone de sol para tema branco
+            themeIcon.textContent = '☼'; // Ícone de sol para tema branco
         } else {
             themeIcon.textContent = '☾'; // Ícone de lua para tema preto
         }
@@ -27,7 +27,7 @@ fetch('/components/topbar.html')
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('white-theme');
             const isWhiteTheme = document.body.classList.contains('white-theme');
-            themeIcon.textContent = isWhiteTheme ? '☀' : '☾'; // Alternar entre sol e lua
+            themeIcon.textContent = isWhiteTheme ? '☼' : '☾'; // Alternar entre sol e lua
             localStorage.setItem('theme', isWhiteTheme ? 'white' : 'dark'); // Salvar preferência
         });
 

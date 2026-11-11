@@ -21,7 +21,7 @@ body.white-theme {
 .topbar {
     background-color: transparent;
     border: none;
-    padding: 16px 24px;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,13 +34,19 @@ body.white-theme {
     pointer-events: none;
 }
 
+/* Não rolar a barra superior junto com a página na leitura dos posts ou tutoriais */
+body.post-page .topbar,
+body.tutorials-page .topbar {
+    position: absolute;
+}
+
 body.white-theme .topbar {
     background-color: transparent;
     border: none;
 }
 
 .topbar .menu {
-    margin: 0;
+    margin-right: 355px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -105,7 +111,7 @@ body.white-theme .topbar .menu a:hover {
     -webkit-backdrop-filter: blur(14px) saturate(180%);
     border: 1px solid rgba(0, 255, 0, 0.4);
     border-radius: 50%;
-    margin: 0;
+    margin-left: 355px;
     padding: 0;
     cursor: pointer;
     display: inline-flex;
@@ -152,19 +158,14 @@ body.white-theme .theme-icon {
 .container {
     width: 100%; /* Usa 90% da largura da tela */
     margin: 70px auto 20px auto; /* Centraliza o container */
-    border-top: 2px solid #00FF00;
-    border-left: 2px solid #00FF00;
-    border-right: 2px solid #00FF00;
+    border: none; /* Removidas linhas verdes ao redor da página */
     padding: 15px; /* Padding interno */
     box-sizing: border-box;
     flex: 1; /* Faz o container crescer para empurrar o footer para baixo */
-    transition: border-color 0.3s;
 }
 
 body.white-theme .container {
-    border-top: 2px solid #000000;
-    border-left: 2px solid #000000;
-    border-right: 2px solid #000000;
+    border: none;
 }
 
 h1, h2, h3 {
@@ -245,14 +246,14 @@ a:hover {
     font-size: 10px;
     line-height: 1;
     padding: 10px;
-    border-top: 2px solid #00FF00;
-    background-color: #000000;
-    transition: background-color 0.3s, border-color 0.3s;
+    border-top: none;
+    background-color: transparent;
+    transition: background-color 0.3s;
 }
 
 body.white-theme .footer {
-    background-color: #FFFFFF;
-    border-top: 2px solid #000000;
+    background-color: transparent;
+    border-top: none;
 }
 
 .section {
@@ -557,21 +558,30 @@ body.white-theme .terminal-input input {
     color: #000000;
 }
 
-@media (max-width: 600px) {
-    .topbar {
-        padding: 10px 12px;
-        gap: 8px;
-    }
+@media (max-width: 1100px) {
     .theme-toggle-btn {
-        margin: 0;
-        width: 38px;
-        height: 38px;
-    }
-    .theme-icon {
-        font-size: 16px;
+        margin-left: 20px;
     }
     .topbar .menu {
-        margin: 0;
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 5px 10px;
+        flex-wrap: wrap;
+    }
+    .theme-toggle-btn {
+        margin-left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    .theme-icon {
+        font-size: 18px;
+    }
+    .topbar .menu {
+        margin-right: 10px;
         padding: 4px 8px;
         gap: 2px;
     }
