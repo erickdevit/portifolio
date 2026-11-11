@@ -7,7 +7,7 @@
     <meta name="description" content="Portfólio de Erick Dev: engenharia de software, Linux, DevOps, CI/CD, Docker, Kubernetes, robótica e projetos open source.">
     <meta name="author" content="Erick Dev">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#060908">
     <link rel="canonical" href="https://erickdevs.it/">
     <link rel="alternate" type="application/rss+xml" title="Blog do Erick Dev" href="https://erickdevs.it/feed.xml">
 
@@ -55,7 +55,7 @@
       ]
     }
     </script>
-    <link rel="stylesheet" href="css/styles.css?v=20260716-wrap">
+    <link rel="stylesheet" href="css/styles.css?v=2026-v2">
     <link rel="icon" href="img/erickport.png" type="image/png">
     <link rel="apple-touch-icon" href="img/erickport.png">
 </head>
@@ -63,119 +63,261 @@
     <canvas id="matrix-canvas"></canvas>
     <canvas id="white-theme-canvas"></canvas>
 
-    <!-- Topbar -->
+    <!-- Topbar Flutuante -->
     <div id="topbar-placeholder"></div>
 
-    <!-- Conteúdo da Página -->
+    <!-- Conteúdo Principal -->
     <main class="container">
+        <!-- Hero HUD de Status -->
+        <div class="hero-hud">
+            <div class="hero-hud-status">
+                <span class="status-dot"></span>
+                <span>STATUS: <b>KERNEL ONLINE</b> [x86_64]</span>
+            </div>
+            <div class="hero-hud-time">
+                <span>ACESSO LIBERADO: <span id="datetime"></span></span>
+            </div>
+        </div>
+
         <div class="ascii">
-            <pre class="blink">
-   ///||| SEJA BEM VINDO |||/// 
-            </br>
-   [ ACESSO LIBERADO EM <span id="datetime"></span> ]
+            <pre>
+   ///||| SEJA BEM-VINDO AO TERMINAL |||///
             </pre>
         </div>
-        <h1>[ ERICK DEV ]</h1>
+
+        <h1>[ <span class="cyber-accent">ERICK DEV</span> ]</h1>
+
         <div class="marquee-text">
-            <marquee behavior="scroll" direction="left">    
-                Entre em contato para tornar suas ideias realidade - Whatsapp: +55 98 98478-9893 - E-mail: erick@wornexs.com
+            <marquee behavior="scroll" direction="left">
+                ⚡ Entre em contato para transformar ideias em código e infraestrutura sólida — WhatsApp: +55 (98) 98478-9893 — E-mail: erick@wornexs.com — GitHub: @erickdevit
             </marquee>
         </div>
-        <div class="section about-section">
-            <h2>>> Sobre Mim</h2>
+
+        <!-- Sobre Mim -->
+        <section class="section about-section" aria-labelledby="about-title">
+            <h2 id="about-title">Sobre Mim</h2>
             <div class="about-content">
                 <div class="about-image">
                     <img src="img/erickport.png" alt="Erick Dev, engenheiro de software e especialista em Linux e DevOps" class="profile-image" width="1080" height="1080">
                 </div>
                 <div class="about-text">
                     <p>
-            Olá, sou o Erick. Seja bem-vindo ao meu espaço digital!  
-            Sou desenvolvedor e gerenciador de sistemas, trabalhando com código e infraestrutura para garantir que tudo funcione perfeitamente nos bastidores. Acredito que, juntos, podemos transformar suas ideias em algumas boas linhas de código.
-            </p>
-                    <p> 
-        Desde cedo, sou apaixonado por tecnologia, robótica, Linux e o universo open source. Comecei desmontando computadores por curiosidade e, com o tempo, fui me especializando em áreas como administração de servidores (Linux, Windows e Cloud), desenvolvimento web, criação de sistemas sob medida, manutenção de redes, segurança da informação e integração de soluções personalizadas. 
-        </p><p>
-    Também sou educador na área de robótica e um defensor do software livre. Acredito que o conhecimento deve ser compartilhado para que possamos construir soluções mais acessíveis, seguras e inovadoras.
-        </p>
+                        Olá! Sou o <b>Erick</b>. Seja bem-vindo ao meu espaço digital.
+                        Sou desenvolvedor e administrador de sistemas, combinando código, infraestrutura e automação para garantir estabilidade, segurança e alto desempenho nos bastidores.
+                    </p>
+                    <p>
+                        Desde cedo tenho fascínio por tecnologia, robótica, Linux e a cultura open source. Essa curiosidade evoluiu para sólida atuação em administração de servidores (Linux, Windows e Cloud), pipelines de CI/CD, segurança da informação, redes de alta disponibilidade e desenvolvimento de sistemas sob medida.
+                    </p>
+                    <p>
+                        Também atuo como educador de robótica e defensor do software livre, compartilhando conhecimento técnico para empoderar novas gerações de desenvolvedores e construir soluções transparentes e acessíveis.
+                    </p>
+                    <div class="about-badges">
+                        <span class="badge-tag">🐧 Linux Kernel & Zen</span>
+                        <span class="badge-tag">🐳 Docker & Kubernetes</span>
+                        <span class="badge-tag">⚙ DevOps & CI/CD</span>
+                        <span class="badge-tag">🔒 Segurança da Informação</span>
+                        <span class="badge-tag">🤖 Robótica Educacional</span>
+                        <span class="badge-tag">🌐 Open Source</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="section">
-            <h2>>> Habilidades</h2>
+        </section>
+
+        <!-- Habilidades -->
+        <section class="section" aria-labelledby="skills-title">
+            <h2 id="skills-title">Habilidades & Especialidades</h2>
+            <div class="skills-grid">
+                <div class="skill-category-card">
+                    <div class="skill-category-title">
+                        <span>☁ DevOps & Cloud</span>
+                    </div>
+                    <ul class="skill-items-list">
+                        <li class="skill-item-pill">Docker & Podman</li>
+                        <li class="skill-item-pill">Kubernetes</li>
+                        <li class="skill-item-pill">CI/CD Pipelines</li>
+                        <li class="skill-item-pill">Cloudflare Workers & D1</li>
+                        <li class="skill-item-pill">Automação Bash & Scripts</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category-card">
+                    <div class="skill-category-title">
+                        <span>🐧 Linux & Infraestrutura</span>
+                    </div>
+                    <ul class="skill-items-list">
+                        <li class="skill-item-pill">Zen Kernel & Void Linux</li>
+                        <li class="skill-item-pill">Debian, Ubuntu & WSL</li>
+                        <li class="skill-item-pill">Administração de Servidores</li>
+                        <li class="skill-item-pill">Redes & Roteamento</li>
+                        <li class="skill-item-pill">Manutenção de Hardware</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category-card">
+                    <div class="skill-category-title">
+                        <span>💻 Engenharia de Software</span>
+                    </div>
+                    <ul class="skill-items-list">
+                        <li class="skill-item-pill">Desenvolvimento Web Full Stack</li>
+                        <li class="skill-item-pill">APIs REST & Microserviços</li>
+                        <li class="skill-item-pill">Sistemas PDV & Gestão ERP</li>
+                        <li class="skill-item-pill">TypeScript / JavaScript</li>
+                        <li class="skill-item-pill">Python & Rust (Tauri)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category-card">
+                    <div class="skill-category-title">
+                        <span>🛡 Segurança & Educação</span>
+                    </div>
+                    <ul class="skill-items-list">
+                        <li class="skill-item-pill">Segurança da Informação</li>
+                        <li class="skill-item-pill">Proteção & Firewall</li>
+                        <li class="skill-item-pill">Educação em Robótica</li>
+                        <li class="skill-item-pill">Cultura Open Source</li>
+                        <li class="skill-item-pill">Consultoria de TI</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projetos -->
+        <section class="section" aria-labelledby="projects-title">
+            <h2 id="projects-title">Projetos em Destaque</h2>
             
-<ul>
-    <li>Engenheiro de Software</li>
-    <li>DevOps e CI/CD</li>
-    <li>Docker e Kubernetes</li>
-    <li>Administração de Servidores (Linux, Windows, Cloud)</li>
-    <li>Segurança da Informação e Proteção de Dados</li>
-    <li>Manutenção de Computadores e Redes</li>
-    <li>Educação em Robótica e Open Source</li>
-    <li>Criação de PDVs e Sistemas para Negócios</li>
-</ul>
-
-        </div>
-        <div class="section">
-            <h2>>> Projetos</h2>
             <h3 class="project-group-title">[ Open Source ]</h3>
-            <ul class="project-list">
-                <li>
-                    <a href="https://github.com/erickdevit/omybuntu" data-link="https://github.com/erickdevit/omybuntu" target="_blank" rel="noopener noreferrer">[OMYBUNTU]</a>
-                    <span>Ambiente desktop otimizado e focado em desenvolvimento para Debian e Ubuntu. MIT.</span>
-                </li>
-                <li>
-                    <a href="https://github.com/erickdevit/WINDUCACIONAL" data-link="https://github.com/erickdevit/WINDUCACIONAL" target="_blank" rel="noopener noreferrer">[WINDUCACIONAL]</a>
-                    <span>Simulador educacional aberto com experiência de desktop web. CC0 1.0.</span>
-                </li>
-                <li>
-                    <a href="https://github.com/erickdevit/odoobr" data-link="https://github.com/erickdevit/odoobr" target="_blank" rel="noopener noreferrer">[ODOOBR]</a>
-                    <span>Odoo 16 pronto para uso com localização brasileira e módulos OCA. MIT.</span>
-                </li>
-                <li>
-                    <a href="https://github.com/erickdevit/void-zen-kernel" data-link="https://github.com/erickdevit/void-zen-kernel" target="_blank" rel="noopener noreferrer">[VOID ZEN KERNEL]</a>
-                    <span>Template e pacotes verificáveis do Zen Kernel para Void Linux. GPL 2.0.</span>
-                </li>
-                <li>
-                    <a href="https://github.com/erickdevit/optc" data-link="https://github.com/erickdevit/optc" target="_blank" rel="noopener noreferrer">[OPTIC STORE]</a>
-                    <span>Aplicação ERPNext para gestão de óticas e prescrições. MIT.</span>
-                </li>
-            </ul>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/erickdevit/omybuntu" target="_blank" rel="noopener noreferrer" class="project-card-title">[OMYBUNTU]</a>
+                        <span class="project-license-badge">MIT</span>
+                    </div>
+                    <p class="project-card-desc">Ambiente desktop otimizado e focado em desenvolvimento produtivo para distribuições Debian e Ubuntu.</p>
+                    <div class="project-card-footer">
+                        <a href="https://github.com/erickdevit/omybuntu" target="_blank" rel="noopener noreferrer" class="project-btn-link">Repositório ↗</a>
+                    </div>
+                </div>
 
-            <h3 class="project-group-title">[ Outros projetos ]</h3>
-            <ul class="project-list project-list-compact">
-                <li><a href="https://portal.orangestoreoficial.com.br" data-link="https://portal.orangestoreoficial.com.br" target="_blank" rel="noopener noreferrer">[ORANGE STORE]</a></li>
-                <li><a href="https://orangestoreoficial.com.br" data-link="https://orangestoreoficial.com.br" target="_blank" rel="noopener noreferrer">[ORANGE STORE - PORTAL]</a></li>
-                <li><a href="https://amsmotos.com" data-link="https://amsmotos.com" target="_blank" rel="noopener noreferrer">[SITE GRUPO AMS MOTOS]</a></li>
-                <li>[FR DCRIP]</li>
-                <li>[ERPNEXUS]</li>
-                <li>[ALIBETT]</li>
-                <li>[EUPINGUIN]</li>
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/erickdevit/WINDUCACIONAL" target="_blank" rel="noopener noreferrer" class="project-card-title">[WINDUCACIONAL]</a>
+                        <span class="project-license-badge">CC0 1.0</span>
+                    </div>
+                    <p class="project-card-desc">Simulador educacional aberto com rica experiência interativa de desktop via web.</p>
+                    <div class="project-card-footer">
+                        <a href="https://github.com/erickdevit/WINDUCACIONAL" target="_blank" rel="noopener noreferrer" class="project-btn-link">Repositório ↗</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/erickdevit/odoobr" target="_blank" rel="noopener noreferrer" class="project-card-title">[ODOOBR]</a>
+                        <span class="project-license-badge">MIT</span>
+                    </div>
+                    <p class="project-card-desc">Odoo 16 pronto para uso corporativo, com localização fiscal e financeira brasileira e módulos OCA.</p>
+                    <div class="project-card-footer">
+                        <a href="https://github.com/erickdevit/odoobr" target="_blank" rel="noopener noreferrer" class="project-btn-link">Repositório ↗</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/erickdevit/void-zen-kernel" target="_blank" rel="noopener noreferrer" class="project-card-title">[VOID ZEN KERNEL]</a>
+                        <span class="project-license-badge">GPL 2.0</span>
+                    </div>
+                    <p class="project-card-desc">Templates e compilações verificáveis do Zen Kernel de baixa latência para Void Linux.</p>
+                    <div class="project-card-footer">
+                        <a href="https://github.com/erickdevit/void-zen-kernel" target="_blank" rel="noopener noreferrer" class="project-btn-link">Repositório ↗</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/erickdevit/optc" target="_blank" rel="noopener noreferrer" class="project-card-title">[OPTIC STORE]</a>
+                        <span class="project-license-badge">MIT</span>
+                    </div>
+                    <p class="project-card-desc">Aplicação customizada sobre ERPNext voltada para gestão clínica e prescrições de óticas.</p>
+                    <div class="project-card-footer">
+                        <a href="https://github.com/erickdevit/optc" target="_blank" rel="noopener noreferrer" class="project-btn-link">Repositório ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="project-group-title">[ Projetos Web & Corporativos ]</h3>
+            <ul class="projects-compact-list">
+                <li><a href="https://portal.orangestoreoficial.com.br" target="_blank" rel="noopener noreferrer">[ORANGE STORE - SISTEMA] ↗</a></li>
+                <li><a href="https://orangestoreoficial.com.br" target="_blank" rel="noopener noreferrer">[ORANGE STORE - PORTAL] ↗</a></li>
+                <li><a href="https://amsmotos.com" target="_blank" rel="noopener noreferrer">[GRUPO AMS MOTOS] ↗</a></li>
+                <li><span>[FR DCRIP]</span></li>
+                <li><span>[ERPNEXUS]</span></li>
+                <li><span>[ALIBETT]</span></li>
+                <li><span>[EUPINGUIN]</span></li>
             </ul>
-        </div>
-        <div class="section">
-            <h2>>> Contato</h2>
-            <p>
-                Email: <a href="mailto:erick@wornexs.com">erick@wornexs.com</a><br>
-                Whatsapp: <a href="https://wa.me/5598984789893" target="_blank" rel="noopener noreferrer">+55 98 98478-9893</a><br>
-                "Deixe uma mensagem após o bip... *BIP*"
-                
+        </section>
+
+        <!-- Contato -->
+        <section class="section" aria-labelledby="contact-title">
+            <h2 id="contact-title">Conectar & Contato</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                Precisa de uma infraestrutura confiável, automação de servidores ou desenvolvimento sob medida? Mande uma mensagem:
             </p>
-        </div>
+            <div class="contact-grid">
+                <a href="mailto:erick@wornexs.com" class="contact-card">
+                    <div class="contact-icon">✉</div>
+                    <div class="contact-info">
+                        <span class="contact-label">E-mail Profissional</span>
+                        <span class="contact-value">erick@wornexs.com</span>
+                    </div>
+                </a>
+
+                <a href="https://wa.me/5598984789893" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-info">
+                        <span class="contact-label">WhatsApp Direto</span>
+                        <span class="contact-value">+55 (98) 98478-9893</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/erickdevit" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <div class="contact-icon">&gt;_</div>
+                    <div class="contact-info">
+                        <span class="contact-label">GitHub Perfil</span>
+                        <span class="contact-value">github.com/erickdevit</span>
+                    </div>
+                </a>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Terminal Popup -->
+    <!-- Terminal Interativo Popup -->
     <div class="terminal-popup" id="terminal">
         <div class="terminal-header">
-            <span>[ Terminal ]</span>
-            <span class="close-btn" id="close-terminal">[ X ]</span>
+            <div class="terminal-window-controls">
+                <span class="terminal-dot dot-red" id="close-terminal-dot"></span>
+                <span class="terminal-dot dot-yellow"></span>
+                <span class="terminal-dot dot-green"></span>
+            </div>
+            <span class="terminal-title">erick@matrix: ~ (bash)</span>
+            <span class="close-btn" id="close-terminal" title="Fechar">[X]</span>
         </div>
-        <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-body" id="terminal-output">
+            <p class="cli-highlight">Terminal interativo iniciado. Digite <b>help</b> para comandos ou clique nos atalhos abaixo.</p>
+        </div>
+        <div class="terminal-chips">
+            <button class="terminal-chip-btn" data-cmd="whoami">whoami</button>
+            <button class="terminal-chip-btn" data-cmd="about">about</button>
+            <button class="terminal-chip-btn" data-cmd="skills">skills</button>
+            <button class="terminal-chip-btn" data-cmd="projects">projects</button>
+            <button class="terminal-chip-btn" data-cmd="contact">contact</button>
+            <button class="terminal-chip-btn" data-cmd="theme">theme</button>
+            <button class="terminal-chip-btn" data-cmd="help">help</button>
+        </div>
         <div class="terminal-input">
             <span>$</span>
-            <input type="text" id="terminal-input" placeholder="Digite um comando...">
+            <input type="text" id="terminal-input" placeholder="Digite um comando..." autocomplete="off">
         </div>
     </div>
 

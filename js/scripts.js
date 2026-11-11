@@ -62,45 +62,74 @@ if (closeTerminal && terminalOutput && terminalInput) {
     });
 
     const commands = {
-        'whoami': 'erickdev',
-        'pwd': '/root/erickdev',
-        'ls': 'dir1  dir2  file1.txt  file2.txt',
+        'whoami': '<span class="cli-highlight">Erick Dev</span> · Engenheiro de Software, DevOps & Mentor em Robótica / Linux.',
+        'about': 'Desenvolvedor focado em Linux, arquitetura de sistemas sob medida, automação CI/CD, segurança da informação e softwares livres.',
+        'skills': '<b>[STACK & COMPETÊNCIAS]</b><br>• Docker & Kubernetes | CI/CD | Cloudflare Workers<br>• Servidores Linux (Debian, Void, Ubuntu) & Windows<br>• Redes, Firewall & Segurança da Informação<br>• Desenvolvimento Web, Automações & Sistemas PDV/ERP',
+        'projects': '<b>[PROJETOS DESTAQUE]</b><br>• <a href="https://github.com/erickdevit/omybuntu" target="_blank" class="cli-highlight">OMYBUNTU</a>: Desktop dev otimizado (MIT)<br>• <a href="https://github.com/erickdevit/WINDUCACIONAL" target="_blank" class="cli-highlight">WINDUCACIONAL</a>: Simulador educacional web<br>• <a href="https://github.com/erickdevit/void-zen-kernel" target="_blank" class="cli-highlight">VOID ZEN KERNEL</a>: Kernel Zen para Void Linux<br>• <a href="https://github.com/erickdevit/odoobr" target="_blank" class="cli-highlight">ODOOBR</a>: Odoo 16 com localização brasileira',
+        'contact': '<b>[CONTATO DIRETO]</b><br>• E-mail: <a href="mailto:erick@wornexs.com" class="cli-highlight">erick@wornexs.com</a><br>• WhatsApp: <a href="https://wa.me/5598984789893" target="_blank" class="cli-highlight">+55 98 98478-9893</a><br>• GitHub: <a href="https://github.com/erickdevit" target="_blank" class="cli-highlight">@erickdevit</a>',
+        'pwd': '/home/erickdev',
+        'ls': '<span class="cli-cmd">sobre-mim.txt</span>  <span class="cli-cmd">habilidades.json</span>  <span class="cli-highlight">projetos/</span>  <span class="cli-highlight">blog/</span>  <span class="cli-highlight">tutoriais/</span>',
+        'theme': () => {
+            const toggle = document.getElementById('theme-toggle');
+            if (toggle) toggle.click();
+            return 'Tema alternado com sucesso!';
+        },
         'clear': () => {
             terminalOutput.innerHTML = '';
             return '';
         },
-        'help': 'Comandos disponíveis: whoami, pwd, ls, clear, help'
+        'sudo': () => {
+            return '<span class="cli-warn">erick não está no arquivo sudoers. Este incidente será reportado ao Papai Noel.</span>';
+        },
+        'matrix': () => {
+            return '<span class="cli-highlight">Matrix digital rain sincronizado com o kernel.</span>';
+        },
+        'help': '<b>Comandos disponíveis:</b><br><span class="cli-cmd">whoami</span> · <span class="cli-cmd">about</span> · <span class="cli-cmd">skills</span> · <span class="cli-cmd">projects</span> · <span class="cli-cmd">contact</span> · <span class="cli-cmd">theme</span> · <span class="cli-cmd">pwd</span> · <span class="cli-cmd">ls</span> · <span class="cli-cmd">clear</span> · <span class="cli-cmd">help</span>'
+    };
+
+    const executeCommand = (cmdText) => {
+        const input = cmdText.trim().toLowerCase();
+        let output = '';
+
+        if (input in commands) {
+            if (typeof commands[input] === 'function') {
+                output = commands[input]();
+            } else {
+                output = commands[input];
+            }
+        } else if (input) {
+            output = `<span class="cli-warn">Comando não encontrado: "${input}". Digite <b>help</b> para ver comandos.</span>`;
+        }
+
+        if (input !== 'clear') {
+            const newLine = document.createElement('p');
+            newLine.innerHTML = `<span class="cli-cmd">erick@dev:~$</span> ${input}`;
+            terminalOutput.appendChild(newLine);
+
+            if (output) {
+                const outputLine = document.createElement('p');
+                outputLine.className = 'cli-out';
+                outputLine.innerHTML = output;
+                terminalOutput.appendChild(outputLine);
+            }
+        }
+
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
     };
 
     terminalInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-            const input = terminalInput.value.trim().toLowerCase();
-            let output = '';
-
-            if (input in commands) {
-                if (typeof commands[input] === 'function') {
-                    output = commands[input]();
-                } else {
-                    output = commands[input];
-                }
-            } else if (input) {
-                output = `Comando não encontrado: ${input}. Digite 'help' para ver os comandos disponíveis.`;
-            }
-
-            if (input !== 'clear') {
-                const newLine = document.createElement('p');
-                newLine.textContent = `$ ${input}`;
-                terminalOutput.appendChild(newLine);
-
-                if (output) {
-                    const outputLine = document.createElement('p');
-                    outputLine.textContent = output;
-                    terminalOutput.appendChild(outputLine);
-                }
-            }
-
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            executeCommand(terminalInput.value);
             terminalInput.value = '';
+        }
+    });
+
+    // Event delegation para botões/chips rápidos do terminal
+    document.addEventListener('click', (e) => {
+        const chip = e.target.closest('.terminal-chip-btn');
+        if (chip) {
+            const cmd = chip.getAttribute('data-cmd');
+            if (cmd) executeCommand(cmd);
         }
     });
 }
@@ -478,9 +507,6 @@ const canvas = document.getElementById('matrix-canvas');
 if (canvas && getComputedStyle(canvas).display !== 'none') {
     const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     // Caracteres a serem usados no efeito
     const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
     const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -488,23 +514,29 @@ if (canvas && getComputedStyle(canvas).display !== 'none') {
     const alphabet = katakana + latin + nums;
 
     const fontSize = 16;
-    const columns = canvas.width / fontSize;
+    let columns = 0;
+    let rainDrops = [];
 
-    const rainDrops = [];
-
-    for (let x = 0; x < columns; x++) {
-        rainDrops[x] = 1;
-    }
+    const resizeMatrix = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        columns = Math.floor(canvas.width / fontSize);
+        rainDrops = [];
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = Math.floor(Math.random() * -50);
+        }
+    };
 
     const draw = () => {
-        // Fundo preto semi-transparente para criar o efeito de rastro
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        // Fundo escuro semi-transparente para criar o efeito de rastro
+        ctx.fillStyle = 'rgba(6, 9, 8, 0.08)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Cria o gradiente de roxo para ciano
+        // Cria o gradiente de verde neon para ciano e violeta
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#8A2BE2'); // Roxo
-        gradient.addColorStop(1, '#00FFFF'); // Ciano
+        gradient.addColorStop(0, '#00FF88'); // Verde neon cyber
+        gradient.addColorStop(0.6, '#00E5FF'); // Ciano
+        gradient.addColorStop(1, '#8A2BE2'); // Violeta
 
         ctx.fillStyle = gradient;
         ctx.font = fontSize + 'px monospace';
@@ -521,7 +553,9 @@ if (canvas && getComputedStyle(canvas).display !== 'none') {
         }
     };
 
-    setInterval(draw, 30);
+    window.addEventListener('resize', resizeMatrix);
+    resizeMatrix();
+    setInterval(draw, 33);
 }
 
 // Efeito de partículas para o tema branco

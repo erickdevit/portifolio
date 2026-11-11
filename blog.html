@@ -7,7 +7,7 @@
     <meta name="description" content="Artigos de Erick Dev sobre programação, Linux, ambiente de desenvolvimento, WSL, Bash, Git, Docker, DevOps e os pilares para aprender tecnologia.">
     <meta name="author" content="Erick Dev">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#060908">
     <link rel="canonical" href="https://erickdevs.it/blog.html">
     <link rel="alternate" type="application/rss+xml" title="Blog do Erick Dev" href="https://erickdevs.it/feed.xml">
 
@@ -41,19 +41,35 @@
       "author": { "@type": "Person", "@id": "https://erickdevs.it/#erick-dev", "name": "Erick Dev", "url": "https://erickdevs.it/" }
     }
     </script>
-    <link rel="stylesheet" href="css/styles.css?v=20260716-wrap">
+    <link rel="stylesheet" href="css/styles.css?v=2026-v2">
     <link rel="icon" href="img/erickport.png" type="image/png">
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
     <canvas id="white-theme-canvas"></canvas>
 
-    <!-- Placeholder para a Topbar -->
+    <!-- Topbar Flutuante -->
     <div id="topbar-placeholder"></div>
 
     <main class="container">
-        
-        <h1>[ BLOG ]</h1>
+        <!-- Hero HUD -->
+        <div class="hero-hud">
+            <div class="hero-hud-status">
+                <span class="status-dot"></span>
+                <span>REPOSITÓRIO: <b>ARTIGOS & TUTORIAIS TÉCNICOS</b></span>
+            </div>
+            <div class="hero-hud-time">
+                <span>FEED RSS DISPONÍVEL</span>
+            </div>
+        </div>
+
+        <h1>[ <span class="cyber-accent">BLOG TÉCNICO</span> ]</h1>
+
+        <div class="ascii">
+            <pre>
+   ///||| ARTIGOS SOBRE LINUX, DEVOPS E DESENVOLVIMENTO |||///
+            </pre>
+        </div>
 
         <!-- Postagens -->
         <section class="section" id="posts-list" aria-label="Posts do blog">
@@ -74,10 +90,10 @@
         </section>
     </main>
 
-    <!-- Placeholder para o Footer -->
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Popup de Postagem -->
+    <!-- Popup de Postagem (para links dinâmicos antigos se houver) -->
     <div class="post-popup" id="post-popup">
         <div class="post-popup-header">
             <h3 id="post-popup-title"></h3>
@@ -86,24 +102,32 @@
         <div class="post-popup-content" id="post-popup-content"></div>
     </div>
 
-    <!-- Terminal Popup -->
+    <!-- Terminal Interativo Popup -->
     <div class="terminal-popup" id="terminal">
         <div class="terminal-header">
-            <span>root@erickdev:~$</span>
-            <span class="close-btn" id="close-terminal">[X]</span>
+            <div class="terminal-window-controls">
+                <span class="terminal-dot dot-red"></span>
+                <span class="terminal-dot dot-yellow"></span>
+                <span class="terminal-dot dot-green"></span>
+            </div>
+            <span class="terminal-title">erick@matrix: ~ (bash)</span>
+            <span class="close-btn" id="close-terminal" title="Fechar">[X]</span>
         </div>
         <div class="terminal-body" id="terminal-output">
-            <p>Terminal iniciado. Digite 'help' para ver os comandos disponíveis.</p>
+            <p class="cli-highlight">Terminal iniciado. Digite <b>help</b> para ver os comandos disponíveis.</p>
+        </div>
+        <div class="terminal-chips">
+            <button class="terminal-chip-btn" data-cmd="whoami">whoami</button>
+            <button class="terminal-chip-btn" data-cmd="skills">skills</button>
+            <button class="terminal-chip-btn" data-cmd="projects">projects</button>
+            <button class="terminal-chip-btn" data-cmd="help">help</button>
         </div>
         <div class="terminal-input">
             <span>$</span>
-            <input type="text" id="terminal-input" autofocus>
+            <input type="text" id="terminal-input" placeholder="Digite um comando..." autocomplete="off">
         </div>
     </div>
 
-    <!-- Incluir Scripts -->
-    <!-- marked.js é necessário para gerar as prévias de arquivos .md -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="js/animations.js"></script>

@@ -114,7 +114,7 @@ ${post.tags.map((tag) => `    <meta property="article:tag" content="${escapeHtml
     <meta name="twitter:image:alt" content="Erick Dev em uma composição visual escura com código ao fundo">
 
     <script type="application/ld+json">${jsonLd(post)}</script>
-    <link rel="stylesheet" href="/css/styles.css?v=20260716-wrap">
+    <link rel="stylesheet" href="/css/styles.css?v=2026-v2">
     <link rel="icon" href="/img/erickport.png" type="image/png">
     <link rel="apple-touch-icon" href="/img/erickport.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -125,31 +125,64 @@ ${post.tags.map((tag) => `    <meta property="article:tag" content="${escapeHtml
     <div id="topbar-placeholder"></div>
 
     <main class="container">
-        <article class="post-full">
+        <!-- Breadcrumb HUD -->
+        <div class="hero-hud" style="margin-bottom: 24px;">
+            <div class="hero-hud-status">
+                <a href="/" style="color: var(--accent-primary); text-decoration: none;">Home</a>
+                <span>/</span>
+                <a href="/blog.html" style="color: var(--text-secondary); text-decoration: none;">Blog</a>
+                <span>/</span>
+                <span style="color: var(--text-muted);">${escapeHtml(post.title)}</span>
+            </div>
+            <div class="hero-hud-time">
+                <span>ARTIGO TÉCNICO</span>
+            </div>
+        </div>
+
+        <article class="post-full section">
             <header class="post-full-header">
                 <h1 id="post-title">${escapeHtml(post.title)}</h1>
-                <div class="post-date">Por <a href="/">Erick Dev</a> · <time id="post-date" datetime="${post.date}">${formattedDate(post.date)}</time></div>
+                <div class="post-date">Por <a href="/" style="color: var(--accent-primary);">Erick Dev</a> · <time id="post-date" datetime="${post.date}">${formattedDate(post.date)}</time></div>
             </header>
             <section class="post-full-content" id="post-content">
 ${articleHtml}
             </section>
         </article>
 
-        <section class="post-comments post-full" aria-labelledby="comments-title">
-            <h2 id="comments-title">&gt;&gt; Comentários</h2>
+        <section class="post-comments post-full section" aria-labelledby="comments-title">
+            <h2 id="comments-title">Comentários</h2>
             <div id="comments-container"></div>
         </section>
     </main>
 
     <div id="footer-placeholder"></div>
     <div class="terminal-popup" id="terminal">
-        <div class="terminal-header"><span>root@erickdev:~$</span><span class="close-btn" id="close-terminal">[X]</span></div>
+        <div class="terminal-header">
+            <div class="terminal-window-controls">
+                <span class="terminal-dot dot-red"></span>
+                <span class="terminal-dot dot-yellow"></span>
+                <span class="terminal-dot dot-green"></span>
+            </div>
+            <span class="terminal-title">erick@matrix: ~ (bash)</span>
+            <span class="close-btn" id="close-terminal" title="Fechar">[X]</span>
+        </div>
         <div class="terminal-body" id="terminal-output"></div>
-        <div class="terminal-input"><span>$</span><input type="text" id="terminal-input" aria-label="Comando do terminal"></div>
+        <div class="terminal-chips">
+            <button class="terminal-chip-btn" data-cmd="whoami">whoami</button>
+            <button class="terminal-chip-btn" data-cmd="skills">skills</button>
+            <button class="terminal-chip-btn" data-cmd="projects">projects</button>
+            <button class="terminal-chip-btn" data-cmd="help">help</button>
+        </div>
+        <div class="terminal-input">
+            <span>$</span>
+            <input type="text" id="terminal-input" aria-label="Comando do terminal" placeholder="Digite um comando..." autocomplete="off">
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="/js/animations.js"></script>
 </body>
 </html>
 `;

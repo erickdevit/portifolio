@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, follow">
-    <meta name="description" content="Este endereço antigo leva você para a versão atual do post no blog do Erick Dev.">
+    <meta name="description" content="Artigos sobre programação, Linux, Git, Docker e DevOps no site do Erick Dev.">
+    <meta name="theme-color" content="#060908">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -19,22 +20,36 @@
     <meta name="twitter:description" content="Artigos sobre programação, Linux, Git, Docker e DevOps.">
     <meta name="twitter:image" content="https://erickdevs.it/img/erickportifolio.png">
 
-    <title>Redirecionando para o Blog do Erick Dev</title>
-    <link rel="stylesheet" href="css/styles.css?v=20260716-wrap">
-    <!-- CSS para o Highlight.js (tema escuro) -->
+    <title>Blog | Erick Dev</title>
+    <link rel="stylesheet" href="css/styles.css?v=2026-v2">
+    <link rel="icon" href="img/erickport.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 <body class="post-page">
     <canvas id="matrix-canvas"></canvas>
     <canvas id="white-theme-canvas"></canvas>
 
-    <!-- Placeholder para a Topbar -->
+    <!-- Topbar Flutuante -->
     <div id="topbar-placeholder"></div>
 
-    <div class="container">
-        <article class="post-full">
+    <main class="container">
+        <!-- Breadcrumb HUD -->
+        <div class="hero-hud" style="margin-bottom: 24px;">
+            <div class="hero-hud-status">
+                <a href="/" style="color: var(--accent-primary); text-decoration: none;">Home</a>
+                <span>/</span>
+                <a href="/blog.html" style="color: var(--text-secondary); text-decoration: none;">Blog</a>
+                <span>/</span>
+                <span style="color: var(--text-muted);">Artigo</span>
+            </div>
+            <div class="hero-hud-time">
+                <span>LEITURA TÉCNICA</span>
+            </div>
+        </div>
+
+        <article class="post-full section">
             <header class="post-full-header">
-                <h1 id="post-title">Carregando...</h1>
+                <h1 id="post-title">Carregando post...</h1>
                 <div class="post-date" id="post-date"></div>
             </header>
             <section class="post-full-content" id="post-content">
@@ -43,25 +58,36 @@
         </article>
 
         <!-- Seção de Comentários -->
-        <section class="post-comments post-full">
-            <h2>>> Comentários</h2>
+        <section class="post-comments post-full section">
+            <h2>Comentários</h2>
             <div id="comments-container"></div>
         </section>
-    </div>
+    </main>
 
-    <!-- Placeholder para o Footer -->
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Terminal Popup -->
+    <!-- Terminal Interativo Popup -->
     <div class="terminal-popup" id="terminal">
         <div class="terminal-header">
-            <span>root@erickdev:~$</span>
-            <span class="close-btn" id="close-terminal">[X]</span>
+            <div class="terminal-window-controls">
+                <span class="terminal-dot dot-red"></span>
+                <span class="terminal-dot dot-yellow"></span>
+                <span class="terminal-dot dot-green"></span>
+            </div>
+            <span class="terminal-title">erick@matrix: ~ (bash)</span>
+            <span class="close-btn" id="close-terminal" title="Fechar">[X]</span>
         </div>
         <div class="terminal-body" id="terminal-output"></div>
+        <div class="terminal-chips">
+            <button class="terminal-chip-btn" data-cmd="whoami">whoami</button>
+            <button class="terminal-chip-btn" data-cmd="skills">skills</button>
+            <button class="terminal-chip-btn" data-cmd="projects">projects</button>
+            <button class="terminal-chip-btn" data-cmd="help">help</button>
+        </div>
         <div class="terminal-input">
             <span>$</span>
-            <input type="text" id="terminal-input" autofocus>
+            <input type="text" id="terminal-input" placeholder="Digite um comando..." autocomplete="off">
         </div>
     </div>
 

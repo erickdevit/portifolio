@@ -6,10 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.querySelector(selector)) gsap.from(selector, options);
     };
 
+    animateIfPresent(".hero-hud", { opacity: 0, y: -15, duration: 0.6, ease: "power2.out" });
     animateIfPresent("h1", { opacity: 0, y: -20, duration: 0.8, ease: "power2.out", delay: 0.1 });
     animateIfPresent(".ascii", { opacity: 0, scale: 0.9, duration: 0.8, ease: "power2.out", delay: 0.2 });
-    animateIfPresent(".marquee-text", { opacity: 0, x: -50, duration: 0.8, ease: "power2.out", delay: 0.3 });
-    animateIfPresent(".section", { opacity: 0, y: 30, duration: 0.8, ease: "power2.out", stagger: 0.2, delay: 0.4 });
+    animateIfPresent(".marquee-text", { opacity: 0, x: -30, duration: 0.8, ease: "power2.out", delay: 0.3 });
+    animateIfPresent(".section", { opacity: 0, y: 25, duration: 0.8, ease: "power2.out", stagger: 0.15, delay: 0.35 });
 
     // Micro-interactions for buttons and links
     const topbarLinks = document.querySelectorAll(".menu a, .theme-toggle-btn");
