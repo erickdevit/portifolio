@@ -306,14 +306,14 @@ Se o seu firewall estiver funcionando como mandam os deuses do Linux, o Nmap dev
 
 Antes de considerar sua infraestrutura pronta para encarar a internet, valide se você cumpriu esta cartilha mínima de sobrevivência:
 
-- [ ] Sabe inspecionar portas abertas no Linux com `sudo ss -tulpn`.
-- [ ] Entende o perigo real de colocar serviços sensíveis amarrados em `0.0.0.0`.
-- [ ] Configurou o UFW bloqueando conexões de entrada por padrão e liberando só o necessário.
-- [ ] Lembrou de autorizar o SSH no firewall **antes** de ligá-lo na nuvem.
-- [ ] Gerou chaves criptográficas seguras (`ed25519`) com passphrase.
-- [ ] Desativou login por senha e login direto do usuário `root` no SSH.
-- [ ] Ativou o Fail2ban para frear a enxurrada de robôs insistentes.
-- [ ] Não cai mais na pegadinha do Docker furando o firewall (sempre amarra no `127.0.0.1`).
+- Sabe inspecionar portas abertas no Linux com `sudo ss -tulpn`.
+- Entende o perigo real de colocar serviços sensíveis amarrados em `0.0.0.0`.
+- Configurou o UFW bloqueando conexões de entrada por padrão e liberando só o necessário.
+- Lembrou de autorizar o SSH no firewall **antes** de ligá-lo na nuvem.
+- Gerou chaves criptográficas seguras (`ed25519`) com passphrase.
+- Desativou login por senha e login direto do usuário `root` no SSH.
+- Ativou o Fail2ban para frear a enxurrada de robôs insistentes.
+- Não cai mais na pegadinha do Docker furando o firewall (sempre amarra no `127.0.0.1`).
 
 Segurança não é um certificado que você emoldura na parede e diz que o sistema está 100% blindado para todo o sempre. Sistemas são organismos vivos: dependem de você aplicar atualizações de segurança periodicamente (`sudo apt update && sudo apt upgrade`) e de manter uma postura cética e atenta com qualquer serviço novo que você inventar de subir.
 

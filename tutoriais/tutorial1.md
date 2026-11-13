@@ -287,12 +287,12 @@ Mas segure a ansiedade: abrir portas para o mundo exterior sem saber como proteg
 
 Antes de fechar o terminal e ir tomar um café, confira se você assimilou os conceitos essenciais:
 
-- [ ] Sabe o que é um servidor web e por que portas de rede existem.
-- [ ] Consegue instalar e checar o status do Nginx via `systemctl`.
-- [ ] Entende a diferença crucial entre a pasta `sites-available` e `sites-enabled`.
-- [ ] Escreveu um Server Block na unha sem esquecer o ponto e vírgula.
-- [ ] Pegou o hábito sagrado de rodar `sudo nginx -t` antes de qualquer `reload`.
-- [ ] Sabe abrir e interpretar o `access.log` e o `error.log`.
+- Sabe o que é um servidor web e por que portas de rede existem.
+- Consegue instalar e checar o status do Nginx via `systemctl`.
+- Entende a diferença crucial entre a pasta `sites-available` e `sites-enabled`.
+- Escreveu um Server Block na unha sem esquecer o ponto e vírgula.
+- Pegou o hábito sagrado de rodar `sudo nginx -t` antes de qualquer `reload`.
+- Sabe abrir e interpretar o `access.log` e o `error.log`.
 
 Se você conseguiu fazer isso tudo no seu terminal hoje, tire o chapéu para si mesmo. Você acabou de dar um passo técnico sólido que muita gente com anos de currículo finge que sabe, mas depende de um botão mágico de deploy para conseguir entregar.
 
