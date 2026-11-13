@@ -1,3 +1,8 @@
+// Aplica a preferência do efeito Matrix antes de desenhar (padrão: ligado)
+if (localStorage.getItem('matrix') === 'off') {
+    document.body.classList.add('matrix-off');
+}
+
 // Carregar Topbar
 fetch('/components/topbar.html')
     .then(response => response.text())
@@ -30,6 +35,26 @@ fetch('/components/topbar.html')
             themeIcon.textContent = isWhiteTheme ? '☼' : '☾'; // Alternar entre sol e lua
             localStorage.setItem('theme', isWhiteTheme ? 'white' : 'dark'); // Salvar preferência
         });
+
+        // Configurar o botão de ligar/desligar o efeito Matrix
+        const matrixToggleBtn = document.getElementById('matrix-toggle');
+        if (matrixToggleBtn) {
+            const syncMatrixBtn = () => {
+                const isOn = !document.body.classList.contains('matrix-off');
+                matrixToggleBtn.setAttribute('aria-pressed', String(isOn));
+                matrixToggleBtn.title = isOn ? 'Desligar efeito Matrix' : 'Ligar efeito Matrix';
+            };
+            syncMatrixBtn();
+
+            matrixToggleBtn.addEventListener('click', () => {
+                const turnOff = document.body.classList.toggle('matrix-off');
+                localStorage.setItem('matrix', turnOff ? 'off' : 'on'); // Salvar preferência
+                if (matrixRain) {
+                    turnOff ? matrixRain.stop() : matrixRain.start();
+                }
+                syncMatrixBtn();
+            });
+        }
 
         // Adicionar evento ao botão do terminal
         const terminalBtn = document.getElementById('terminal-btn');
@@ -284,16 +309,12 @@ function loadTutorials() {
                 fetch(tutorial.file)
                     .then(res => res.text())
                     .then(text => {
-                        // Primeiro, converte o Markdown para HTML para a prévia
-                        const html = marked.parse(text);
-
                         const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = html;
-                        // Remove o conteúdo de blocos de código da prévia para não poluir
-                        tempDiv.querySelectorAll('pre').forEach(pre => pre.remove());
-                        const previewText = (tempDiv.textContent || tempDiv.innerText).split(' ').slice(0, 30).join(' ') + '...';
-                        previewContainer.textContent = previewText.replace(/\s+/g, ' ').trim();
+                        previewContainer.textContent = generatePreviewFromMarkdown(text, 30);
+                    })
+                    .catch(() => {
+                        const previewContainer = document.getElementById(`preview-${tutorial.file.replace(/\W/g, '')}`);
+                        previewContainer.textContent = 'Clique para ler mais.';
                     });
             });
         })
@@ -398,7 +419,18 @@ function loadGiscus() {
 
 // Função para gerar uma prévia de texto a partir de um conteúdo Markdown
 function generatePreviewFromMarkdown(markdown, wordCount = 30) {
-    if (typeof marked === 'undefined') return '';
+    // Sem a biblioteca marked, limpa a sintaxe Markdown básica na mão
+    if (typeof marked === 'undefined') {
+        const plain = markdown
+            .replace(/```[\s\S]*?```/g, ' ')          // blocos de código
+            .replace(/^\s{0,3}(#{1,6}\s.*|-{3,}|\*{3,})$/gm, ' ') // títulos e linhas horizontais
+            .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')      // imagens
+            .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')    // links -> texto
+            .replace(/[`*_>]/g, '')                     // marcações restantes
+            .trim();
+        const words = plain.split(/\s+/).filter(Boolean).slice(0, wordCount).join(' ');
+        return words ? words + '...' : 'Clique para ler mais.';
+    }
 
     const html = marked.parse(markdown);
     const tempDiv = document.createElement('div');
@@ -473,13 +505,14 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSingleTutorial();
 });
 
-// Efeito Matrix no Background
+// Efeito Matrix no Background (funciona nos dois temas e pode ser desligado pela topbar)
 const canvas = document.getElementById('matrix-canvas');
-if (canvas && getComputedStyle(canvas).display !== 'none') {
-    const ctx = canvas.getContext('2d');
+const matrixRain = (() => {
+    if (!canvas || document.body.classList.contains('post-page')) {
+        return null; // Páginas de leitura não têm animação no fundo
+    }
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
 
     // Caracteres a serem usados no efeito
     const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
@@ -488,23 +521,42 @@ if (canvas && getComputedStyle(canvas).display !== 'none') {
     const alphabet = katakana + latin + nums;
 
     const fontSize = 16;
-    const columns = canvas.width / fontSize;
+    let rainDrops = [];
+    let timer = null;
+    let lastWhite = null;
 
-    const rainDrops = [];
+    // Cores de cada tema: rastro (fundo) e gradiente dos caracteres
+    const palettes = {
+        dark: { trail: 'rgba(0, 0, 0, 0.05)', base: '#000000', top: '#8A2BE2', bottom: '#00FFFF' }, // Roxo -> Ciano
+        white: { trail: 'rgba(245, 245, 245, 0.08)', base: '#f5f5f5', top: 'rgba(0, 135, 60, 0.42)', bottom: 'rgba(0, 110, 140, 0.42)' } // Verde -> Petróleo, suave para não brigar com o texto
+    };
 
-    for (let x = 0; x < columns; x++) {
-        rainDrops[x] = 1;
-    }
+    const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const columns = Math.ceil(canvas.width / fontSize);
+        rainDrops = Array.from({ length: columns }, (_, i) => rainDrops[i] || 1);
+        lastWhite = null; // Força repintar o fundo
+    };
 
     const draw = () => {
-        // Fundo preto semi-transparente para criar o efeito de rastro
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        const isWhite = document.body.classList.contains('white-theme');
+        const palette = isWhite ? palettes.white : palettes.dark;
+
+        // Ao trocar de tema, limpa o rastro antigo com a cor de fundo nova
+        if (isWhite !== lastWhite) {
+            ctx.fillStyle = palette.base;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            lastWhite = isWhite;
+        }
+
+        // Fundo semi-transparente para criar o efeito de rastro
+        ctx.fillStyle = palette.trail;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Cria o gradiente de roxo para ciano
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#8A2BE2'); // Roxo
-        gradient.addColorStop(1, '#00FFFF'); // Ciano
+        gradient.addColorStop(0, palette.top);
+        gradient.addColorStop(1, palette.bottom);
 
         ctx.fillStyle = gradient;
         ctx.font = fontSize + 'px monospace';
@@ -521,60 +573,22 @@ if (canvas && getComputedStyle(canvas).display !== 'none') {
         }
     };
 
-    setInterval(draw, 30);
-}
-
-// Efeito de partículas para o tema branco
-const whiteCanvas = document.getElementById('white-theme-canvas');
-if (whiteCanvas && getComputedStyle(whiteCanvas).display !== 'none') {
-    const ctx = whiteCanvas.getContext('2d');
-    let particles = [];
-    let rainDrops = [];
-    let columns = 0;
-    const fontSize = 16;
-    const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    
-    const resizeCanvas = () => {
-        whiteCanvas.width = window.innerWidth;
-        whiteCanvas.height = window.innerHeight;
-        columns = whiteCanvas.width / fontSize;
-        rainDrops = [];
-        for (let x = 0; x < columns; x++) {
-            rainDrops[x] = 1;
-        }
+    const start = () => {
+        if (timer) return;
+        resize();
+        timer = setInterval(draw, 30);
     };
-    
-    const animate = () => {
-        // Fundo que apaga lentamente para criar rastro nas partículas
-        ctx.fillStyle = 'rgba(245, 245, 245, 0.05)';
-        ctx.fillRect(0, 0, whiteCanvas.width, whiteCanvas.height);
 
-        // Cria o gradiente de verde para lilás
-        const gradient = ctx.createLinearGradient(0, 0, 0, whiteCanvas.height);
-        gradient.addColorStop(0, '#FFA500'); // Laranja
-        gradient.addColorStop(1, '#C8A2C8'); // Lilás
-
-        ctx.fillStyle = gradient;
-        ctx.font = fontSize + 'px monospace';
-
-        for (let i = 0; i < rainDrops.length; i++) {
-            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-            if (rainDrops[i] * fontSize > whiteCanvas.height && Math.random() > 0.975) {
-                rainDrops[i] = 0;
-            }
-            rainDrops[i]++;
-        }
-
-        requestAnimationFrame(animate);
+    const stop = () => {
+        clearInterval(timer);
+        timer = null;
     };
 
     window.addEventListener('resize', () => {
-        resizeCanvas();
+        if (timer) resize();
     });
 
-    // Inicia a animação
-    resizeCanvas();
-    animate();
-}
+    if (!document.body.classList.contains('matrix-off')) start();
+
+    return { start, stop };
+})();

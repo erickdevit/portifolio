@@ -114,14 +114,13 @@ ${post.tags.map((tag) => `    <meta property="article:tag" content="${escapeHtml
     <meta name="twitter:image:alt" content="Erick Dev em uma composição visual escura com código ao fundo">
 
     <script type="application/ld+json">${jsonLd(post)}</script>
-    <link rel="stylesheet" href="/css/styles.css?v=20261113-mobile">
+    <link rel="stylesheet" href="/css/styles.css?v=20261113-matrix">
     <link rel="icon" href="/img/erickport.png" type="image/png">
     <link rel="apple-touch-icon" href="/img/erickport.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 <body class="post-page" data-static-post="true">
     <canvas id="matrix-canvas"></canvas>
-    <canvas id="white-theme-canvas"></canvas>
     <div id="topbar-placeholder"></div>
 
     <main class="container">
@@ -149,7 +148,7 @@ ${articleHtml}
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="/js/scripts.js"></script>
+    <script src="/js/scripts.js?v=20261113-matrix"></script>
 </body>
 </html>
 `;

@@ -105,7 +105,7 @@ body.white-theme .topbar .menu a:hover {
     -webkit-backdrop-filter: blur(14px) saturate(180%);
     border: 1px solid rgba(0, 255, 0, 0.4);
     border-radius: 50%;
-    margin-left: 355px;
+    margin-left: 0;
     padding: 0;
     cursor: pointer;
     display: inline-flex;
@@ -136,6 +136,27 @@ body.white-theme .theme-toggle-btn:hover {
     border-color: rgba(0, 0, 0, 0.45);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
     transform: translateY(-2px) scale(1.05);
+}
+
+/* Agrupa os botões de tema e do efeito Matrix */
+.topbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 355px;
+    flex-shrink: 0;
+    pointer-events: auto;
+}
+
+/* Efeito Matrix desligado: ícone apagado e riscado */
+.matrix-toggle-btn[aria-pressed="false"] .matrix-icon {
+    opacity: 0.45;
+    text-decoration: line-through;
+}
+
+/* Nas páginas de leitura o fundo não tem animação, então o botão não aparece */
+body.post-page .matrix-toggle-btn {
+    display: none;
 }
 
 .theme-icon {
@@ -553,7 +574,7 @@ body.white-theme .terminal-input input {
 }
 
 @media (max-width: 1100px) {
-    .theme-toggle-btn {
+    .topbar-controls {
         margin-left: 20px;
     }
     .topbar .menu {
@@ -571,8 +592,11 @@ html, body {
         gap: 10px;
         flex-wrap: nowrap;
     }
-    .theme-toggle-btn {
+    .topbar-controls {
         margin-left: 0;
+        gap: 8px;
+    }
+    .theme-toggle-btn {
         width: 38px;
         height: 38px;
         flex-shrink: 0;
@@ -684,6 +708,9 @@ html, body {
         padding: 8px 8px;
         gap: 6px;
     }
+    .topbar-controls {
+        gap: 6px;
+    }
     .theme-toggle-btn {
         width: 34px;
         height: 34px;
@@ -695,7 +722,7 @@ html, body {
         padding: 3px 4px;
     }
     .topbar .menu a {
-        padding: 4px 5px;
+        padding: 4px 4px;
         font-size: 11px;
     }
 }
@@ -710,30 +737,13 @@ html, body {
     z-index: -1; /* Coloca o canvas atrás de todo o conteúdo */
 }
 
-/* Esconde o efeito Matrix no tema branco */
-body.white-theme #matrix-canvas {
+/* Efeito Matrix desligado pelo botão da topbar */
+body.matrix-off #matrix-canvas {
     display: none;
 }
 
-/* Efeito de partículas para o tema branco */
-#white-theme-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: none; /* Escondido por padrão */
-}
-
-/* Mostra o canvas de partículas apenas no tema branco */
-body.white-theme #white-theme-canvas {
-    display: block;
-}
-
 /* Esconde os canvas de animação nas páginas de post/tutorial */
-body.post-page #matrix-canvas,
-body.post-page #white-theme-canvas {
+body.post-page #matrix-canvas {
     display: none !important;
 }
 
