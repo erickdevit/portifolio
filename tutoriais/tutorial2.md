@@ -1,5 +1,5 @@
 ---
-Bom, vamos combinar uma coisa antes de abrir qualquer comando: se você acha que segurança de servidores e redes é aquele monte de tela preta com código verde caindo em cascata, gente digitando furiosamente com luva sem dedos no escuro ao som de música eletrônica frenética, eu sinto muito em te decepcionar. A realidade da segurança na internet é muito menos glamourosa e muito mais parecida com trabalho de síndico de prédio.
+Se você veio até aqui achando que segurança de redes e servidores é aquele monte de tela preta com código verde caindo em cascata, gente digitando furiosamente com luva sem dedos no escuro ao som de música eletrônica frenética, eu sinto muito em te decepcionar: a realidade da segurança na internet é muito menos glamourosa e muito mais parecida com trabalho de síndico de prédio.
 
 A imensa maioria das invasões, vazamentos de dados e servidores sequestrados não acontece porque um gênio da computação usou uma falha de dia zero supersecreta da NSA contra você. Acontece porque alguém deixou uma porta de teste aberta na madrugada e esqueceu, usou a senha `admin123` no usuário `root` achando que ninguém ia adivinhar, ou simplesmente não atualizou o sistema operacional desde a Copa do Mundo passada.
 
