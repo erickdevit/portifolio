@@ -1,5 +1,5 @@
 ---
-Bom, no [tutorial anterior](/tutorial.html?file=tutoriais/tutorial1.md&title=Como%20Instalar%20um%20Servidor%20Web%20B%C3%A1sico&date=2026-11-13) colocamos um Nginx para responder na nossa máquina e terminamos falando que abrir qualquer coisa para a internet sem entender o que está sendo exposto é pedir para ter problemas. Agora vamos entender o porquê disso e, principalmente, como se proteger, sem paranoia e sem transformar isso em um filme de hacker com tela verde e música dramática (mesmo que esse site seja literalmente uma tela verde).
+Bom, abrir qualquer coisa para a internet sem entender o que está sendo exposto é pedir para ter problemas. Neste tutorial vamos entender o porquê disso e, principalmente, como se proteger, sem paranoia e sem transformar isso em um filme de hacker com tela verde e música dramática. Tudo que você precisa é de um Ubuntu, de preferência uma máquina virtual ou uma VPS, e um terminal aberto.
 
 Segurança de redes é um assunto gigantesco. Existem profissionais que passam a vida inteira estudando só uma pequena parte dele. Então vamos deixar uma coisa bem definida desde o início: meu objetivo aqui não é te transformar em especialista em segurança, mas sim fazer você parar de cometer os erros básicos que derrubam a maior parte das pessoas. E acredite, a maioria dos problemas reais não vem de um ataque genial e cinematográfico, vem de uma porta esquecida aberta, uma senha fraca ou um sistema sem atualização há dois anos.
 
@@ -33,11 +33,11 @@ O `ss` mostra informações sobre conexões de rede, e cada letra das opções t
 - **`-p`** mostra qual processo é dono daquela porta (por isso o `sudo`, para ver processos de outros usuários).
 - **`-n`** mostra números em vez de nomes, ou seja, `80` em vez de `http`.
 
-Se você seguiu o tutorial anterior, vai ver o Nginx ali nas portas 80 e 8080. Agora preste atenção na coluna `Local Address:Port`, porque é aqui que mora um dos conceitos mais importantes deste tutorial.
+Cada linha é um programa esperando conexões. Se você tem um servidor web instalado, por exemplo, vai ver ele ali na porta 80. Agora preste atenção na coluna `Local Address:Port`, porque é aqui que mora um dos conceitos mais importantes deste tutorial.
 
 ## 127.0.0.1 ou 0.0.0.0? Essa diferença importa muito
 
-Lembra que no post dos [seis pilares](/blog/do-zero-ao-hacker.html) eu falei que você precisava entender o que é `127.0.0.1` e o que é `0.0.0.0`? Pois é, aqui isso deixa de ser teoria.
+Se existe uma coisa sobre redes que todo mundo que mexe com servidor precisa entender, é a diferença entre `127.0.0.1` e `0.0.0.0`. Aqui isso deixa de ser teoria.
 
 - **`127.0.0.1`** (ou `localhost`) significa que o serviço só aceita conexões vindas da própria máquina. Ninguém de fora consegue nem bater na porta.
 - **`0.0.0.0`** significa "escutar em todas as interfaces de rede". Qualquer um que consiga alcançar sua máquina pode tentar se conectar.
@@ -85,20 +85,21 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
 
-Essa é a lógica certa: em vez de tentar lembrar tudo que deve ser bloqueado, bloqueamos tudo e liberamos só o que precisa. Como temos um Nginx, vamos liberar HTTP e HTTPS:
+Essa é a lógica certa: em vez de tentar lembrar tudo que deve ser bloqueado, bloqueamos tudo e liberamos só o que precisa. Se a máquina vai servir um site, libere HTTP e HTTPS:
 
 ```bash
-sudo ufw allow 'Nginx Full'
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
 ```
 
-O `Nginx Full` é um perfil que o próprio pacote do Nginx registra, liberando as portas 80 e 443 de uma vez. Você pode ver todos os perfis disponíveis com `sudo ufw app list`. Agora sim, ative e confira:
+O formato é simples: porta e protocolo. Alguns programas, como o Nginx, registram perfis prontos no UFW, e você pode ver todos os disponíveis com `sudo ufw app list`. Se não vai servir site nenhum, não libere nada além do SSH. Agora sim, ative e confira:
 
 ```bash
 sudo ufw enable
 sudo ufw status verbose
 ```
 
-Repare que a porta 8080 do nosso site de teste **não** foi liberada. Ela continua funcionando na sua máquina, mas quem estiver de fora vai dar de cara com o porteiro. Exatamente o que queremos para algo que ainda é teste.
+Qualquer outra porta que não foi liberada, como uma 8080 de algum teste, continua funcionando dentro da sua máquina, mas quem estiver de fora vai dar de cara com o porteiro. Exatamente o que queremos para algo que ainda é teste.
 
 ## SSH: troque a senha por uma chave
 
@@ -178,7 +179,7 @@ E reinicie com `sudo systemctl restart fail2ban`. O `backend = systemd` diz para
 
 ## Atualizações: a fechadura que precisa de reparo
 
-Lembra quando eu disse que a maioria dos problemas vem de sistema desatualizado? Toda semana são descobertas falhas em programas que todo mundo usa. Quando uma falha vira pública, a correção normalmente já existe, e quem atualiza fica protegido. Quem não atualiza vira alvo fácil para robôs que procuram exatamente aquela versão vulnerável.
+Lembra quando eu disse lá no começo que a maioria dos problemas vem de sistema desatualizado? Toda semana são descobertas falhas em programas que todo mundo usa. Quando uma falha vira pública, a correção normalmente já existe, e quem atualiza fica protegido. Quem não atualiza vira alvo fácil para robôs que procuram exatamente aquela versão vulnerável.
 
 No Ubuntu, você pode deixar as atualizações de segurança automáticas:
 
@@ -191,7 +192,7 @@ O segundo comando abre uma pergunta simples; escolha **Yes**. A partir daí, as 
 
 ## A pegadinha do Docker
 
-Isso aqui eu preciso que você grave, porque pega muita gente experiente. Lembra do Docker, nosso sexto pilar? Quando você publica uma porta com `-p`, por exemplo:
+Isso aqui eu preciso que você grave, porque pega muita gente experiente. Se você usa Docker, quando publica uma porta com `-p`, por exemplo:
 
 ```bash
 docker run -d -p 5432:5432 postgres
@@ -205,7 +206,7 @@ A solução mais simples é publicar a porta só no localhost, colocando o IP an
 docker run -d -p 127.0.0.1:5432:5432 postgres
 ```
 
-Agora a porta 5432 só é acessível pela sua própria máquina. No `compose.yml`, a ideia é a mesma: escreva `"127.0.0.1:5432:5432"` em vez de `"5432:5432"`. E melhor ainda: se o banco só precisa conversar com a sua aplicação, que também está em um container, nem publique a porta. Deixe os dois na mesma rede do Docker e pronto, lembra que a rede é justamente o que conecta os serviços?
+Agora a porta 5432 só é acessível pela sua própria máquina. No `compose.yml`, a ideia é a mesma: escreva `"127.0.0.1:5432:5432"` em vez de `"5432:5432"`. E melhor ainda: se o banco só precisa conversar com a sua aplicação, que também está em um container, nem publique a porta. Deixe os dois na mesma rede do Docker e eles conversam entre si sem expor nada para fora.
 
 ## Teste a sua própria casa por fora
 
@@ -226,10 +227,10 @@ Se aparecer alguma porta que você não esperava, investigue: descubra com o `ss
 
 ## Quebre de propósito
 
-Seguindo nossa tradição:
+Essa é a minha parte favorita:
 
 1. Suba o `http.server` do Python em `0.0.0.0` e acesse pelo celular, usando o IP da sua máquina na rede local. Depois suba em `127.0.0.1` e tente de novo. Entenda a diferença na prática.
-2. Em uma VM com UFW ativo, remova a regra do Nginx com `sudo ufw delete allow 'Nginx Full'` e tente acessar o site de outra máquina. Depois libere de novo.
+2. Em uma VM com UFW ativo, suba o `http.server` em `0.0.0.0` na porta 8000 e tente acessar de outra máquina. Libere com `sudo ufw allow 8000/tcp`, teste de novo e depois remova a regra com `sudo ufw delete allow 8000/tcp`.
 3. Suba um container com `-p 8081:80` usando a imagem `nginx`, com o UFW bloqueando a 8081, e teste de outra máquina. Veja a pegadinha do Docker acontecendo. Depois troque para `-p 127.0.0.1:8081:80` e teste de novo.
 
 ## Seu checkpoint
@@ -249,10 +250,10 @@ Se conseguiu tudo isso, seu servidor já está mais protegido do que uma quantid
 
 ---
 
-**Uma última palavra antes de seguirmos:**
+**Uma última palavra:**
 
 Segurança não é um produto que você instala uma vez e esquece. É um hábito. É conferir antes de abrir, perguntar se aquilo realmente precisa estar exposto, manter as coisas atualizadas e desconfiar do que parece fácil demais. Nada disso é difícil, só exige constância.
 
 E não deixe o medo te paralisar. Você vai errar, vai deixar alguma porta aberta em algum momento e vai aprender com isso, como eu aprendi. O importante é que agora você sabe onde olhar.
 
-Em um próximo post vamos falar de Cloudflare Tunnel e Zero Trust, que permitem colocar serviços na internet sem abrir uma única porta no seu servidor. Mas aí já é assunto para outro dia.
+E quando quiser ir além, pesquise sobre Cloudflare Tunnel e Zero Trust, que permitem colocar serviços na internet sem abrir uma única porta no seu servidor. Mas aí já é assunto para outro dia.

@@ -1,5 +1,5 @@
 ---
-Bom, se você acompanhou o post sobre [ambiente de desenvolvimento](/blog/ambiente-de-desenvolvimento.html), já tem um Ubuntu funcionando, seja no WSL, em uma máquina virtual, em um computador antigo ou até em uma VPS. Agora vamos fazer algo que, para mim, sempre teve um gostinho especial: colocar uma página no ar servida por um servidor web de verdade, configurado por você, linha por linha.
+Bom, para este tutorial você só precisa de um Ubuntu funcionando, seja no WSL, em uma máquina virtual, em um computador antigo ou até em uma VPS, e de um terminal aberto. Vamos fazer algo que, para mim, sempre teve um gostinho especial: colocar uma página no ar servida por um servidor web de verdade, configurado por você, linha por linha.
 
 Lá no início, quando eu ainda estava na internet discada, colocar qualquer coisa acessível para outra pessoa era praticamente um sonho. Eu tinha meu localhost e só. Mais à frente veio o ngrok, que virou meu canivete suíço, e depois vieram painéis como o cPanel, que deixavam tudo tão fácil que eu acabei ficando acomodado. O problema é que, quando aparecia algo mais específico, era o conhecimento da base que me salvava. É exatamente essa base que vamos construir aqui.
 
@@ -9,7 +9,7 @@ Lá no início, quando eu ainda estava na internet discada, colocar qualquer coi
 
 Um servidor web é só um programa. Sim, é isso mesmo. Não é uma máquina gigante piscando luzes em uma sala gelada (bom, às vezes também é, mas não é disso que estamos falando). É um programa que fica escutando em uma **porta**, esperando alguém pedir alguma coisa. Quando o pedido chega, ele procura o arquivo correspondente e devolve a resposta.
 
-O navegador pede: "me dá o `index.html`". O servidor responde: "toma aqui". Essa conversa segue um protocolo chamado **HTTP**, e por padrão acontece na porta **80**. Quando está criptografada, vira **HTTPS** e usa a porta **443**. Lembra que eu falei no post dos [seis pilares](/blog/do-zero-ao-hacker.html) que redes e portas iam aparecer na prática? Pois é, chegou a hora.
+O navegador pede: "me dá o `index.html`". O servidor responde: "toma aqui". Essa conversa segue um protocolo chamado **HTTP**, e por padrão acontece na porta **80**. Quando está criptografada, vira **HTTPS** e usa a porta **443**. Se você ainda acha que porta é coisa de marceneiro, não se preocupe: até o fim deste tutorial isso vai fazer todo sentido.
 
 Existem vários servidores web: Apache, Caddy, Lighttpd e muitos outros. Aqui vamos usar o **Nginx** (pronuncia-se "engine-x"). Ele é leve, rápido, está em uma parcela enorme dos servidores da internet e a configuração dele, depois que você entende a lógica, é bem simples de ler. Não vá perder três dias comparando servidores web. Escolha um, aprenda bem e depois os outros ficam fáceis.
 
@@ -22,7 +22,7 @@ sudo apt update
 sudo apt install nginx -y
 ```
 
-Já explicamos o `sudo` e o `apt` no post anterior, então não vou repetir tudo, mas lembre: `apt update` só atualiza a lista do que está disponível, e `apt install nginx` instala de fato. O `-y` responde "sim" automaticamente.
+Vamos entender antes de fingir que `sudo apt alguma-coisa` é um feitiço. O `sudo` executa o comando com permissão de administrador e por isso pode pedir sua senha. O `apt update` só atualiza a lista do que está disponível para instalar, e o `apt install nginx` instala de fato. O `-y` responde "sim" automaticamente às confirmações.
 
 Agora vamos perguntar ao `systemd` se o Nginx está vivo:
 
@@ -36,7 +36,20 @@ Se aparecer `active (running)` em verde, ótimo, o serviço está rodando. Press
 sudo systemctl enable --now nginx
 ```
 
-Se você está no WSL e o `systemctl` reclamou que o sistema não iniciou com `systemd`, volte na parte do [post de ambiente](/blog/ambiente-de-desenvolvimento.html) onde ativamos o `systemd` no `/etc/wsl.conf`. Não pule essa etapa, pois sem ela os serviços não vão se comportar como deveriam.
+Se você está no WSL e o `systemctl` reclamou que o sistema não iniciou com `systemd`, abra o arquivo de configuração do WSL:
+
+```bash
+sudo nano /etc/wsl.conf
+```
+
+Adicione estas linhas:
+
+```ini
+[boot]
+systemd=true
+```
+
+Salve com `Ctrl + O`, Enter, saia com `Ctrl + X` e, no PowerShell do Windows, reinicie o WSL com `wsl --shutdown`. Abra o Ubuntu de novo e repita o `systemctl status nginx`. Não pule essa etapa, pois sem o `systemd` os serviços não vão se comportar como deveriam.
 
 ## Testando a primeira resposta
 
@@ -66,7 +79,7 @@ Essa separação entre `available` e `enabled` parece burocracia no começo, mas
 
 ## Criando nosso próprio site
 
-Vamos criar uma casa para o nosso site, do mesmo jeito que criamos uma casa para cada projeto:
+Cada site merece sua própria casa, então vamos criar uma pasta só para ele:
 
 ```bash
 sudo mkdir -p /var/www/meusite
@@ -97,7 +110,7 @@ E escreva algo seu. Pode ser simples, pode ser feio, não importa:
 </html>
 ```
 
-Sim, eu repeti o meu primeiro HTML da vida ali no título. Não resisti.
+Sim, esse "OLAAAAA MUNDO!!" é uma homenagem ao primeiro HTML que escrevi na vida. Não resisti.
 
 Salve com `Ctrl + O`, Enter, e saia com `Ctrl + X`.
 
@@ -191,7 +204,7 @@ O `-n 50` mostra as últimas 50 linhas. Um `403 Forbidden`, por exemplo, quase s
 
 ## Quebre de propósito
 
-Você já sabe que eu gosto dessa parte. Vamos quebrar algumas coisas para aprender a consertar:
+Essa é a minha parte favorita. Vamos quebrar algumas coisas para aprender a consertar:
 
 1. Acesse `http://localhost:8080/naoexiste.html`. Veja o `404` e procure essa requisição no `access.log`.
 2. Abra o arquivo `meusite` e apague o ponto e vírgula de alguma linha. Rode `sudo nginx -t` e leia o erro. Depois corrija.
@@ -207,7 +220,7 @@ Até aqui, seu site responde na sua máquina. Para que outras pessoas acessem, e
 - **HTTPS com Let's Encrypt:** com o domínio apontando para a VPS, o Certbot gera e renova seu certificado de graça com `sudo apt install certbot python3-certbot-nginx` e depois `sudo certbot --nginx -d seudominio.com`.
 - **Cloudflare Tunnel:** cria um túnel de saída da sua máquina até a Cloudflare, sem abrir portas no seu roteador. É o que eu teria amado ter lá na época em que dependia do ngrok.
 
-Mas não corra para essa parte ainda. Abrir uma porta para a internet sem entender o que está expondo é pedir para ter problemas. Por isso o próximo tutorial é justamente sobre segurança de redes.
+Mas não corra para essa parte ainda. Abrir uma porta para a internet sem entender o que está expondo é pedir para ter problemas. Antes de expor qualquer coisa, aprenda o básico de segurança de redes: firewall, portas abertas e acesso SSH com chave.
 
 ## Seu checkpoint
 
@@ -224,10 +237,10 @@ Se conseguiu, parabéns: você não só tem um servidor web rodando, como sabe o
 
 ---
 
-**Uma última palavra antes do próximo tutorial:**
+**Uma última palavra:**
 
-Painéis, plataformas de deploy e serviços que fazem tudo com um clique são ótimos, e você deve sim usar. Esse próprio site roda na Cloudflare sem que eu precise configurar um Nginx para ele. Mas foi justamente saber fazer isso na unha que me salvou nas vezes em que a ferramenta bonita não resolvia o problema.
+Painéis, plataformas de deploy e serviços que fazem tudo com um clique são ótimos, e você deve sim usar. Mas foi justamente saber fazer isso na unha que me salvou nas vezes em que a ferramenta bonita não resolvia o problema.
 
 Então domine a base primeiro. Depois use todas as facilidades que quiser, com a tranquilidade de saber o que está acontecendo por baixo.
 
-Agora vamos aprender a proteger isso tudo.
+Agora abra seu terminal e coloque seu primeiro servidor para responder.
