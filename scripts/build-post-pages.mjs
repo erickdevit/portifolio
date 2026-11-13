@@ -114,7 +114,7 @@ ${post.tags.map((tag) => `    <meta property="article:tag" content="${escapeHtml
     <meta name="twitter:image:alt" content="Erick Dev em uma composição visual escura com código ao fundo">
 
     <script type="application/ld+json">${jsonLd(post)}</script>
-    <link rel="stylesheet" href="/css/styles.css?v=20260716-wrap">
+    <link rel="stylesheet" href="/css/styles.css?v=20261113-mobile">
     <link rel="icon" href="/img/erickport.png" type="image/png">
     <link rel="apple-touch-icon" href="/img/erickport.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
